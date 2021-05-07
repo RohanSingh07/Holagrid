@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- base:css -->
+  <link rel="stylesheet" href="{% static 'Dashboard/vendors/typicons/typicons.css' %}">
+  <link rel="stylesheet" href="{% static 'Dashboard/vendors/css/vendor.bundle.base.css' %}">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'Dashboard/css/vertical-layout-light/style.css' %}">
+  <!-- endinject -->
+
+</head>
+
+<body>
+{% if messages %}
+
+        {% for message in messages %}
+              <div class=" bg-primary alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  <span class="text-light">{{ message }}</span>
+                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true" class="text-light">&times;</span>
+                  </button>
+              </div>
+        {% endfor %}
+
+
+    {% endif %}
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <h4 class="text-primary">Prototype</h4>
+              </div>
+              <form class="pt-3" method="POST">
+                  {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" value="{{username}}" name="username" class="form-control form-control-lg" hidden readonly  required>
+                    <input type="number" value="{{phone}}" name="phone_number" class="form-control form-control-lg" hidden readonly  required>
+                  <input type="password" name="password1" class="form-control form-control-lg"  placeholder="Set a password">
+                  <input type="password" name="password2" class="form-control form-control-lg"  placeholder="Re-enter the password">
+                </div>
+                  <div class="mt-3">
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" >SIGN UP</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- base:js -->
+  <script src="{% static 'Dashboard/vendors/js/vendor.bundle.base.js' %}"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="{% static 'Dashboard/js/off-canvas.js' %}"></script>
+  <script src="{% static 'Dashboard/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'Dashboard/js/template.js' %}"></script>
+  <script src="{% static 'Dashboard/js/settings.js' %}"></script>
+  <script src="{% static 'Dashboard/js/todolist.js' %}"></script>
+  <!-- endinject -->
+</body>
+
+</html>

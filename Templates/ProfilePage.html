@@ -1,0 +1,244 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block Navbar1 %}
+        <!-- Large Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="container d-flex justify-content-center align-items-center">
+                 <div class="row border">
+                    <div class="col">
+                        <a class="navbar-brand text-primary">{{Profile.username}}</a>
+                    </div>
+                     <div class="col">
+                          <input type="text" name="SearchInput" class="form-control text-inside" placeholder="Search">
+                    </div>
+
+                </div>
+            </div>
+
+        </nav>
+      <!-- Large Screen Navbar End -->
+      <!-- Small Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-0 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+
+                 <div class="row  d-flex align-items-center">
+                    <div class="col-10 pl-3 pt-0 pb-0 d-flex pr-0 align-items-center">
+                        <h6 class="navbar-brand text-dark font-weight-bold" style="font-size:20px;height:35px; display: block;width: 100%;  overflow: hidden;   white-space: nowrap;
+  text-overflow: ellipsis;">{{Profile.user.username}}</h6>
+                    </div>
+                    <div class="col-2 d-flex justify-content-end pr-1">
+
+                        <a><img src="{% static 'img/setting2.png' %}" width="30" height="30"></a>
+                    </div>
+                </div>
+
+        </nav>
+    <!-- Small Screen Navbar End -->
+{% endblock %}
+{% block content %}
+<div class="row  d-flex align-items-center pl-3 pt-2 pb-2  justify-content-start pt-5 mt-2">
+    <div class="col-5">
+        {% if Profile.Profile_Photo %}
+        <img class="pl-1" src="{{Profile.Profile_Photo.url}}" height="100" width="100" style="border-radius:50%;">
+        {% else %}
+        <img class="pl-1" src="{% static 'img/user.png' %}" height="100" width="100" style="border-radius:50%;">
+        {% endif %}
+    </div>
+    <div class="col-2 pl-1">
+
+            <h6 class="font-weight-bold pl-2">{{Profile.Posts.count}}</h6>
+            <small class="pt-1">Posts</small>
+
+    </div>
+     <div class="col-2 pl-0">
+
+            <h6 class="font-weight-bold pl-2">{{Profile.Followers.count}}</h6>
+            <small class="pt-1">Followers</small>
+
+    </div>
+     <div class="col-2 pl-2">
+
+            <h6 class="font-weight-bold pl-2">{{Profile.Following.count}}</h6>
+            <small class="pt-1">Following</small>
+
+    </div>
+
+</div>
+<div class="row pl-3">
+    <div class="col pl-4">
+        <small class="font-weight-bold">{{Profile.Profile_Name}}</small><br>
+
+        <small style="white-space:pre;">{{Profile.Bio}}</small>
+    </div>
+</div>
+{% if Admin %}
+<div class="row pt-1 d-flex align-items-center justify-content-center ">
+    <a class="col-10 border d-flex align-items-center justify-content-center pl-2" style="font-size:15px;" href="{% url 'Base:ProfileEdit' request.user %}">Edit Profile</a>
+</div>
+
+{% else %}
+<!-- For Public Account -->
+<div class="row pt-1 d-flex align-items-center justify-content-center">
+    {% if MyProfile in Profile.Followers.all %}
+    <a id="Following" class="col-5 border d-flex align-items-center justify-content-center pl-2 bg-light text-primary" style="font-size:15px;" >Following</a>
+    {% else %}
+    <a id="Follow" class="col-5 border d-flex align-items-center justify-content-center pl-2 bg-primary" style="font-size:15px;color:white;" >Follow</a>
+    {% endif %}
+    <a id="Message" class="col-5 border d-flex align-items-center justify-content-center pl-2 ml-2 bg-primary" href="{% url 'Base:Chatroom' MyProfile.UniqueCode Profile.UniqueCode  %}" style="font-size:15px;color:white;" >Message</a>
+</div>
+{% endif %}
+{% endblock %}
+{% block Navbar2 %}
+ <!-- Small Screen Block End -->
+
+        <!-- Small Screen Footer -->
+
+        <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+            <div class="container d-flex justify-content-center align-items-center">
+                 <div class="row w-100 pt-1 pb-1 ">
+                 <div class="col pl-1">
+                     <a href="{% url 'Base:HomeView' %}"><img src="{% static 'img/home3.png' %}" height="25" width="25"></a>
+                 </div>
+                 <div class="col pl-3">
+                     <a href="{% url 'Base:ExploreView' %}"><i class="fas fa-search text-dark" style="font-size: 25px;"></i></a>
+                 </div>
+                 <div class="col pl-3">
+                     <a href="{% url 'Base:AddPost' %}"><i class="fas fa-plus-square text-dark" style="font-size: 25px;"></i></a>
+                 </div>
+                 <div class="col pl-3">
+                   <i class="far fa-bell" style="font-size: 25px;"></i>
+                 </div>
+                 <div class="col pl-3 pr-1">
+                   {% if MyProfile.Profile_Photo %}
+                     <a href="{% url 'Base:ProfileView' request.user %}"> <img src="{{MyProfile.Profile_Photo.url}}" height="30" width="30" style="border-radius:50%;"></a>
+                    {% else %}
+                     <a href="{% url 'Base:ProfileView' request.user %}"> <img src="{% static 'img/user.png' %}" height="30" width="30" style="border-radius:50%;"></a>
+                    {% endif %}
+
+                 </div>
+
+                </div>
+            </div>
+
+        </nav>
+
+        <!-- Small Screen Footer End -->
+        <script>
+
+
+        </script>
+{% endblock %}
+{% block extra_body %}
+<script>
+    // create a new websocket
+    var room_name = '{{MyProfile.user.username}}';
+                const ProfileSocket = new WebSocket(
+                'ws://'+
+                window.location.host+'/'+'ProfilePage/'+
+                 room_name
+
+                );
+    // Js for Follow
+    $('#Follow').on('click',function(){
+    if(document.getElementById('Follow').innerHTML==='Follow'){
+    ProfileSocket.send(JSON.stringify({
+        'MyProfile':'{{request.user.username}}',
+        'Profile':'{{Profile.user.username}}',
+        'Request':'Follow',
+
+    }));
+    // Ajax for follow and following
+    $.ajax({
+              method: "GET",
+              url: "{% url 'Base:AddRemFollower' %}",
+              data: {
+              'MyProfile':'{{request.user.username}}',
+              'Profile':'{{Profile.user.username}}',
+               'Request':'Follow',
+              },
+              success: function(data) {
+
+              }
+    })
+    document.getElementById('Follow').innerHTML = 'Following';
+    document.getElementById('Follow').className = "col-5 border d-flex align-items-center justify-content-center pl-2 bg-light text-primary";
+    }
+    else{
+     ProfileSocket.send(JSON.stringify({
+        'MyProfile':'{{request.user.username}}',
+        'Profile':'{{Profile.user.username}}',
+        'Request':'Following',
+
+    }));
+     // Ajax for follow and following
+    $.ajax({
+              method: "GET",
+              url: "{% url 'Base:AddRemFollower' %}",
+              data: {
+              'MyProfile':'{{request.user.username}}',
+              'Profile':'{{Profile.user.username}}',
+               'Request':'Following',
+              },
+              success: function(data) {
+
+              }
+    });
+    var Element = document.getElementById('Follow');
+    Element.innerHTML = 'Follow';
+    Element.className = "col-5 border d-flex align-items-center justify-content-center pl-2 bg-primary ";
+    Element.style = "color:white";
+    }
+
+    });
+    $('#Following').on('click',function(){
+    if(document.getElementById('Following').innerHTML==='Follow'){
+    ProfileSocket.send(JSON.stringify({
+        'MyProfile':'{{request.user.username}}',
+        'Profile':'{{Profile.user.username}}',
+        'Request':'Follow',
+
+    }));
+     // Ajax for follow and following
+    $.ajax({
+              method: "GET",
+              url: "{% url 'Base:AddRemFollower' %}",
+              data: {
+              'MyProfile':'{{request.user.username}}',
+              'Profile':'{{Profile.user.username}}',
+               'Request':'Follow',
+              },
+              success: function(data) {
+
+              }
+    })
+    document.getElementById('Following').innerHTML = 'Following';
+    document.getElementById('Following').className = "col-5 border d-flex align-items-center justify-content-center pl-2 bg-light text-primary";
+
+    }
+    else{
+     ProfileSocket.send(JSON.stringify({
+        'MyProfile':'{{request.user.username}}',
+        'Profile':'{{Profile.user.username}}',
+        'Request':'Following',
+
+    }));
+    // Ajax for follow and following
+    $.ajax({
+              method: "GET",
+              url: "{% url 'Base:AddRemFollower' %}",
+              data: {
+              'MyProfile':'{{request.user.username}}',
+              'Profile':'{{Profile.user.username}}',
+               'Request':'Following',
+              },
+              success: function(data) {
+
+              }
+    })
+    var Element = document.getElementById('Following');
+    Element.innerHTML = 'Follow';
+    Element.className = "col-5 border d-flex align-items-center justify-content-center pl-2 bg-primary ";
+    Element.style = "color:white";
+    }
+    });
+</script>
+{% endblock %}

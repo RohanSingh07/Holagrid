@@ -1,0 +1,694 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+      <!-- Bootstrap CSS -->
+
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- Bootstrap core CSS -->
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <!-- Material Design Bootstrap -->
+      <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+      <!-- Your custom styles (optional) -->
+      <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+
+      <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+
+      <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+
+      <!-- Filters for Images and Videos -->
+      <link rel="stylesheet" href="{% static 'css/dist/instagram.css' %}">
+
+
+      <!-- Javascript -->
+            <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+            <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+            <!-- Bootstrap tooltips -->
+            <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+            <!-- Bootstrap core JavaScript -->
+            <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+            <!-- MDB core JavaScript -->
+            <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+
+            <script type="text/javascript" src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <!-- Javascript -->
+
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+  </head>
+  <style>
+       .text-inside{
+            padding-left:2em;
+            padding-top:1.25em;
+            padding-bottom:1.25em;
+            font-size:small;
+
+             }
+        body{
+       overflow-x: hidden; /* Hide horizontal scrollbar */
+       }
+  </style>
+  <body >
+    {% block body %}
+
+    {% if messages %}
+
+        {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+        {% endfor %}
+
+
+    {% endif %}
+        <!-- .col- (extra small devices - screen width less than 576px)-->
+        <!--.col-sm- (small devices - screen width equal to or greater than 576px)-->
+        <!--.col-md- (medium devices - screen width equal to or greater than 768px)-->
+        <!--.col-lg- (large devices - screen width equal to or greater than 992px)-->
+        <!--.col-xl- (xlarge devices - screen width equal to or greater than 1200px)-->
+
+
+    {% block Navbar1 %}
+        <!-- Large Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="container d-flex justify-content-center align-items-center">
+                 <div class="row border">
+                    <div class="col">
+                        <a class="navbar-brand text-primary">PROTOTYPE</a>
+                    </div>
+                     <div class="col">
+                          <input type="text" name="SearchInput" class="form-control text-inside" placeholder="Search">
+                    </div>
+
+                </div>
+            </div>
+
+        </nav>
+      <!-- Large Screen Navbar End -->
+      <!-- Small Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+
+                 <div class="row  d-flex align-items-center">
+                    <div class="col-9 pl-3 d-flex  justify-content-start align-items-center">
+                        <a class="navbar-brand text-dark font-weight-bold" style="font-size:25px;font-family: Garamond, serif;">Holagrid</a>
+                    </div>
+                    <div class="col-3 d-flex justify-content-end pr-2">
+                        <a href="{% url 'Base:AllChats' %}"><i class="far fa-comment-alt" style="font-size: 25px;color:black;"></i></a>
+                    </div>
+                </div>
+
+
+        </nav>
+    <!-- Small Screen Navbar End -->
+    {% endblock %}
+
+
+
+    {% block content %}
+     <div class="container h-100 w-100 mt-5 pt-5 d-none d-sm-block d-md-block d-lg-block d-xl-block" >
+       <!-- All related posts -->
+       {% for post in Posts.all %}
+         <div class="row border h-75 mt-2 w-100 ">
+
+            <div class=" h-100 w-100" >
+                <div class="card-header w-100">
+                    <div class="row d-flex align-items-center">
+                        {% if post.user.Profile_Photo %}
+                            <img src="{{post.user.Profile_Photo.url}}" height="60" width="60" style="border-radius:50%;">
+                        {% else %}
+                            <img src="{% static 'img/user.png' %}" height="60" width="60" style="border-radius:50%;">
+                        {% endif %}
+                    <h6 class="pl-4">{{post.user.user}}</h6>
+                    </div>
+                </div>
+
+              <div class="card-body h-100 w-100" >
+                <div id="Large{{post.slug}}" class="carousel slide  w-100" style="height:80%;" data-ride="carousel">
+
+                  <div class="carousel-inner h-100 w-100">
+                    {% if post.File1 %}
+                      {% if post.File1Type %}
+                         <video  class="carousel-item active h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                            <source src="{{post.File1.url}}" >
+                         </video>
+
+                       {% else %}
+                        <div class="carousel-item active h-100 w-100 " >
+                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File1.url}}"  >
+                        </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File2 %}
+                       {% if post.File2Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                                <source src="{{post.File2.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File2.url}}"  >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File3 %}
+                       {% if post.File3Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                                <source src="{{post.File3.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File3.url}}"  >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                     {% if post.File4 %}
+                       {% if post.File4Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                                <source src="{{post.File4.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File4.url}}"  >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File5 %}
+                       {% if post.File5Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                                <source src="{{post.File5.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File5.url}}"  >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File6 %}
+                       {% if post.File6Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                                <source src="{{post.File6.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File6.url}}"  >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File7 %}
+                       {% if post.File7Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                                <source src="{{post.File7.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File7.url}}"  >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File8 %}
+                   {% if post.File8Type %}
+                         <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                            <source src="{{post.File8.url}}" >
+                         </video>
+
+                       {% else %}
+                        <div class="carousel-item  h-100 w-100 " >
+                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File8.url}}"  >
+                        </div>
+                   {% endif %}
+                    {% endif %}
+
+                    {% if post.File9 %}
+                       {% if post.File9Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                                <source src="{{post.File9.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File9.url}}"  >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File10 %}
+                       {% if post.File10Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                                <source src="{{post.File10.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File10.url}}"  >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                  </div>
+                   <a class="carousel-control-prev " href="#Large{{post.slug}}" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                    <span class="sr-only  ">Previous</span>
+
+                  </a>
+                   <a class="carousel-control-next" href="#Large{{post.slug}}" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+
+                  </a>
+
+                </div>
+
+              </div>
+
+
+            </div>
+             <!-- Description -->
+             <!-- Description -->
+         </div>
+
+
+         {% endfor %}
+       <!-- All related posts -->
+     </div>
+    <!-- Small Screen Block -->
+    <!-- Status Bar -->
+    <div class="row mt-5 pt-3 pl-4 " style="overflow-x:auto;flex-wrap:nowrap;overflow:hidden;">
+        {% if Status.count %}
+              {% if Profile.Profile_Photo %}
+                 <a href="{% url 'Base:StatusShow' %}" style="position:relative;"> <img src="{{Profile.Profile_Photo.url}}" height="50" width="50" style="border:2px solid red;border-radius:50%;">
+
+                 <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">Your Story</small>
+                 </a><br>
+                {% else %}
+                 <a href="{% url 'Base:StatusShow' %}" style="position:relative;"> <img src="{% static 'img/user.png' %}" height="50" width="50" style="border:2px solid red;border-radius:50%;">
+                 <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">Your Story</small>
+                 </a><br>
+              {% endif %}
+        {% else %}
+             {% if Profile.Profile_Photo %}
+             <a href="{% url 'Base:StatusView' %}" style="position:relative;"> <img src="{{Profile.Profile_Photo.url}}" height="50" width="50" style="border-radius:50%;">
+             <img class="" style="position:absolute;z-index:2;bottom:25px;left:35px;border-radius:50%;border:1px solid white;" src="{% static 'img/plus.png' %}" height="18" width="18">
+             <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">Your Story</small>
+             </a><br>
+
+            {% else %}
+             <a href="{% url 'Base:StatusView' %}"  style="position:relative;"> <img src="{% static 'img/user.png' %}" height="50" width="50" style="border-radius:50%;">
+             <img style="position:absolute;z-index:2;bottom:25px;left:35px;border-radius:50%;border:1px solid white;" src="{% static 'img/plus.png' %}" height="15" width="15">
+             <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">Your Story</small>
+             </a><br>
+            {% endif %}
+        {% endif %}
+        <!-- Other users Stories -->
+        {% for Story in OtherStories %}
+            {% for stories in Story %}
+                 {% if stories.user.Profile_Photo %}
+                 <a href="{% url 'Base:StatusShow' %}" class="ml-3" style="position:relative;"> <img src="{{stories.user.Profile_Photo.url}}" height="50" width="50" style="border:2px solid red;border-radius:50%;">
+                  <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">{{stories.user.username}}</small>
+                 </a><br>
+
+                {% else %}
+                 <a href="{% url 'Base:StatusShow' %}" class="ml-3" style="position:relative;"> <img src="{% static 'img/user.png' %}" height="50" width="50" style="border:2px solid red;border-radius:50%;">
+                 <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">{{stories.user.username}}</small>
+                 </a><br>
+              {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+        <!-- Other users Stories -->
+
+    </div>
+    <!-- Status Bar End-->
+    <!-- Posts -->
+    <div id="Post" class="mt-2 h-100 w-100 d-block d-lg-none d-sm-none ">
+
+        {% for Posts in AllPosts %}
+        {% for post in Posts.all %}
+
+         <!-- Header -->
+         <div class="row border d-flex align-items-center pl-3 pt-2 pb-2  justify-content-start">
+             {% if post.user.Profile_Photo %}
+                <img src="{{post.user.Profile_Photo.url}}" height="40" width="40" style="border-radius:50%;">
+             {% else %}
+                 <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;">
+             {% endif %}
+            <small class="pl-2 font-weight-bold">{{post.user.user.username}}</small>
+         </div>
+         <!-- Header End -->
+          <!-- Body -->
+            <div id="small{{post.slug}}" ondblclick="LikePost('{{post.slug}}')"  class="carousel slide w-100 border" style="height:50%;" data-ride="carousel" data-interval="false">
+
+                  <div class="carousel-inner h-100 w-100">
+                    {% if post.File1 %}
+                      {% if post.File1Type %}
+                         <video  class="carousel-item active h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                            <source class="h-100 w-100" src="{{post.File1.url}}" >
+                         </video>
+
+                       {% else %}
+                        <div class="carousel-item active h-100 w-100 " >
+                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File1.url}}" style="object-fit:cover" >
+                        </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File2 %}
+                       {% if post.File2Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                                <source class="h-100 w-100" src="{{post.File2.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File2.url}}" style="object-fit:cover" >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File3 %}
+                       {% if post.File3Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                                <source src="{{post.File3.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File3.url}}" style="object-fit:cover" >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                     {% if post.File4 %}
+                       {% if post.File4Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                                <source src="{{post.File4.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File4.url}}"  style="object-fit:cover">
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File5 %}
+                       {% if post.File5Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                                <source src="{{post.File5.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File5.url}}" style="object-fit:cover" >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File6 %}
+                       {% if post.File6Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                                <source src="{{post.File6.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File6.url}}" style="object-fit:cover" >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File7 %}
+                       {% if post.File7Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                                <source src="{{post.File7.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File7.url}}" style="object-fit:cover" >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File8 %}
+                   {% if post.File8Type %}
+                         <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                            <source src="{{post.File8.url}}" >
+                         </video>
+
+                       {% else %}
+                        <div class="carousel-item  h-100 w-100 " >
+                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File8.url}}" style="object-fit:cover" >
+                        </div>
+                   {% endif %}
+                    {% endif %}
+
+                    {% if post.File9 %}
+                       {% if post.File9Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                                <source src="{{post.File9.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File9.url}}" style="object-fit:cover" >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                    {% if post.File10 %}
+                       {% if post.File10Type %}
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                                <source src="{{post.File10.url}}" >
+                             </video>
+
+                           {% else %}
+                            <div class="carousel-item  h-100 w-100 " >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File10.url}}" style="object-fit:cover" >
+                            </div>
+                       {% endif %}
+                    {% endif %}
+
+                  </div>
+                   <a class="carousel-control-prev " href="#small{{post.slug}}" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                    <span class="sr-only  ">Previous</span>
+
+                  </a>
+                   <a class="carousel-control-next" href="#small{{post.slug}}" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+
+                  </a>
+
+                </div>
+            <!-- Body End -->
+            <!-- Post Middle -->
+                <div class="row pt-2 pb-2 d-flex ">
+                    <a id="{{post.slug}}" onclick="LikePost('{{post.slug}}')" style=""><i class="far fa-heart pl-4 font-weight-normal" style="font-size:25px;"></i></a>
+                    <a href="{% url 'Base:CommentView' post.slug %}"><i class="far fa-comment pl-4 text-dark" style="font-size:25px;"></i></a>
+                    <div class="row pl-5">
+                    {% if post.File1 %}
+                        <i class="fas fa-circle pl-5 text-primary" style="font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File2 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File3 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File4 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File5 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File6 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File7 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File8 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File9 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File10 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    </div>
+                </div>
+            <!-- Post Middle End -->
+            <!-- Display Likes -->
+            <div class="row pl-4" >
+                {% if post.Likes.count %}
+                <small id="display-likes-{{post.slug}}">Liked by <span class="font-weight-bold">{{post.Likes.first.user}}</span> and <a class="font-weight-bold text-dark" href="{% url 'Base:LikesView' post.slug %}">{{post.Likes.count}} others</a></small>
+                {% endif %}
+
+            </div>
+            <!-- Display Likes -->
+            <!-- Display Caption -->
+            <div class="row pl-4">
+                {% if post.Description %}
+                    <small><span class="font-weight-bold">{{post.user.user.username}}</span> {{post.Description}}</small>
+                {% endif %}
+            </div>
+            <!-- Display Caption -->
+            <!-- Comments Section -->
+            <div class="row pl-4">
+                <div class="col pl-0">
+                {% if post.Comments.count %}
+                <a class="text-muted" href="{% url 'Base:CommentView' post.slug %}">View all {{post.Comments.count}} comments</a><br>
+
+                    <small><span class="font-weight-bold">{{post.Comments.first.user.user.username}}</span> {{post.Comments.first.Comment}} </small> <br>
+                    <small><span class="font-weight-bold">{{post.Comments.last.user.user.username}}</span> {{post.Comments.last.Comment}} </small><br>
+
+                {% endif %}
+                </div>
+            </div>
+            <!-- Comments Section -->
+
+
+        {% endfor %}
+        {% endfor %}
+        <!-- For Keeping up from footer -->
+        <div class="row mb-5 pb-5 ">
+            <h6 style="color:white;">Hey</h6>
+        </div>
+        <!-- For Keeping up from footer End-->
+        </div>
+    <!-- Posts End-->
+
+
+
+
+    {% endblock %}
+    {% block Navbar2 %}
+    <!-- Small Screen Block End -->
+
+        <!-- Small Screen Footer -->
+
+        <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+            <div class="container d-flex justify-content-center align-items-center">
+                 <div class="row w-100 pt-1 pb-1 ">
+                 <div class="col pl-1">
+                     <a href="{% url 'Base:HomeView' %}"><img src="{% static 'img/home3.png' %}" height="25" width="25"></a>
+                 </div>
+                 <div class="col pl-3">
+                     <a href="{% url 'Base:ExploreView' %}"><i class="fas fa-search text-dark" style="font-size: 25px;"></i></a>
+                 </div>
+                 <div class="col pl-3">
+                     <a href="{% url 'Base:AddPost' %}"><i class="fas fa-plus-square text-dark" style="font-size: 25px;"></i></a>
+                 </div>
+                 <div class="col pl-3">
+                   <i class="far fa-bell" style="font-size: 25px;"></i>
+                 </div>
+                 <div class="col pl-3 pr-1">
+                   {% if Profile.Profile_Photo %}
+                     <a href="{% url 'Base:ProfileView' request.user %}"> <img src="{{Profile.Profile_Photo.url}}" height="30" width="30" style="border-radius:50%;"></a>
+                    {% else %}
+                     <a href="{% url 'Base:ProfileView' request.user %}"> <img src="{% static 'img/user.png' %}" height="30" width="30" style="border-radius:50%;"></a>
+                    {% endif %}
+
+                 </div>
+
+                </div>
+            </div>
+
+        </nav>
+
+        <!-- Small Screen Footer End -->
+        <script>
+
+
+        </script>
+    {% endblock %}
+
+    {% endblock %}
+    {% block extra_body %}
+          <!-- SCRIPT FOR ASYNC -->
+
+
+        <script>
+
+
+             var room_name = '{{request.user.username}}'
+             // create a new websocket
+                const chatSocket = new WebSocket(
+                'ws://'+
+                window.location.host+'/'+
+                 room_name
+
+                );
+
+            function LikePost(data){
+
+              // Change color of the buttons
+              if(document.querySelector('#'+String(data)).style.color==="red")
+              {document.querySelector('#'+String(data)).style.color="black";}
+              else{document.querySelector('#'+String(data)).style.color="red";}
+
+              // We will send the message to the chat server we created
+              chatSocket.send(JSON.stringify({
+                'user':'{{request.user}}',
+                'post_name':data
+              }));
+              };
+
+
+            // SCRIPT TO CHANGE COLOR OF THE LIKE BUTTON
+
+
+
+
+           // SCRIPT FOR LIKE BUTTON
+            {% for Posts in AllPosts %}
+             {% for post in Posts %}
+
+           var strarr = '{{post.Liked_by.all|join:","}}';
+            var arr = strarr.split(",");
+            if(arr.includes('{{Profile.user}}')){
+            document.querySelector('#{{post.slug}}').style.color="red";
+            }
+           // SCRIPT FOR LIKE BUTTON END
+            {% endfor %}
+            {% endfor %}
+             // Receive a message
+            chatSocket.onmessage = function(e){
+                const data = JSON.parse(e.data);
+
+            }
+
+        </script>
+        <!-- SCRIPT FOR ASYNC END-->
+    {% endblock %}
+
+
+  </body>
+</html>
+
+
+
+

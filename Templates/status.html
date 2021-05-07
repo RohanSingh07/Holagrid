@@ -1,0 +1,274 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+      <!-- Bootstrap CSS -->
+
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- Bootstrap core CSS -->
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <!-- Material Design Bootstrap -->
+      <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+      <!-- Your custom styles (optional) -->
+      <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+
+      <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+
+      <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+
+      <!-- Filters for Images and Videos -->
+      <link rel="stylesheet" href="{% static 'css/dist/instagram.css' %}">
+
+
+      <!-- Javascript -->
+            <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+            <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+            <!-- Bootstrap tooltips -->
+            <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+            <!-- Bootstrap core JavaScript -->
+            <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+            <!-- MDB core JavaScript -->
+            <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+
+            <script type="text/javascript" src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <!-- Javascript -->
+
+    <title></title>
+
+    <style>
+        body { overflow: hidden; /* Hide scrollbars */ }
+        #video-container {
+          background-color:grey;
+          position: auto;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+        .videoElement{
+          /* Make video to at least 100% wide and tall */
+          width: 100%;
+          height: 100%;
+
+          /* Setting width & height to auto prevents the browser from stretching or squishing the video */
+
+          /* Center the video */
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+           overflow: hidden;
+        }
+
+    </style>
+  </head>
+
+  <body>
+
+
+    <div id="video-container"  >
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <a id="Cross" style="position:absolute;z-index:2;left:20px;top:20px;" href="{% url 'Base:HomeView' %}"><i class="fas fa-times text-white" style="font-size: 25px;"></i></a>
+            <a id="Arrowleft" style="position:absolute;z-index:2;left:20px;top:20px;"><i  class="fas fa-arrow-left text-white" style="font-size: 25px;"></i></a>
+             <video autoplay="true" id="videoElement" class="videoElement" style="object-fit:fill;z-index:1">
+
+            </video>
+            <video  id="videoElementUp" class="videoElement" style="object-fit:fill;z-index:1" onclick="this.paused ? this.play() : this.pause();" >
+
+            </video>
+
+
+                <img  id="main_display_image" class="videoElement" >
+                <input type="file" name="StoryInput[]" value="" onchange="File_display(this)" id="StoryInputFile" hidden>
+                <input type="file" name="StoryInput[]" value="" onchange="Img_display(this)" id="StoryInputImg" capture="user" accept="image/*" hidden>
+                <input type="file" name="StoryInput[]" value="" onchange="Video_display(this)" id="StoryInputVideo" capture="user" accept="video/*" hidden>
+                <input type="text" name="Filetype" id="Filetype" hidden>
+
+            <div id="FirstNav" class="col-12  w-100 pl-0 pr-0 pb-4 d-flex justify-content-between align-items-center " style="position:absolute;z-index:2;bottom:0;background-color:black;opacity:50%;">
+                <!-- Gallery -->
+                <a style="" id="gallery" class="pl-5"><img src="{% static 'img/image_icon.png' %}" width="40" height="40" style="opacity:70%;"></a>
+                <!-- Gallery -->
+                <!-- Click -->
+                <a style="" id="snap"><img src="{% static 'img/shutter3.png' %}" width="70" height="70"></a>
+                <!-- Click -->
+                <!-- Flip Camera -->
+                <a style="" id="rotate" class="pr-5"><img src="{% static 'img/rotate.png' %}" width="30" height="30" style="opacity:70%;"></a>
+                <!-- Flip Camera -->
+            </div>
+            <button type="submit" id="submitbutton" ></button>
+            {% if Profile.Profile_Photo %}
+            <a id="ShareStory"> <img src="{{Profile.Profile_Photo.url}}" height="40" width="40" style="border-radius:50%;position:absolute;z-index:2;bottom:40px;left:40px;background-color:black;">
+            {% else %}
+            <a id="ShareStory"> <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;position:absolute;z-index:2;bottom:40px;left:40px;background-color:black;">
+            {% endif %}
+            <small id="ShareStoryText" class="font-weight-normal text-white" style="font-size:12px;position:absolute;z-index:2;bottom:25px;left:35px;">Share Story</small>
+
+            </a><br>
+
+         </form>
+    </div>
+</body>
+
+    <script>
+
+        $('#canvas').hide();
+        $('#ShareStory').hide();
+        $('#ShareStoryText').hide();
+        $('#Arrowleft').hide();
+        $('#StoryInput').hide();
+        $('#submitbutton').hide();
+        var video = document.querySelector("#videoElement");
+
+        if (navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia(
+            {
+            microphone:true,
+            video: true,
+
+
+            facingMode:'user',
+
+           })
+            .then(function (stream) {
+              video.srcObject = stream;
+            })
+            .catch(function (err0r) {
+              console.log("Something went wrong!");
+            });
+        }
+        // Fileinput
+        $('#gallery').on('click',function(){
+        $('#StoryInputFile').click();
+        })
+
+        // Image
+        $('#snap').on('click',function(){
+        $('#StoryInputImg').click();
+        })
+
+        // Video
+        $('#rotate').on('click',function(){
+        $('#StoryInputVideo').click();
+        })
+
+
+// function to display selected File
+// Permitted File Types
+var validImageTypes = ['image/gif', 'image/jpeg','image/jpg','image/png'];
+var validVideoTypes = ['video/mp4'];
+
+// Hide the Video Display Section
+
+$('#main_display_image').hide();
+$('#videoElementUp').hide();
+function File_display(input) {
+          if (input.files && input.files[0]) {
+
+              var reader = new FileReader();
+               var file = input.files[0];
+               var  fileType = file['type'];
+               if(validImageTypes.includes(fileType)){
+               reader.onload = function (e) {
+                    $('#main_display_image').show();
+                     $('#videoElementUp').hide();
+                     $('#videoElement').hide();
+                    document.getElementById('videoElement').pause();
+                  $('#main_display_image').attr('src', e.target.result);
+                $('#Filetype').val('Image');
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image').hide();
+               $('#videoElement').hide();
+                $('#videoElementUp').show();
+               reader.onload = function (e) {
+                  $('#videoElementUp').attr('src', URL.createObjectURL(file));
+                 $('#Filetype').val('Video');
+              };
+
+              }
+              reader.readAsDataURL(input.files[0]);
+               $('#gallery').hide();
+                $('#rotate').hide();
+                $('#snap').hide();
+                $('#FirstNav').hide();
+                $('#Cross').hide();
+                $('#Arrowleft').show();
+                $('#ShareStory').show();
+                $('#ShareStoryText').show();
+
+          }
+      }
+function Img_display(input) {
+          if (input.files && input.files[0]) {
+
+              var reader = new FileReader();
+               var file = input.files[0];
+               var  fileType = file['type'];
+               if(validImageTypes.includes(fileType)){
+               reader.onload = function (e) {
+                    $('#main_display_image').show();
+                     $('#videoElementUp').hide();
+                     $('#videoElement').hide();
+                    document.getElementById('videoElement').pause();
+                  $('#main_display_image').attr('src', e.target.result);
+                $('#Filetype').val('Image');
+              };
+               }
+
+              reader.readAsDataURL(input.files[0]);
+                $('#gallery').hide();
+                $('#rotate').hide();
+                $('#snap').hide();
+                $('#FirstNav').hide();
+                $('#Cross').hide();
+                $('#Arrowleft').show();
+                $('#ShareStory').show();
+                $('#ShareStoryText').show();
+          }
+      }
+function Video_display(input) {
+          if (input.files && input.files[0]) {
+
+              var reader = new FileReader();
+               var file = input.files[0];
+               var  fileType = file['type'];
+
+              if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image').hide();
+               $('#videoElement').hide();
+                $('#videoElementUp').show();
+               reader.onload = function (e) {
+                  $('#videoElementUp').attr('src', URL.createObjectURL(file));
+                 $('#Filetype').val('Video');
+              };
+
+              }
+              reader.readAsDataURL(input.files[0]);
+                $('#gallery').hide();
+                $('#rotate').hide();
+                $('#snap').hide();
+                $('#FirstNav').hide();
+                $('#Cross').hide();
+                $('#Arrowleft').show();
+                $('#ShareStory').show();
+                $('#ShareStoryText').show();
+          }
+      }
+
+      $('#ShareStory').on('click',function(){
+      $('#submitbutton').click();
+      })
+    </script>
+
+</html>
+

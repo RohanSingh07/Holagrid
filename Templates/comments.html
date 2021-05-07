@@ -1,0 +1,197 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block Navbar1 %}
+        <!-- Large Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="container d-flex justify-content-center align-items-center">
+                 <div class="row border">
+                    <div class="col">
+                        <a class="navbar-brand text-primary">COMMENTS</a>
+                    </div>
+                     <div class="col">
+                          <input type="text" name="SearchInput" class="form-control text-inside" placeholder="Search">
+                    </div>
+
+                </div>
+            </div>
+
+        </nav>
+      <!-- Large Screen Navbar End -->
+      <!-- Small Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+            <div class="container d-flex justify-content-center align-items-center">
+                 <div class="row ">
+                    <div class="col">
+                        <a class="navbar-brand text-primary">COMMENTS</a>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </nav>
+    <!-- Small Screen Navbar End -->
+    {% endblock %}
+
+{% block content %}
+
+    <div class="row pt-5 pl-4 pb-0">
+      <div class="col-2 pl-0 pb-0">
+                {% if post.user.Profile_Photo %}
+                    <img src="{{post.user.Profile_Photo.url}}" height="40" width="40" style="border-radius:50%;">
+                {% else %}
+                    <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;">
+                {% endif %}
+      </div>
+            <!-- Display Caption -->
+       <div class="col-10 pl-0 pb-0">
+           <small ><span class="font-weight-bold">{{post.user.user}}</span> {% if post.Description %}{{post.Description}} {% endif %}</small>
+        </div>
+
+    </div>
+    <hr>
+    <!-- Comments Section -->
+    <div class="pt-0" id="Comments-Section">
+        {% for coms in post.Comments.all %}
+        <div class="row pl-4 mt-2">
+            <div class="col-2 pl-0">
+                {% if coms.user.Profile_Photo %}
+                <img src="{{coms.user.Profile_Photo.url}}" height="40" width="40" style="border-radius:50%;">
+                {% else %}
+                <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;">
+                {% endif %}
+            </div>
+            <div class="col-10 pl-0" >
+                <small ><span class="font-weight-bold">{{coms.user.user.username}}</span> <span class="font-weight-normal" >{{coms.Comment}}</span> </small> <br>
+                <div class="row "><small class="pl-3 text-muted font-weight-light">{{coms.Date}}</small>{% if coms.Likes.count %}<small class="pl-2 text-secondary">{{coms.Likes.count}} Likes</small>{% endif %} </div>
+            </div>
+        </div>
+
+        <!-- Comments Section -->
+        {% endfor %}
+    </div>
+    <div class="row">
+        <h1 style="color:white;">HllEl</h1>
+    </div>
+
+    <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+
+                 <div class="row pl-2 pt-1 pb-1 d-flex align-items-center">
+                        {% if profile.Profile_Photo %}
+                        <img src="{{profile.Profile_Photo.url}}" height="40" width="40" style="border-radius:50%;">
+                        {% else %}
+                        <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;">
+                        {% endif %}
+                         <textarea id="Comment" rows="1" cols="10" class="form-control  ml-2 mr-2 " placeholder="Add a comment .." style="width:70% ;height:35px;overflow:auto;overflow:hidden;resize:none;font-size:14px;"></textarea>
+
+                         <a id="CommentSub" class="text-primary" style="font-size:15px;">Post</a>
+                </div>
+        </nav>
+
+{% endblock %}
+{% block Navbar2 %}
+{% endblock %}
+{% block extra_body %}
+    <script>
+        var room = '{{post.slug}}';
+
+        // Create a new websocket
+        const CommentSocket = new WebSocket(
+                    'ws://'+
+                    window.location.host+'/'+'Comments/'+
+                     room
+                    );
+        document.querySelector('#CommentSub').onclick = function(e){
+        var com = document.querySelector('#Comment').value;
+        // Ajax to save comment
+        $.ajax({
+              method: "GET",
+              url: "{% url 'Base:SaveComment' %}",
+              data: {
+              'user':'{{request.user.username}}',
+              'Comment':com,
+              'post':room
+              },
+              success: function(data) {
+                console.log(data);
+              }
+        })
+        CommentSocket.send(JSON.stringify({
+                    'user':'{{request.user}}',
+                    'post_name':'{{post.slug}}',
+                    'comment':com,
+                  }));
+                   $('#Comment').val("");
+                  };
+
+          // Receive a message
+            CommentSocket.onmessage = function(e){
+                const data = JSON.parse(e.data);
+                var user = JSON.parse(data.user);
+                // Main Row
+                var row = document.createElement("div");
+                    row.className += " row pl-4 mt-2";
+
+                // First Column
+                var col1 = document.createElement("div");
+                col1.className += " col-2 pl-0";
+
+
+                // Second Column
+                var col2 = document.createElement("div");
+                col2.className += " col-10 pl-0";
+
+
+                // Small Inside of Second Columns
+                var small = document.createElement("small");
+
+                // Span Inside of Small
+                var span1 = document.createElement("span");
+                span1.className += " font-weight-bold";
+                span1.innerText = user[0].fields.username;
+
+                var span2 = document.createElement("span");
+                span2.className += "font-weight-normal";
+                span2.innerText = "  " + data.comment;
+
+                // Div inside second Column
+                var col22 = document.createElement("div");
+                col22.className += "row";
+
+                // Small inside div of second columns
+
+                var small21 = document.createElement("small");
+                small21.className += "pl-3 text-muted font-weight-light"
+                small21.innerText = "Just Now";
+
+                // Second Small inside div of second columns
+                var small22 =  document.createElement("small");
+                small22.className += "pl-2 text-secondary";
+
+                // Image of user
+                var img = document.createElement("img");
+                {% if profile.Profile_Photo %}
+                img.src = '/media/'+user[0].fields.Profile_Photo;
+
+                {% else %}
+                img.src = "{% static 'img/user.png' %}"
+                {% endif %}
+                img.style.height = "40px";
+                img.style.width = "40px";
+                img.style.borderRadius = "50%";
+
+                col1.appendChild(img);
+                small.appendChild(span1);
+                small.appendChild(span2);
+                col22.appendChild(small21);
+                col22.appendChild(small22);
+                col2.appendChild(small);
+
+                col2.appendChild(col22);
+
+                row.appendChild(col1);
+                row.appendChild(col2);
+                $('#Comments-Section').prepend(row);
+            }
+    </script>
+{% endblock %}

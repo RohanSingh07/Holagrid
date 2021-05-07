@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+      <!-- Bootstrap CSS -->
+
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- Bootstrap core CSS -->
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <!-- Material Design Bootstrap -->
+      <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+      <!-- Your custom styles (optional) -->
+      <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+
+      <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+
+
+      <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+
+      <!-- Filters for Images and Videos -->
+      <link rel="stylesheet" href="{% static 'css/dist/instagram.css' %}">
+
+
+      <!-- Javascript -->
+            <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+            <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+            <!-- Bootstrap tooltips -->
+            <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+            <!-- Bootstrap core JavaScript -->
+            <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+            <!-- MDB core JavaScript -->
+            <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+
+            <script type="text/javascript" src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <!-- Javascript -->
+
+    <title></title>
+    <style>
+        body{
+        overflow:hidden;
+        }
+    </style>
+
+  </head>
+<body>
+<!-- Body -->
+    <div class="row pt-2 pb-2" style="background-color:#474544">
+        {% for Story in Status %}
+            <div id="myProgress{{forloop.counter}}" class="col bg-white ml-1 mr-1 mt-1 mb-1" style="height:3px;">
+            </div>
+        {% endfor %}
+
+    </div>
+    <div class="row pl-3" style="position:relative;">
+
+        {% if Profile.Profile_Photo %}
+            <img src="{{Profile.Profile_Photo.url}}" class="ml-4 mt-1" height="40" width="40" style="position:absolute;z-index:2;left:0;border-radius:50%;">
+        {% else %}
+            <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;">
+        {% endif %}
+        <h6 class="ml-4 pl-5 pt-2 font-weight-bold" style="position:absolute;z-index:2;">{{Profile.username}}</h6> <small class="font-weight-light pt-2" style="position:absolute;z-index:2;left:38%;">{{Status.first.Date.time}}</small>
+
+        <a href="{% url 'Base:HomeView' %}" class="mr-4 pt-1" style="position:absolute;right:0;z-index:2;"><i class="fas fa-times text-dark" style="font-size: 25px;z-index:2;"></i></a>
+    </div>
+    <div id="Status"  class="carousel slide w-100  mt-0" style="height:100%;" data-ride="carousel" data-interval="false">
+          <div class="carousel-inner h-100 w-100 mt-5" >
+
+          {% for Story in Status %}
+
+              {% if Story.FileType %}
+                 <video  id="StoryFile{{forloop.counter}}" class="carousel-item h-75 w-100 {{Story.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:fill">
+                    <source class="h-100 w-100" src="{{Story.File.url}}" >
+                 </video>
+
+               {% else %}
+                <div id="StoryFile{{forloop.counter}}"   class="carousel-item h-75 w-100 {{Story.Filter}}" >
+                    <img class=" h-100 w-100 mini " src="{{Story.File.url}}" style="object-fit:fill" >
+
+                </div>
+
+               {% endif %}
+          {% endfor %}
+
+          </div>
+           <a class="carousel-control-prev w-25" href="#Status"  role="button" data-slide="prev" >
+            <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+            <span class="sr-only  ">Previous</span>
+
+          </a>
+           <a class="carousel-control-next w-25" href="#Status"   role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+
+          </a>
+
+        </div>
+
+    <!-- Body End -->
+</body>
+
+<script>
+// Set the first status active
+ window.onload = function SetActive(){
+ var id = document.getElementById("StoryFile1")
+ id.className = "carousel-item h-75 w-100 active {{Story.Filter}}";
+ element = document.getElementById("myProgress1");
+    element.className ="col bg-primary ml-1 mr-1 mt-1 mb-1";
+
+ }
+
+
+// Change the slider
+
+$('#Status').on('slide.bs.carousel', function onSlide (ev) {
+  var id = ev.relatedTarget.id;
+  switch (id) {
+  {% for Story in Status %}
+    case "StoryFile{{forloop.counter}}":
+    var B = {{forloop.counter}}-1;
+    if (B!==0){
+        Belement = document.getElementById("myProgress"+B);
+        Belement.className = "col bg-white ml-1 mr-1 mt-1 mb-1";}
+    element = document.getElementById("myProgress{{forloop.counter}}");
+    element.className ="col bg-primary ml-1 mr-1 mt-1 mb-1";
+    var N = {{forloop.counter}}+1;
+    if (N<{{Status.count}}+1){
+        Nelement = document.getElementById("myProgress"+N);
+        Nelement.className = "col bg-white ml-1 mr-1 mt-1 mb-1";}
+
+      break;
+  {% endfor %}
+  }
+})
+
+</script>

@@ -1,0 +1,71 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block Navbar1 %}
+<!-- Large Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="row  d-flex align-items-center">
+                     <div class="col-2 d-flex align-items-center">
+                        <a><i  class="fas fa-arrow-left text-primary" style="font-size: 25px;"></i></a>
+                    </div>
+                    <div class="col-9 pl-3 d-flex  justify-content-start align-items-center">
+                        <a class="navbar-brand text-dark font-weight-bold" style="font-size:25px;font-family: Garamond, serif;">Messaging</a>
+                    </div>
+
+                </div>
+
+        </nav>
+      <!-- Large Screen Navbar End -->
+      <!-- Small Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+
+                 <div class="row  d-flex align-items-center">
+                     <div class="col-2 d-flex align-items-center">
+                        <a href="{% url 'Base:HomeView' %}"><i  class="fas fa-arrow-left text-primary" style="font-size: 25px;"></i></a>
+                    </div>
+                    <div class="col-9 pl-3 d-flex  justify-content-start align-items-center">
+                        <a class="navbar-brand text-dark font-weight-bold" style="font-size:25px;font-family: Garamond, serif;">Messaging</a>
+                    </div>
+
+                </div>
+
+
+        </nav>
+    <!-- Small Screen Navbar End -->
+{% endblock %}
+{% block content %}
+<div class="pt-5 mt-3">
+    {% for chats in Profile.Chatrooms.all %}
+    <a href="{% url 'Base:Chatroom' chats.Messengers.first.UniqueCode chats.Messengers.last.UniqueCode %}">
+    <div class="row mb-1 pt-1 pb-0 pl-1">
+        {% if request.user == chats.Messengers.first.user %}
+        <!-- Show the Info of the other user -->
+        <div class="col-2 pl-4 ">
+            {% if chats.Messengers.last.Profile_Photo %}
+                <img src="{{chats.Messengers.last.Profile_Photo.url}}" width="45" height="45" style="border-radius:50%;">
+            {% else %}
+                <img src="{% static 'img/user.png' %}" width="45" height="45" style="border-radius:50%;">
+            {% endif %}
+        </div>
+        <div class="col-10 pl-4  ">
+            <h6 class="pt-1 text-dark">{{chats.Messengers.last.user.username}}</h6>
+            <small class="mt-0 text-dark">This is the latest message</small>
+        </div>
+
+        {% else %}
+        <div class="col-2 ">
+            <img src="{{chats.Messengers.first.Profile_Photo.url}}" width="45" height="45" style="border-radius:50%;">
+        </div>
+        <div class="col-10">
+            <h6 class="text-dark">{{chats.Messengers.first.user.username}}</h6>
+            <small class="mt-0 text-dark">This is the latest message</small>
+        </div>
+        <hr>
+        {% endif %}
+    </div>
+    </a>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}
+{% block Navbar2 %}
+{% endblock %}

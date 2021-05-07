@@ -1,0 +1,3028 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block Navbar1 %}
+
+<!-- Large Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="container d-flex justify-content-center align-items-center">
+                 <div class="row border">
+                    <div class="col">
+                        <a class="navbar-brand text-primary">PROTOTYPE</a>
+                    </div>
+                     <div class="col">
+
+                    </div>
+
+                </div>
+            </div>
+
+        </nav>
+      <!-- Large Screen Navbar End -->
+<form method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+      <!-- Small Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+
+                 <div class="row  d-flex align-items-center">
+                    <div class="col-9 pl-3 d-flex  justify-content-start align-items-center">
+                        <a href="{% url 'Base:HomeView' %}"><i class="fas fa-times text-dark" style="font-size: 25px;"></i></a>
+                        <a class="navbar-brand text-dark font-weight-bold pl-3" style="font-size:25px;font-family: Garamond, serif;">New Post</a>
+                    </div>
+                    <div class="col-3 d-flex justify-content-end pr-2">
+                        <a><i id ="SecondUpload" class="fas fa-arrow-right text-primary" style="font-size: 25px;"></i></a>
+                        <a><i id ="SecondUpload2" class="fas fa-arrow-right text-primary" style="font-size: 25px;"></i></a>
+                        <a><i id ="ThirdUpload" class="fas fa-check text-primary" style="font-size: 25px;"></i></a>
+
+                    </div>
+
+                </div>
+
+
+        </nav>
+    <!-- Small Screen Navbar End -->
+{% endblock %}
+{% block content %}
+            <div id="main_display_image" class=" justify-content-center border pt-5 mt-2 align-items-center flex-wrap" style="height:60vh;">
+                <img src="{% static 'img/image_icon.png' %}" id="main_display_image1" class="h-100 w-100 ">
+
+                <video id="main_video_sec" class="h-100 w-100" onclick="this.paused ? this.play() : this.pause();">
+                    <source src="" id="main_video"/>
+                </video>
+
+            </div>
+            <!-- Corousel for displaying files -->
+             <div id="SecondUploadDiv" class="carousel pt-5 mt-2 slide w-100 " style="height:60vh;" data-ride="carousel" data-interval="false">
+
+              <div class="carousel-inner h-100 w-100" id="carouselInner" >
+
+
+              </div>
+               <a class="carousel-control-prev " href="#SecondUploadDiv" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                <span class="sr-only  ">Previous</span>
+
+              </a>
+               <a class="carousel-control-next" href="#SecondUploadDiv" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+
+              </a>
+
+            </div>
+            <div id="Filters" class="mt-2" >
+                <input type="text" name="FilterInput" id="FilterInput" hidden>
+                <div class="col" style="overflow: auto; max-height: 35vh;" >
+                    <a id="None" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:13px;color:black;font-style:italic;">Normal</span>
+                        <img  class="mt-2" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%">
+                    </a>
+
+                    <a id="filter-1977" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;">1977</span>
+                        <img  class="mt-2" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%">
+                    </a>
+                    <a id="filter-aden" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Aden</span>
+                        <img  class="mt-2 filter-aden" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-amaro" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Amaro</span>
+                        <img  class="mt-2 filter-amaro" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+                    <br>
+                    <a id="filter-ashby" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Ashby</span>
+                        <img  class="mt-2 filter-ashby" src="{% static 'img/filter1.jpg' %}" height="22%" width="22%"></a>
+
+                    <a id="filter-brannan" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Brannan</span>
+                    <img  class="mt-2 filter-brannan " src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-brooklyn" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:13px;color:black;font-style:italic;z-index:2;">Brooklyn</span>
+                        <img  class="mt-2 filter-brooklyn" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-charmes" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:13px;color:black;font-style:italic;z-index:2;">Charmes</span>
+                        <img  class="mt-2 filter-charmes" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+                    <br>
+                    <a id="filter-clarendon" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:12px;color:black;font-style:italic;z-index:2;">Clarendon</span>
+                        <img  class="mt-2 filter-clarendon " src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-crema" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Crema</span>
+                        <img  class="mt-2 filter-crema " src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-dogpatch" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:12px;color:black;font-style:italic;z-index:2;">Dogpatch</span>
+                        <img  class="mt-2 filter-dogpatch" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-earlybird" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:12px;color:black;font-style:italic;z-index:2;">Early Bird</span>
+                        <img  class="mt-2 filter-earlybird" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+                    <br>
+                    <a id="filter-gingham" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:13px;color:black;font-style:italic;z-index:2;">Gingham</span>
+                        <img class="mt-2 filter-gingham " src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-ginza" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Ginza</span>
+                        <img  class="mt-2 filter-ginza" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-hefe" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Hefe</span>
+                        <img  class="mt-2 filter-hefe " src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-helena" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Helena</span>
+                        <img  class="mt-2 filter-helena" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+                    <br>
+                    <a id="filter-hudson" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Hudson</span>
+                        <img  class="mt-2 filter-hudson " src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-inkwell" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:13px;color:black;font-style:italic;z-index:2;">Inkwell</span>
+                        <img  class="mt-2 filter-inkwell " src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-kelvin" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">kelvin</span>
+                        <img  class="mt-2 filter-kelvin " src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-juno" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Juno</span>
+                        <img class="mt-2 filter-juno " src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+                    <br>
+                    <a id="filter-lark" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Lark</span>
+                    <img  class="mt-2 filter-lark" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-lofi" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Lofi</span>
+                    <img  class="mt-2 filter-lofi" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-ludwig" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Ludwig</span>
+                        <img  class="mt-2 filter-ludwig" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-maven" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Maven</span>
+                        <img class="mt-2 filter-maven" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+                    <br>
+                    <a id="filter-mayfair" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Mayfair</span>
+                        <img class="mt-2 filter-mayfair" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-moon" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Moon</span>
+                        <img  class="mt-2 filter-moon" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-nashville" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:12px;color:black;font-style:italic;z-index:2;">Nashville</span>
+                        <img class="mt-2 filter-nashville" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-perpetua" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:13px;color:black;font-style:italic;z-index:2;">Perpetua</span>
+                        <img  class="mt-2 filter-perpetua" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+                    <br>
+                    <a id="filter-poprocket" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:12px;color:black;font-style:italic;z-index:2;">Poprocket</span>
+                        <img  class="mt-2 filter-poprocket" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-reyes" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Reyes</span>
+                        <img  class="mt-2 filter-reyes" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-rise" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Rise</span>
+                        <img  class="mt-2 filter-rise" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-sierra" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Sierra</span>
+                        <img  class="mt-2 filter-sierra" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+                    <br>
+                    <a id="filter-skyline" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Skyline</span>
+                        <img  class="mt-2 filter-skyline" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-slumber" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Slumber</span>
+                        <img class="mt-2 filter-slumber" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-stinson" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Stinson</span>
+                        <img class="mt-2 filter-stinson" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-sutro" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Sutro</span>
+                        <img  class="mt-2 filter-sutro" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+                    <br>
+                    <a id="filter-toaster" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Toaster</span>
+                        <img  class="mt-2 filter-toaster" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-valencia" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:13px;color:black;font-style:italic;z-index:2;">Valencia</span>
+                        <img  class="mt-2 filter-valencia" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-vesper"  class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Vesper</span>
+                        <img class="mt-2 filter-vesper" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-walden" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Walden</span>
+                        <img  class="mt-2 filter-walden" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+                    <br>
+                    <a id="filter-willow" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Willow</span>
+                        <img  class="mt-2 filter-willow" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                    <a id="filter-xpro-ii" class="position-relative"><span class="position-absolute font-weight-light mt-4 pl-2" style="font-size:14px;color:black;font-style:italic;z-index:2;">Xpro-2</span>
+                        <img  class="mt-2 filter-xpro-ii" src="{% static 'img/filter1.jpg' %}" height="22%" width="23%"></a>
+
+                </div>
+            </div>
+            <!-- Corousel for displaying files End-->
+            <div>
+                <input id="File1" name="File[]" onchange="File1_display(this)" type="file"  required hidden>
+                <input type="text" name="File1type" id="File1type" hidden>
+                <input id="File2" name="File[]" onchange="File2_display(this)" type="file"  hidden>
+                <input type="text" name="File2type" id="File2type" hidden>
+                <input id="File3" name="File[]" onchange="File3_display(this)" type="file" hidden>
+                <input type="text" name="File3type" id="File3type" hidden>
+                <input id="File4" name="File[]" onchange="File4_display(this)" type="file" hidden>
+                <input type="text" name="File4type" id="File4type" hidden>
+                <input id="File5" name="File[]" onchange="File5_display(this)" type="file" hidden>
+                <input type="text" name="File5type" id="File5type" hidden>
+                <input id="File6" name="File[]" onchange="File6_display(this)" type="file" hidden>
+                <input type="text" name="File6type" id="File6type" hidden>
+                <input id="File7" name="File[]" onchange="File7_display(this)" type="file" hidden>
+                <input type="text" name="File7type" id="File7type" hidden>
+                <input id="File8" name="File[]" onchange="File8_display(this)" type="file" hidden>
+                <input type="text" name="File8type" id="File8type" hidden>
+                <input id="File9" name="File[]" onchange="File9_display(this)" type="file" hidden>
+                <input type="text" name="File9type" id="File9type" hidden>
+                <input id="File10" name="File[]" onchange="File10_display(this)" type="file" hidden>
+                <input type="text" name="File10type" id="File10type" hidden>
+            </div>
+             <div class="row d-flex justify-content-center pb-2 pl-1 pr-2" id="ImageDisplayDiv">
+                <a><img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File1_upload" onmouseover="DisplayMain1(this)" width="60" height="60"></a>
+                <a><img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File2_upload" onmouseover="DisplayMain2(this)" width="60" height="60"></a>
+                <a><img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File3_upload" onmouseover="DisplayMain3(this)" width="60" height="60"></a>
+                <a><img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File4_upload" onmouseover="DisplayMain4(this)" width="60" height="60"></a>
+                <a><img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File5_upload" onmouseover="DisplayMain5(this)" width="60" height="60"></a>
+                <a><img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File6_upload" onmouseover="DisplayMain6(this)" width="60" height="60"></a>
+                <a><img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File7_upload" onmouseover="DisplayMain7(this)" width="60" height="60"></a>
+                <a><img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File8_upload" onmouseover="DisplayMain8(this)" width="60" height="60"></a>
+                <a><img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File9_upload" onmouseover="DisplayMain9(this)" width="60" height="60"></a>
+                 <a><img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File10_upload"  onmouseover="DisplayMain10(this)" width="60" height="60"></a>
+                 <img class="ml-2" src="{% static 'img/image_icon.png' %}" id="File11_upload" hidden width="60" height="60">
+                 <img class="ml-2" src="{% static 'img/video.png' %}" id="File12_upload" hidden width="60" height="60">
+            </div>
+            <div id="ThirdUploadSection">
+                <textarea id="Caption" name="Caption" rows="10" cols="10" class="form-control  ml-2 mr-2 " placeholder="Write a caption ..." style="width:95% ;height:100%;overflow:auto;overflow:hidden;resize:none;font-size:14px;"></textarea>
+            </div>
+            <button type="submit" id="SUBMIT"></button>
+</form>
+<script>
+    // Script for product images upload
+$('#File1_upload').on('click',function(){
+  $('#File1').click();
+})
+
+$('#File2_upload').on('click',function(){
+  $('#File2').click();
+})
+
+$('#File3_upload').on('click',function(){
+  $('#File3').click();
+})
+
+$('#File4_upload').on('click',function(){
+  $('#File4').click();
+})
+
+$('#File5_upload').on('click',function(){
+  $('#File5').click();
+})
+
+$('#File6_upload').on('click',function(){
+  $('#File6').click();
+})
+
+$('#File7_upload').on('click',function(){
+  $('#File7').click();
+})
+
+$('#File8_upload').on('click',function(){
+  $('#File8').click();
+})
+
+$('#File9_upload').on('click',function(){
+  $('#File9').click();
+})
+$('#File10_upload').on('click',function(){
+  $('#File10').click();
+})
+
+// function to display selected image
+// Permitted File Types
+var validImageTypes = ['image/gif', 'image/jpeg','image/jpg','image/png'];
+var validVideoTypes = ['video/mp4'];
+// Hide the Video Display Section
+$('#main_video_sec').hide();
+$('#Filters').hide();
+
+
+
+function File1_display(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+               var file = input.files[0];
+               var  fileType = file['type'];
+               if(validImageTypes.includes(fileType)){
+               reader.onload = function (e) {
+                    $('#main_display_image1').show();
+                     $('#main_video_sec').hide();
+                    document.getElementById('main_video_sec').pause();
+                  $('#main_display_image1').attr('src', e.target.result);
+                  $('#File1_upload').attr('src', e.target.result);
+
+                  // Set the Carousel for input file 1
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("div");
+                    caro.className += " carousel-item active h-100 w-100";
+                    caro.id = 'carousel-1';
+                    // Inner Image
+                    caroImage = document.createElement("img");
+                    caroImage.className += " d-block h-100 w-100 mini" ;
+                    caroImage.src = e.target.result ;
+                    caro.appendChild(caroImage);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 1 End
+                // Set the type of the File
+                $('#File1type').val('Image');
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image1').hide();
+               $('#main_video_sec').show();
+               reader.onload = function (e) {
+
+                  $('#main_video_sec').attr('src', URL.createObjectURL(file));
+                  $('#File1_upload').attr('src', '{% static 'img/video.png' %}');
+
+                  // Set the Carousel for input file 1
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("video");
+                    caro.className += " carousel-item active h-100 w-100";
+                    caro.onclick = function(){caro.paused ? caro.play() : caro.pause();};
+                    caro.id = 'carousel-1';
+                    // Inner source
+                    caroVideo = document.createElement("source");
+                    caro.src = URL.createObjectURL(file) ;
+                    caro.appendChild(caroVideo);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 1 End
+                // Set the file type to Video
+                 $('#File1type').val('Video');
+              };
+              }
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+function File2_display(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+               var file = input.files[0];
+               var  fileType = file['type'];
+
+               if(validImageTypes.includes(fileType)){
+
+               reader.onload = function (e) {
+                    $('#main_display_image1').show();
+                     $('#main_video_sec').hide();
+                    document.getElementById('main_video_sec').pause();
+                  $('#main_display_image1').attr('src', e.target.result);
+                  $('#File2_upload').attr('src', e.target.result);
+
+                    // Set the Carousel for input file 2
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("div");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.id = 'carousel-2';
+                    // Inner Image
+                    caroImage = document.createElement("img");
+                    caroImage.className += " d-block h-100 w-100 mini" ;
+                    caroImage.src = e.target.result ;
+                    caro.appendChild(caroImage);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 2 End
+                 $('#File2type').val('Image');
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image1').hide();
+               $('#main_video_sec').show();
+               reader.onload = function (e) {
+
+                  $('#main_video_sec').attr('src', URL.createObjectURL(file));
+                  $('#File2_upload').attr('src', '{% static 'img/video.png' %}');
+
+                  // Set the Carousel for input file 2
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("video");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.onclick = function(){caro.paused ? caro.play() : caro.pause();};
+                    caro.id = 'carousel-2';
+                    // Inner source
+                    caroVideo = document.createElement("source");
+                    caro.src = URL.createObjectURL(file) ;
+                    caro.appendChild(caroVideo);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 2 End
+                 $('#File2type').val('Video');
+              };
+              }
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+function File3_display(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              var file = input.files[0];
+               var  fileType = file['type'];
+
+               if(validImageTypes.includes(fileType)){
+
+               reader.onload = function (e) {
+                    $('#main_display_image1').show();
+                     $('#main_video_sec').hide();
+                   document.getElementById('main_video_sec').pause();
+                  $('#main_display_image1').attr('src', e.target.result);
+                  $('#File3_upload').attr('src', e.target.result);
+
+                  // Set the Carousel for input file 3
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("div");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.id = 'carousel-3';
+                    // Inner Image
+                    caroImage = document.createElement("img");
+                    caroImage.className += " d-block h-100 w-100 mini" ;
+                    caroImage.src = e.target.result ;
+                    caro.appendChild(caroImage);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 3 End
+                 $('#File3type').val('Image');
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image1').hide();
+               $('#main_video_sec').show();
+               reader.onload = function (e) {
+
+                  $('#main_video_sec').attr('src', URL.createObjectURL(file));
+                  $('#File3_upload').attr('src', '{% static 'img/video.png' %}');
+
+                  // Set the Carousel for input file 3
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("video");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.onclick = function(){caro.paused ? caro.play() : caro.pause();};
+                    caro.id = 'carousel-3';
+                    // Inner source
+                    caroVideo = document.createElement("source");
+                    caro.src = URL.createObjectURL(file) ;
+                    caro.appendChild(caroVideo);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 3 End
+                 $('#File3type').val('Video');
+              };
+              }
+
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+
+function File4_display(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              var file = input.files[0];
+               var  fileType = file['type'];
+
+               if(validImageTypes.includes(fileType)){
+
+               reader.onload = function (e) {
+                    $('#main_display_image1').show();
+                     $('#main_video_sec').hide();
+                    document.getElementById('main_video_sec').pause();
+                  $('#main_display_image1').attr('src', e.target.result);
+                  $('#File4_upload').attr('src', e.target.result);
+
+                    // Set the Carousel for input file 4
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("div");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.id = 'carousel-4';
+                    // Inner Image
+                    caroImage = document.createElement("img");
+                    caroImage.className += " d-block h-100 w-100 mini" ;
+                    caroImage.src = e.target.result ;
+                    caro.appendChild(caroImage);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 4 End
+                 $('#File4type').val('Image');
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image1').hide();
+               $('#main_video_sec').show();
+               reader.onload = function (e) {
+
+                  $('#main_video_sec').attr('src', URL.createObjectURL(file));
+                  $('#File4_upload').attr('src', '{% static 'img/video.png' %}');
+
+                  // Set the Carousel for input file 4
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("video");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.onclick = function(){caro.paused ? caro.play() : caro.pause();};
+                    caro.id = 'carousel-4';
+                    // Inner source
+                    caroVideo = document.createElement("source");
+                    caro.src = URL.createObjectURL(file) ;
+                    caro.appendChild(caroVideo);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 4 End
+                 $('#File4type').val('Video');
+              };
+              }
+
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+function File5_display(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              var file = input.files[0];
+               var  fileType = file['type'];
+
+               if(validImageTypes.includes(fileType)){
+
+               reader.onload = function (e) {
+                    $('#main_display_image1').show();
+                     $('#main_video_sec').hide();
+                   document.getElementById('main_video_sec').pause();
+                  $('#main_display_image1').attr('src', e.target.result);
+                  $('#File5_upload').attr('src', e.target.result);
+
+                  // Set the Carousel for input file 5
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("div");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.id = 'carousel-5';
+                    // Inner Image
+                    caroImage = document.createElement("img");
+                    caroImage.className += " d-block h-100 w-100 mini" ;
+                    caroImage.src = e.target.result ;
+                    caro.appendChild(caroImage);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 5 End
+                 $('#File5type').val('Image');
+
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image1').hide();
+               $('#main_video_sec').show();
+               reader.onload = function (e) {
+
+                  $('#main_video_sec').attr('src', URL.createObjectURL(file));
+                  $('#File5_upload').attr('src', '{% static 'img/video.png' %}');
+
+                  // Set the Carousel for input file 5
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("video");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.onclick = function(){caro.paused ? caro.play() : caro.pause();};
+                    caro.id = 'carousel-5';
+                    // Inner source
+                    caroVideo = document.createElement("source");
+                    caro.src = URL.createObjectURL(file) ;
+                    caro.appendChild(caroVideo);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 5 End
+                 $('#File5type').val('Video');
+              };
+              }
+
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+function File6_display(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              var file = input.files[0];
+               var  fileType = file['type'];
+
+               if(validImageTypes.includes(fileType)){
+
+               reader.onload = function (e) {
+                    $('#main_display_image1').show();
+                     $('#main_video_sec').hide();
+                    document.getElementById('main_video_sec').pause();
+                  $('#main_display_image1').attr('src', e.target.result);
+                  $('#File6_upload').attr('src', e.target.result);
+
+                  // Set the Carousel for input file 6
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("div");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.id = 'carousel-6';
+                    // Inner Image
+                    caroImage = document.createElement("img");
+                    caroImage.className += " d-block h-100 w-100 mini" ;
+                    caroImage.src = e.target.result ;
+                    caro.appendChild(caroImage);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 6 End
+                 $('#File6type').val('Image');
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image1').hide();
+               $('#main_video_sec').show();
+               reader.onload = function (e) {
+
+                  $('#main_video_sec').attr('src', URL.createObjectURL(file));
+                  $('#File6_upload').attr('src', '{% static 'img/video.png' %}');
+
+                  // Set the Carousel for input file 6
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("video");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.onclick = function(){caro.paused ? caro.play() : caro.pause();};
+                    caro.id = 'carousel-6';
+                    // Inner source
+                    caroVideo = document.createElement("source");
+                    caro.src = URL.createObjectURL(file) ;
+                    caro.appendChild(caroVideo);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 6 End
+                 $('#File6type').val('Video');
+              };
+              }
+
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+function File7_display(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+             var file = input.files[0];
+               var  fileType = file['type'];
+
+               if(validImageTypes.includes(fileType)){
+
+               reader.onload = function (e) {
+                    $('#main_display_image1').show();
+                     $('#main_video_sec').hide();
+                   document.getElementById('main_video_sec').pause();
+                  $('#main_display_image1').attr('src', e.target.result);
+                  $('#File7_upload').attr('src', e.target.result);
+
+                 // Set the Carousel for input file 7
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("div");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.id = 'carousel-7';
+                    // Inner Image
+                    caroImage = document.createElement("img");
+                    caroImage.className += " d-block h-100 w-100 mini" ;
+                    caroImage.src = e.target.result ;
+                    caro.appendChild(caroImage);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 7 End
+                 $('#File7type').val('Image');
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image1').hide();
+               $('#main_video_sec').show();
+               reader.onload = function (e) {
+
+                  $('#main_video_sec').attr('src', URL.createObjectURL(file));
+                  $('#File7_upload').attr('src', '{% static 'img/video.png' %}');
+
+                  // Set the Carousel for input file 7
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("video");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.onclick = function(){caro.paused ? caro.play() : caro.pause();};
+                    caro.id = 'carousel-7';
+                    // Inner source
+                    caroVideo = document.createElement("source");
+                    caro.src = URL.createObjectURL(file) ;
+                    caro.appendChild(caroVideo);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 7 End
+                 $('#File7type').val('Video');
+              };
+              }
+
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+function File8_display(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+             var file = input.files[0];
+               var  fileType = file['type'];
+
+               if(validImageTypes.includes(fileType)){
+
+               reader.onload = function (e) {
+                    $('#main_display_image1').show();
+                     $('#main_video_sec').hide();
+                    document.getElementById('main_video_sec').pause();
+                  $('#main_display_image1').attr('src', e.target.result);
+                  $('#File8_upload').attr('src', e.target.result);
+
+                  // Set the Carousel for input file 8
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("div");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.id = 'carousel-8';
+                    // Inner Image
+                    caroImage = document.createElement("img");
+                    caroImage.className += " d-block h-100 w-100 mini" ;
+                    caroImage.src = e.target.result ;
+                    caro.appendChild(caroImage);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 8 End
+                 $('#File8type').val('Image');
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image1').hide();
+               $('#main_video_sec').show();
+               reader.onload = function (e) {
+
+                  $('#main_video_sec').attr('src', URL.createObjectURL(file));
+                  $('#File8_upload').attr('src', '{% static 'img/video.png' %}');
+
+                  // Set the Carousel for input file 8
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("video");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.onclick = function(){caro.paused ? caro.play() : caro.pause();};
+                    caro.id = 'carousel-8';
+                    // Inner source
+                    caroVideo = document.createElement("source");
+                    caro.src = URL.createObjectURL(file) ;
+                    caro.appendChild(caroVideo);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 8 End
+                 $('#File8type').val('Video');
+              };
+              }
+
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+function File9_display(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+             var file = input.files[0];
+               var  fileType = file['type'];
+
+               if(validImageTypes.includes(fileType)){
+
+               reader.onload = function (e) {
+                    $('#main_display_image1').show();
+                     $('#main_video_sec').hide();
+                    document.getElementById('main_video_sec').pause();
+                  $('#main_display_image1').attr('src', e.target.result);
+                  $('#File9_upload').attr('src', e.target.result);
+
+                  // Set the Carousel for input file 9
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("div");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.id = 'carousel-1';
+                    // Inner Image
+                    caroImage = document.createElement("img");
+                    caroImage.className += " d-block h-100 w-100 mini" ;
+                    caroImage.src = e.target.result ;
+                    caro.appendChild(caroImage);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 9 End
+                 $('#File9type').val('Image');
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image1').hide();
+               $('#main_video_sec').show();
+               reader.onload = function (e) {
+
+                  $('#main_video_sec').attr('src', URL.createObjectURL(file));
+                  $('#File9_upload').attr('src', '{% static 'img/video.png' %}');
+
+                  // Set the Carousel for input file 9
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("video");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.onclick = function(){caro.paused ? caro.play() : caro.pause();};
+                    caro.id = 'carousel-9';
+                    // Inner source
+                    caroVideo = document.createElement("source");
+                    caro.src = URL.createObjectURL(file) ;
+                    caro.appendChild(caroVideo);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 9 End
+                 $('#File9type').val('Video');
+              };
+              }
+
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+
+function File10_display(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              var file = input.files[0];
+               var  fileType = file['type'];
+
+               if(validImageTypes.includes(fileType)){
+
+               reader.onload = function (e) {
+                    $('#main_display_image1').show();
+                     $('#main_video_sec').hide();
+                   document.getElementById('main_video_sec').pause();
+                  $('#main_display_image1').attr('src', e.target.result);
+                  $('#File10_upload').attr('src', e.target.result);
+
+                 // Set the Carousel for input file 10
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("div");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.id = 'carousel-10';
+                    // Inner Image
+                    caroImage = document.createElement("img");
+                    caroImage.className += " d-block h-100 w-100 mini" ;
+                    caroImage.src = e.target.result ;
+                    caro.appendChild(caroImage);
+                    MainDiv.appendChild(caro);
+
+
+                // Set the Carousel for input file 10 End
+                 $('#File10type').val('Image');
+              };
+               }
+               else if(validVideoTypes.includes(fileType)){
+
+               $('#main_display_image1').hide();
+               $('#main_video_sec').show();
+               reader.onload = function (e) {
+
+                  $('#main_video_sec').attr('src', URL.createObjectURL(file));
+                  $('#File10_upload').attr('src', '{% static 'img/video.png' %}');
+
+                  // Set the Carousel for input file 10
+
+                    MainDiv =document.getElementById("carouselInner");
+                    var caro = document.createElement("video");
+                    caro.className += " carousel-item  h-100 w-100";
+                    caro.onclick = function(){caro.paused ? caro.play() : caro.pause();};
+                    caro.id = 'carousel-10';
+                    // Inner source
+                    caroVideo = document.createElement("source");
+                    caro.src = URL.createObjectURL(file) ;
+                    caro.appendChild(caroVideo);
+                    MainDiv.appendChild(caro);
+
+                // Set the Carousel for input file 10 End
+                 $('#File10type').val('Video');
+              };
+              }
+
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+
+// Script to display main image on hover
+
+function DisplayMain1(input){
+var file = $('#File1')[0];
+    if (file.files && file.files[0]) {
+               var  fileType = file.files[0].type;
+               // If file is image
+               if(validImageTypes.includes(fileType)){
+                       $('#main_display_image1').show();
+                       $('#main_video_sec').hide();
+                       document.getElementById('main_video_sec').pause();
+                       $('#main_display_image1').attr('src',URL.createObjectURL(file.files[0]));
+                }
+                // If file is video
+               else if(validVideoTypes.includes(fileType)){
+                 $('#main_display_image1').hide();
+                 $('#main_video_sec').show();
+                 $('#main_video_sec').attr('src',URL.createObjectURL(file.files[0]));}
+    }
+}
+function DisplayMain2(input){
+var file = $('#File2')[0];
+    if (file.files && file.files[0]) {
+               var  fileType = file.files[0].type;
+               // If file is image
+               if(validImageTypes.includes(fileType)){
+                       $('#main_display_image1').show();
+                       $('#main_video_sec').hide();
+                       document.getElementById('main_video_sec').pause();
+                       $('#main_display_image1').attr('src',URL.createObjectURL(file.files[0]));
+                }
+                // If file is video
+               else if(validVideoTypes.includes(fileType)){
+                 $('#main_display_image1').hide();
+                 $('#main_video_sec').show();
+                 $('#main_video_sec').attr('src',URL.createObjectURL(file.files[0]));}
+    }
+}
+function DisplayMain3(input){
+var file = $('#File3')[0];
+    if (file.files && file.files[0]) {
+               var  fileType = file.files[0].type;
+               // If file is image
+               if(validImageTypes.includes(fileType)){
+                       $('#main_display_image1').show();
+                       $('#main_video_sec').hide();
+                        document.getElementById('main_video_sec').pause();
+                       $('#main_display_image1').attr('src',URL.createObjectURL(file.files[0]));
+                }
+                // If file is video
+               else if(validVideoTypes.includes(fileType)){
+                 $('#main_display_image1').hide();
+                 $('#main_video_sec').show();
+                 $('#main_video_sec').attr('src',URL.createObjectURL(file.files[0]));}
+    }
+}
+function DisplayMain4(input){
+var file = $('#File4')[0];
+    if (file.files && file.files[0]) {
+               var  fileType = file.files[0].type;
+               // If file is image
+               if(validImageTypes.includes(fileType)){
+                       $('#main_display_image1').show();
+                       $('#main_video_sec').hide();
+                      document.getElementById('main_video_sec').pause();
+                       $('#main_display_image1').attr('src',URL.createObjectURL(file.files[0]));
+                }
+                // If file is video
+               else if(validVideoTypes.includes(fileType)){
+                 $('#main_display_image1').hide();
+                 $('#main_video_sec').show();
+                 $('#main_video_sec').attr('src',URL.createObjectURL(file.files[0]));}
+    }
+}
+function DisplayMain5(input){
+var file = $('#File5')[0];
+    if (file.files && file.files[0]) {
+               var  fileType = file.files[0].type;
+               // If file is image
+               if(validImageTypes.includes(fileType)){
+                       $('#main_display_image1').show();
+                       $('#main_video_sec').hide();
+                      document.getElementById('main_video_sec').pause();
+                       $('#main_display_image1').attr('src',URL.createObjectURL(file.files[0]));
+                }
+                // If file is video
+               else if(validVideoTypes.includes(fileType)){
+                 $('#main_display_image1').hide();
+                 $('#main_video_sec').show();
+                 $('#main_video_sec').attr('src',URL.createObjectURL(file.files[0]));}
+    }
+}
+function DisplayMain6(input){
+var file = $('#File6')[0];
+    if (file.files && file.files[0]) {
+               var  fileType = file.files[0].type;
+               // If file is image
+               if(validImageTypes.includes(fileType)){
+                       $('#main_display_image1').show();
+                       $('#main_video_sec').hide();
+                      document.getElementById('main_video_sec').pause();
+                       $('#main_display_image1').attr('src',URL.createObjectURL(file.files[0]));
+                }
+                // If file is video
+               else if(validVideoTypes.includes(fileType)){
+                 $('#main_display_image1').hide();
+                 $('#main_video_sec').show();
+                 $('#main_video_sec').attr('src',URL.createObjectURL(file.files[0]));}
+    }
+}
+function DisplayMain7(input){
+var file = $('#File7')[0];
+    if (file.files && file.files[0]) {
+               var  fileType = file.files[0].type;
+               // If file is image
+               if(validImageTypes.includes(fileType)){
+                       $('#main_display_image1').show();
+                       $('#main_video_sec').hide();
+                       document.getElementById('main_video_sec').pause();
+                       $('#main_display_image1').attr('src',URL.createObjectURL(file.files[0]));
+                }
+                // If file is video
+               else if(validVideoTypes.includes(fileType)){
+                 $('#main_display_image1').hide();
+                 $('#main_video_sec').show();
+                 $('#main_video_sec').attr('src',URL.createObjectURL(file.files[0]));}
+    }
+}
+function DisplayMain8(input){
+var file = $('#File8')[0];
+    if (file.files && file.files[0]) {
+               var  fileType = file.files[0].type;
+               // If file is image
+               if(validImageTypes.includes(fileType)){
+                       $('#main_display_image1').show();
+                       $('#main_video_sec').hide();
+                        document.getElementById('main_video_sec').pause();
+                       $('#main_display_image1').attr('src',URL.createObjectURL(file.files[0]));
+                }
+                // If file is video
+               else if(validVideoTypes.includes(fileType)){
+                 $('#main_display_image1').hide();
+                 $('#main_video_sec').show();
+                 $('#main_video_sec').attr('src',URL.createObjectURL(file.files[0]));}
+    }
+}
+
+function DisplayMain9(input){
+var file = $('#File9')[0];
+    if (file.files && file.files[0]) {
+               var  fileType = file.files[0].type;
+               // If file is image
+               if(validImageTypes.includes(fileType)){
+                       $('#main_display_image1').show();
+                       $('#main_video_sec').hide();
+                       document.getElementById('main_video_sec').pause();
+                       $('#main_display_image1').attr('src',URL.createObjectURL(file.files[0]));
+                }
+                // If file is video
+               else if(validVideoTypes.includes(fileType)){
+                 $('#main_display_image1').hide();
+                 $('#main_video_sec').show();
+                 $('#main_video_sec').attr('src',URL.createObjectURL(file.files[0]));}
+    }
+}
+function DisplayMain10(input){
+var file = $('#File10')[0];
+    if (file.files && file.files[0]) {
+               var  fileType = file.files[0].type;
+               // If file is image
+               if(validImageTypes.includes(fileType)){
+                       $('#main_display_image1').show();
+                       $('#main_video_sec').hide();
+                       document.getElementById('main_video_sec').pause();
+                       $('#main_display_image1').attr('src',URL.createObjectURL(file.files[0]));
+                }
+                // If file is video
+               else if(validVideoTypes.includes(fileType)){
+                 $('#main_display_image1').hide();
+                 $('#main_video_sec').show();
+                 $('#main_video_sec').attr('src',URL.createObjectURL(file.files[0]));}
+    }
+}
+
+// Second Upload Page
+$('#SecondUploadDiv').hide();
+$('#SecondUpload2').hide();
+$("#SecondUpload").click(function () {
+    // If Any one file is uploaded then only proceed
+    if(document.getElementById('File1').value.length !== 0){
+    $("#File1_upload").hide();
+    $("#File2_upload").hide();
+    $("#File3_upload").hide();
+    $("#File4_upload").hide();
+    $("#File5_upload").hide();
+    $("#File6_upload").hide();
+    $("#File7_upload").hide();
+    $("#File8_upload").hide();
+    $("#File9_upload").hide();
+    $("#File10_upload").hide();
+    // Show the Second Upload Page
+    $('#SecondUploadDiv').show();
+    $('#Filters').show();
+    // Hide the previous one
+    $('#main_display_image').addClass('d-none');
+    $('#SecondUpload').hide();
+    $('#SecondUpload2').show();
+
+    }
+
+});
+
+
+// Third Upload
+$('#ThirdUpload').hide();
+$('#ThirdUploadSection').hide();
+$('#SUBMIT').hide();
+
+$('#SecondUpload2').click(function(){
+$('#Filters').hide();
+$('#ThirdUploadSection').show();
+$('#ThirdUpload').show();
+$('#SecondUpload2').hide();
+})
+
+$('#ThirdUpload').click(function(){
+$('#SUBMIT').click();
+});
+
+// Script for carousel filters
+// None
+$('#None').on('click',function(){
+// Send the filter to next input
+$('#FilterInput').val(null);
+
+// Remove all the preexisting classes and add these
+
+document.getElementById('carousel-1').className = "carousel-item active h-100 w-100";
+
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+
+}
+});
+
+//filter-1977
+$('#filter-1977').on('click',function(){
+
+$('#FilterInput').val('filter-1977');
+// Remove all the preexisting classes and add these
+document.getElementById('carousel-1').className = "carousel-item active h-100 w-100";
+$('#carousel-1').addClass("filter-1977");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-1977");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-1977");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-1977");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-1977");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-1977");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-1977");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-1977");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-1977");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-1977");
+}
+});
+
+//filter-aden
+$('#filter-aden').on('click',function(){
+
+$('#FilterInput').val('filter-aden');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-aden");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-aden");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-aden");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-aden");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-aden");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-aden");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-aden");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-aden");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-aden");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-aden");
+}
+});
+
+//filter-amaro
+$('#filter-amaro').on('click',function(){
+$('#FilterInput').val('filter-amaro');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-amaro");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-amaro");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-amaro");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-amaro");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-amaro");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-amaro");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-amaro");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-amaro");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-amaro");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-amaro");
+}
+});
+
+//filter-ashby
+$('#filter-ashby').on('click',function(){
+$('#FilterInput').val('filter-ashby');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-ashby");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-ashby");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-ashby");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-ashby");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-ashby");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-ashby");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-ashby");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-ashby");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-ashby");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-ashby");
+}
+});
+
+// brannan
+$('#filter-brannan').on('click',function(){
+$('#FilterInput').val('filter-brannan');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-brannan");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-brannan");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-brannan");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-brannan");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-brannan");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-brannan");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-brannan");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-brannan");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-brannan");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-brannan");
+}
+});
+
+//brooklyn
+$('#filter-brooklyn').on('click',function(){
+$('#FilterInput').val('filter-brooklyn');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-brooklyn");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-brooklyn");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-brooklyn");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-brooklyn");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-brooklyn");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-brooklyn");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-brooklyn");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-brooklyn");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-brooklyn");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-brooklyn");
+}
+});
+
+//charmes
+$('#filter-charmes').on('click',function(){
+$('#FilterInput').val('filter-charmes');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-charmes");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-charmes");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-charmes");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-charmes");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-charmes");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-charmes");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-charmes");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-charmes");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-charmes");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-charmes");
+}
+});
+
+// clarendon
+$('#filter-clarendon').on('click',function(){
+$('#FilterInput').val('filter-clarendon');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-clarendon");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-clarendon");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-clarendon");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-clarendon");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-clarendon");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-clarendon");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-clarendon");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-clarendon");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-clarendon");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-clarendon");
+}
+});
+
+// crema
+$('#filter-crema').on('click',function(){
+$('#FilterInput').val('filter-crema');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-crema");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-crema");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-crema");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-crema");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-crema");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-crema");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-crema");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-crema");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-crema");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-crema");
+}
+});
+
+// dogpatch
+$('#filter-dogpatch').on('click',function(){
+$('#FilterInput').val('filter-dogpatch');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-dogpatch");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-dogpatch");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-dogpatch");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-dogpatch");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-dogpatch");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-dogpatch");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-dogpatch");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-dogpatch");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-dogpatch");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-dogpatch");
+}
+});
+
+//earlybird
+$('#filter-earlybird').on('click',function(){
+$('#FilterInput').val('filter-earlybird');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-earlybird");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-earlybird");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-earlybird");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-earlybird");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-earlybird");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-earlybird");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-earlybird");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-earlybird");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-earlybird");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-earlybird");
+}
+});
+
+// gingham
+$('#filter-gingham').on('click',function(){
+$('#FilterInput').val('filter-gingham');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-gingham");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-gingham");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-gingham");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-gingham");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-gingham");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-gingham");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-gingham");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-gingham");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-gingham");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-gingham");
+}
+});
+
+//ginza
+$('#filter-ginza').on('click',function(){
+$('#FilterInput').val('filter-ginza');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-ginza");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-ginza");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-ginza");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-ginza");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-ginza");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-ginza");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-ginza");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-ginza");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-ginza");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-ginza");
+}
+});
+
+// hefe
+$('#filter-hefe').on('click',function(){
+$('#FilterInput').val('filter-hefe');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-hefe");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-hefe");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-hefe");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-hefe");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-hefe");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-hefe");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-hefe");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-hefe");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-hefe");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-hefe");
+}
+});
+
+// helena
+$('#filter-helena').on('click',function(){
+$('#FilterInput').val('filter-helena');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-helena");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-helena");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-helena");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-helena");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-helena");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-helena");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-helena");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-helena");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-helena");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-helena");
+}
+});
+
+//hudson
+$('#filter-hudson').on('click',function(){
+$('#FilterInput').val('filter-hudson');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-hudson");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-hudson");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-hudson");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-hudson");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-hudson");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-hudson");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-hudson");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-hudson");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-hudson");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-hudson");
+}
+});
+
+// inkwell
+$('#filter-inkwell').on('click',function(){
+$('#FilterInput').val('filter-inkwell');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-inkwell");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-inkwell");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-inkwell");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-inkwell");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-inkwell");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-inkwell");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-inkwell");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-inkwell");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-inkwell");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-inkwell");
+}
+});
+
+// kelvin
+$('#filter-kelvin').on('click',function(){
+$('#FilterInput').val('filter-kelvin');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-kelvin");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-kelvin");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-kelvin");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-kelvin");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-kelvin");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-kelvin");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-kelvin");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-kelvin");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-kelvin");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-kelvin");
+}
+});
+
+// juno
+$('#filter-juno').on('click',function(){
+$('#FilterInput').val('filter-juno');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-juno");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-juno");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-juno");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-juno");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-juno");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-juno");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-juno");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-juno");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-juno");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-juno");
+}
+});
+
+// lark
+$('#filter-lark').on('click',function(){
+$('#FilterInput').val('filter-lark');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-lark");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-lark");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-lark");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-lark");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-lark");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-lark");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-lark");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-lark");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-lark");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-lark");
+}
+});
+
+// lofi
+$('#filter-lofi').on('click',function(){
+$('#FilterInput').val('filter-lofi');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-lofi");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-lofi");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-lofi");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-lofi");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-lofi");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-lofi");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-lofi");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-lofi");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-lofi");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-lofi");
+}
+});
+
+// ludwig
+$('#filter-ludwig').on('click',function(){
+$('#FilterInput').val('filter-ludwig');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-ludwig");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-ludwig");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-ludwig");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-ludwig");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-ludwig");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-ludwig");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-ludwig");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-ludwig");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-ludwig");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-ludwig");
+}
+});
+
+//maven
+$('#filter-maven').on('click',function(){
+$('#FilterInput').val('filter-maven');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-maven");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-maven");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-maven");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-maven");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-maven");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-maven");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-maven");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-maven");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-maven");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-maven");
+}
+});
+
+
+//mayfair
+$('#filter-mayfair').on('click',function(){
+$('#FilterInput').val('filter-mayfair');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-mayfair");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-mayfair");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-mayfair");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-mayfair");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-mayfair");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-mayfair");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-mayfair");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-mayfair");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-mayfair");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-mayfair");
+}
+});
+
+// moon
+$('#filter-moon').on('click',function(){
+$('#FilterInput').val('filter-moon');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-moon");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-moon");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-moon");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-moon");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-moon");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-moon");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-moon");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-moon");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-moon");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-moon");
+}
+});
+
+// nashville
+$('#filter-nashville').on('click',function(){
+$('#FilterInput').val('filter-nashville');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-nashville");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-nashville");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-nashville");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-nashville");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-nashville");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-nashville");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-nashville");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-nashville");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-nashville");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-nashville");
+}
+});
+
+// perpetua
+$('#filter-perpetua').on('click',function(){
+$('#FilterInput').val('filter-perpetua');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-perpetua");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-perpetua");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-perpetua");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-perpetua");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-perpetua");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-perpetua");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-perpetua");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-perpetua");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-perpetua");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-perpetua");
+}
+});
+
+// poprocket
+$('#filter-poprocket').on('click',function(){
+$('#FilterInput').val('filter-poprocket');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-poprocket");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-poprocket");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-poprocket");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-poprocket");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-poprocket");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-poprocket");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-poprocket");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-poprocket");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-poprocket");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-poprocket");
+}
+});
+
+// reyes
+$('#filter-reyes').on('click',function(){
+$('#FilterInput').val('filter-reyes');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-reyes");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-reyes");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-reyes");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-reyes");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-reyes");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-reyes");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-reyes");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-reyes");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-reyes");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-reyes");
+}
+});
+
+// rise
+$('#filter-rise').on('click',function(){
+$('#FilterInput').val('filter-rise');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-rise");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-rise");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-rise");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-rise");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-rise");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-rise");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-rise");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-rise");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-rise");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-rise");
+}
+});
+
+
+//sierra
+$('#filter-sierra').on('click',function(){
+$('#FilterInput').val('filter-sierra');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-sierra");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-sierra");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-sierra");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-sierra");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-sierra");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-sierra");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-sierra");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-sierra");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-sierra");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-sierra");
+}
+});
+
+// skyline
+$('#filter-skyline').on('click',function(){
+$('#FilterInput').val('filter-skyline');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-skyline");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-skyline");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-skyline");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-skyline");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-skyline");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-skyline");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-skyline");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-skyline");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-skyline");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-skyline");
+}
+});
+
+//slumber
+$('#filter-slumber').on('click',function(){
+$('#FilterInput').val('filter-slumber');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-slumber");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-slumber");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-slumber");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-slumber");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-slumber");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-slumber");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-slumber");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-slumber");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-slumber");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-slumber");
+}
+});
+
+// stinson
+$('#filter-stinson').on('click',function(){
+$('#FilterInput').val('filter-stinson');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-stinson");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-stinson");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-stinson");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-stinson");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-stinson");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-stinson");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-stinson");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-stinson");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-stinson");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-stinson");
+}
+});
+
+// sutro
+$('#filter-sutro').on('click',function(){
+$('#FilterInput').val('filter-sutro');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-sutro");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-sutro");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-sutro");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-sutro");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-sutro");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-sutro");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-sutro");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-sutro");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-sutro");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-sutro");
+}
+});
+
+//toaster
+
+$('#filter-toaster').on('click',function(){
+$('#FilterInput').val('filter-toaster');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-toaster");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-toaster");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-toaster");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-toaster");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-toaster");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-toaster");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-toaster");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-toaster");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-toaster");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-toaster");
+}
+});
+
+//valencia
+$('#filter-valencia').on('click',function(){
+$('#FilterInput').val('filter-valencia');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-valencia");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-valencia");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-valencia");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-valencia");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-valencia");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-valencia");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-valencia");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-valencia");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-valencia");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-valencia");
+}
+});
+
+// vesper
+$('#filter-vesper').on('click',function(){
+$('#FilterInput').val('filter-vesper');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-vesper");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-vesper");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-vesper");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-vesper");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-vesper");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-vesper");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-vesper");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-vesper");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-vesper");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-vesper");
+}
+});
+
+// walden
+$('#filter-walden').on('click',function(){
+$('#FilterInput').val('filter-walden');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-walden");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-walden");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-walden");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-walden");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-walden");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-walden");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-walden");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-walden");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-walden");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-walden");
+}
+});
+
+// willow
+$('#filter-willow').on('click',function(){
+$('#FilterInput').val('filter-willow');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-willow");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-willow");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-willow");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-willow");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-willow");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-willow");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-willow");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-willow");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-willow");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-willow");
+}
+});
+
+// xpro-ii
+$('#filter-xpro-ii').on('click',function(){
+$('#FilterInput').val('filter-xpro-ii');
+document.getElementById('carousel-1').className = "carousel-item  active h-100 w-100";
+$('#carousel-1').addClass("filter-xpro-ii");
+
+if($('#carousel-2').length){
+document.getElementById('carousel-2').className = "carousel-item  h-100 w-100";
+$('#carousel-2').addClass("filter-xpro-ii");
+}
+if($('#carousel-3').length){
+document.getElementById('carousel-3').className = "carousel-item  h-100 w-100";
+$('#carousel-3').addClass("filter-xpro-ii");
+}
+if($('#carousel-4').length){
+document.getElementById('carousel-4').className = "carousel-item  h-100 w-100";
+$('#carousel-4').addClass("filter-xpro-ii");
+}
+if($('#carousel-5').length){
+document.getElementById('carousel-5').className = "carousel-item  h-100 w-100";
+$('#carousel-5').addClass("filter-xpro-ii");
+}
+if($('#carousel-6').length){
+document.getElementById('carousel-6').className = "carousel-item  h-100 w-100";
+$('#carousel-6').addClass("filter-xpro-ii");
+}
+if($('#carousel-7').length){
+document.getElementById('carousel-7').className = "carousel-item  h-100 w-100";
+$('#carousel-7').addClass("filter-xpro-ii");
+}
+if($('#carousel-8').length){
+document.getElementById('carousel-8').className = "carousel-item  h-100 w-100";
+$('#carousel-8').addClass("filter-xpro-ii");
+}
+if($('#carousel-9').length){
+document.getElementById('carousel-9').className = "carousel-item  h-100 w-100";
+$('#carousel-9').addClass("filter-xpro-ii");
+}
+if($('#carousel-10').length){
+document.getElementById('carousel-10').className = "carousel-item  h-100 w-100";
+$('#carousel-10').addClass("filter-xpro-ii");
+}
+});
+</script>
+{% endblock %}
+{% block Navbar2 %}
+{% endblock %}
