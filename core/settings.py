@@ -81,13 +81,17 @@ AUTH_USER_MODEL = 'users.Account'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd15po54a45l7l7',
+        'HOST': 'ec2-54-220-170-192.eu-west-1.compute.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'xgpwyiyiwlvpfz',
+        'PASSWORD': 'fd3a63762bcbae5df096cdfa828bb2fc2ee952fcb3ba3dbcf44d6319d4fd1705',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
