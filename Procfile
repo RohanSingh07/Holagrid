@@ -1,1 +1,1 @@
-Procfile
+web: gunicorn core.wsgi
