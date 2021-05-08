@@ -16,7 +16,7 @@ class Profile(models.Model):
     Profile_Photo = models.ImageField(blank=True,null=True,upload_to='Profile_Pictures')
     Bio = models.TextField(blank=True,null=True)
     Email = models.EmailField(blank=True,null=True,unique=True)
-    Phone_Number = models.IntegerField(blank=True,null=True)
+    Phone_Number = models.BigIntegerField(blank=True,null=True)
     Gender = models.CharField(max_length=20,blank=True,null=True,choices=Gender)
     Posts = models.ManyToManyField("Posts",blank=True)
     Stories = models.ManyToManyField("Stories",blank=True)
