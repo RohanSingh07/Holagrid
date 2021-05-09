@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$7-^axyzobgdqekyll#a0@)hl8qt^0r+#-n1ikch-xvb0*6(h-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','holagrid.herokuapp.com']
 
@@ -72,6 +72,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -170,11 +171,19 @@ DEFAULT_FILE_STORAGE = 'core.storage_backends.MediaStorage'
 
 # We need to add a mediator through which messages can be passed which can communicate to channels
 # This backend is just like redix but inbuilt
+# CHANNEL_LAYERS = {
+#     "default":{
+#         "BACKEND":"channels.layers.InMemoryChannelLayer"
+#     }
+#
+# }
 CHANNEL_LAYERS = {
-    "default":{
-        "BACKEND":"channels.layers.InMemoryChannelLayer"
-    }
-
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
 }
 
 

@@ -96,8 +96,9 @@
         var room = '{{post.slug}}';
 
         // Create a new websocket
+        var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
         const CommentSocket = new WebSocket(
-                    'ws://'+
+                ws_scheme+'://'+
                     window.location.host+'/'+'Comments/'+
                      room
                     );

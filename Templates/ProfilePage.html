@@ -131,8 +131,9 @@
 <script>
     // create a new websocket
     var room_name = '{{MyProfile.user.username}}';
+                var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
                 const ProfileSocket = new WebSocket(
-                'ws://'+
+                ws_scheme+'://'+
                 window.location.host+'/'+'ProfilePage/'+
                  room_name
 

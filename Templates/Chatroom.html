@@ -137,8 +137,10 @@ var room_name = '{{Sender2.UniqueCode}}'+'{{Sender1.UniqueCode}}';
 
 }
              // create a new websocket
+                var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+
                 const chatSocket = new WebSocket(
-                'ws://'+
+                ws_scheme+'://'+
                 window.location.host+'/'+'Chatroom/'+
                  room_name
                 );

@@ -15,11 +15,11 @@ def HomeView(request):
     Posts = []
     Stories =[]
     Followings = Profile.Following.all()
-    print(Followings)
     # Get all the stories of last 24 hrs
     time_threshold = datetime.now() - timedelta(hours=24)
     status = Profile.Stories.filter(Date__gte=time_threshold)
-
+    MyPosts = Profile.Posts.filter(Date=datetime.now().date())
+    Posts.append(MyPosts)
     for Following in Followings:
         # Only New Posts can be seen todays and yesterdays
         PostsToday = Following.Posts.filter(Date=datetime.now().date())
@@ -29,6 +29,7 @@ def HomeView(request):
         # Get all the stories of other users
         Story = Following.Stories.filter(Date__gte=time_threshold)
         Stories.append(Story)
+
     return render(request,'index.html',{
         'AllPosts':Posts,
         'Profile':Profile,

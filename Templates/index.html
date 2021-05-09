@@ -635,9 +635,11 @@
 
 
              var room_name = '{{request.user.username}}'
+
              // create a new websocket
-                const chatSocket = new WebSocket(
-                'ws://'+
+              var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+                const chatSocket =new WebSocket(
+                ws_scheme+'://'+
                 window.location.host+'/'+
                  room_name
 

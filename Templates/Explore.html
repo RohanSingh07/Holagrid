@@ -65,8 +65,10 @@
 
     var room_name = '{{request.user.username}}';
     // create a new websocket
+
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     const SearchSocket = new WebSocket(
-    'ws://'+
+    ws_scheme+'://'+
     window.location.host+'/'+'Explore'+'/'+
      room_name
 
@@ -84,6 +86,7 @@
      SearchSocket.onmessage = function(event){
         var data = JSON.parse(event.data);
         var results = JSON.parse(data.results);
+
         if(typeof results[0]!=='undefined'){
 
          // Clear everything inside the div
@@ -98,7 +101,7 @@
             var Img1 = document.createElement("img");
 
                 if(results[i].fields.Profile_Photo){
-                Img1.src = '/media/'+results[i].fields.Profile_Photo;
+                Img1.src = 'https://assets07.s3.us-east-2.amazonaws.com/media/'+results[i].fields.Profile_Photo;
                 }
                 else{
                 Img1.src = "{% static 'img/user.png' %}";
@@ -154,7 +157,7 @@
      Video.muted="muted"
      Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
      var source = document.createElement('source');
-     source.src = "/media/"+posts[i].fields.File1;
+     source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-8 pl-0 pr-0 pt-0 pb-0 bg-dark";
@@ -168,7 +171,7 @@
     var Image = document.createElement("img");
     Image.className=posts[i].fields.Filter;
     Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
-    Image.src = "/media/"+posts[i].fields.File1;
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-8 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i].fields.slug+'/';
@@ -186,7 +189,7 @@
      Video.muted="muted"
      Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
      var source = document.createElement('source');
-     source.src = "/media/"+posts[i+1].fields.File1;
+     source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+1].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
@@ -200,7 +203,7 @@
     var Image = document.createElement("img");
     Image.className=posts[i+1].fields.Filter;
     Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
-    Image.src = "/media/"+posts[i+1].fields.File1;
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+1].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
     Anchor.href = '/ExplorePosts/'+posts[i+1].fields.slug+'/';
@@ -218,7 +221,7 @@
      Video.muted="muted"
      Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
      var source = document.createElement('source');
-     source.src = "/media/"+posts[i+2].fields.File1;
+     source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+2].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
@@ -232,7 +235,7 @@
     var Image = document.createElement("img");
     Image.className=posts[i+2].fields.Filter;
     Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
-    Image.src = "/media/"+posts[i+2].fields.File1;
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+2].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+2].fields.slug+'/';
@@ -250,7 +253,7 @@
      Video.muted="muted"
      Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
      var source = document.createElement('source');
-     source.src = "/media/"+posts[i+3].fields.File1;
+     source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+3].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
@@ -264,7 +267,7 @@
     var Image = document.createElement("img");
     Image.className=posts[i+3].fields.Filter;
     Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
-    Image.src = "/media/"+posts[i+3].fields.File1;
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+3].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+3].fields.slug+'/';
@@ -282,7 +285,7 @@
      Video.muted="muted"
      Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
      var source = document.createElement('source');
-     source.src = "/media/"+posts[i+4].fields.File1;
+     source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+4].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
@@ -296,7 +299,7 @@
     var Image = document.createElement("img");
     Image.className=posts[i+4].fields.Filter;
     Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
-    Image.src = "/media/"+posts[i+4].fields.File1;
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+4].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+4].fields.slug+'/';
@@ -314,7 +317,7 @@
      Video.muted="muted"
      Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
      var source = document.createElement('source');
-     source.src = "/media/"+posts[i+5].fields.File1;
+     source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+5].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
@@ -328,7 +331,7 @@
     var Image = document.createElement("img");
     Image.className=posts[i+5].fields.Filter;
     Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
-    Image.src = "/media/"+posts[i+5].fields.File1;
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+5].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+5].fields.slug+'/';
@@ -346,7 +349,7 @@
      Video.muted="muted"
      Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
      var source = document.createElement('source');
-     source.src = "/media/"+posts[i+6].fields.File1;
+     source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+6].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-8 pl-0 pr-0 pt-0 pb-0";
@@ -360,7 +363,7 @@
     var Image = document.createElement("img");
     Image.className=posts[i+6].fields.Filter;
     Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
-    Image.src = "/media/"+posts[i+6].fields.File1;
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+6].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-8 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+6].fields.slug+'/';
@@ -378,7 +381,7 @@
      Video.muted="muted"
      Video.style="height:40vh;width:100%;border:1px solid white;object-fit:cover;";
      var source = document.createElement('source');
-     source.src = "/media/"+posts[i+7].fields.File1;
+     source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+7].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-12 pl-0 pr-0 pt-0 pb-0";
@@ -392,7 +395,7 @@
     var Image = document.createElement("img");
     Image.className="col-12 pt-0 pb-0 pl-0 pr-0 "+posts[i+7].fields.Filter;
     Image.style="height:40vh;width:100%;border:1px solid white;object-fit:cover;";
-    Image.src = "/media/"+posts[i+7].fields.File1;
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+7].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-12 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+7].fields.slug+'/';
