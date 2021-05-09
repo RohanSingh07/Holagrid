@@ -29,7 +29,6 @@ def HomeView(request):
         # Get all the stories of other users
         Story = Following.Stories.filter(Date__gte=time_threshold)
         Stories.append(Story)
-    print(Stories)
     return render(request,'index.html',{
         'AllPosts':Posts,
         'Profile':Profile,
@@ -171,10 +170,26 @@ def Search(request,SearchInput):
 # For Editing Profile
 @login_required
 def ProfileEdit(request,slug):
-    Profile = models.Profile.objects.get(user__username = slug)
-    return render(request,'ProfileEdit.html',{
-        'Profile':Profile,
-    })
+    Profile = models.Profile.objects.get(user__username=slug)
+    if request.method == 'GET':
+        return render(request,'ProfileEdit.html',{
+            'Profile':Profile,
+        })
+    else:
+
+        ProfilePhoto = request.FILES['ProfilePhoto']
+        Profile_Name = request.POST['Profile_Name']
+        Username_Name = request.POST['Username_Name']
+        Bio = request.POST['Bio']
+        # delete the previous Photo
+        Profile.Profile_Photo.delete()
+        Profile.Profile_Photo = ProfilePhoto
+        Profile.Profile_Name = Profile_Name
+        Profile.Username_Name = Username_Name
+        Profile.Bio = Bio
+        Profile.save()
+        return redirect('Base:ProfileEdit',slug=slug)
+
 
 # All Chats Page
 def AllChats(request):

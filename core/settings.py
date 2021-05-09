@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'channels',
     'users',
     'django_filters',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -152,6 +153,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # We need to set this ASGI application
 ASGI_APPLICATION = "core.routing.application"
+
+# AWS settings
+AWS_ACCESS_KEY_ID = 'AKIAQVZDNG5NCVIFDPX4'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'assets07'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+AWS_S3_SECURE_URLS = False
+DEFAULT_FILE_STORAGE = 'core.storage_backends.MediaStorage'
+
+
 
 # We need to add a mediator through which messages can be passed which can communicate to channels
 # This backend is just like redix but inbuilt
