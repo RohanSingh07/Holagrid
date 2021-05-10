@@ -94,11 +94,11 @@ AUTH_USER_MODEL = 'users.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dns7cnsegigt9',
-        'HOST': 'ec2-54-73-58-75.eu-west-1.compute.amazonaws.com',
+        'NAME': 'dfbotj5mqlhlj2',
+        'HOST': 'ec2-34-255-134-200.eu-west-1.compute.amazonaws.com',
         'PORT': 5432,
-        'USER': 'ynummvrlbnzfsq',
-        'PASSWORD': '5eff3ed6f965640b312e93f28c4cfe64cf7416a7b1609251eacdfa5517ce6b1e',
+        'USER': 'ncsxoddhldrqvc',
+        'PASSWORD': '4a2b16a66628c5b9538768b91f1bf3fc832c9116eaf6383a6dcffa7835e5b28a',
     }
 }
 
@@ -177,6 +177,7 @@ CHANNEL_LAYERS = {
     }
 
 }
+# Later i need to put this channel by using an add on in the heroku addons
 # CHANNEL_LAYERS = {
 #     "default": {
 #         "BACKEND": "channels_redis.core.RedisChannelLayer",
