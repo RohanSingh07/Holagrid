@@ -8,11 +8,9 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
 """
 import django
 import os
-from channels.layers import get_channel_layer
 from django.core.asgi import get_asgi_application
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 django.setup()
 application = get_asgi_application()
-channel_layer = get_channel_layer()
