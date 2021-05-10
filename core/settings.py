@@ -170,20 +170,20 @@ DEFAULT_FILE_STORAGE = 'core.storage_backends.MediaStorage'
 
 
 # We need to add a mediator through which messages can be passed which can communicate to channels
-# This backend is just like redix but inbuilt
-# CHANNEL_LAYERS = {
-#     "default":{
-#         "BACKEND":"channels.layers.InMemoryChannelLayer"
-#     }
-#
-# }
+#This backend is just like redix but inbuilt
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379),("holagrid.herokuapp.com", 6379)],
-        },
-    },
+    "default":{
+        "BACKEND":"channels.layers.InMemoryChannelLayer"
+    }
+
 }
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [("127.0.0.1", 6379),("holagrid.herokuapp.com", 6379)],
+#         },
+#     },
+# }
 
 
