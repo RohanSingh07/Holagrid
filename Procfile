@@ -1,1 +1,1 @@
-web: daphne core.asgi:application 
+web: gunicorn core.asgi:application -k uvicorn.workers.UvicornWorker
