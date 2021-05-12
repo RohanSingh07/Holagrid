@@ -189,7 +189,7 @@ var room_name = '{{Sender2.UniqueCode}}'+'{{Sender1.UniqueCode}}';
                 ImageCol1 = document.createElement("img");
 
                 if(profile[0].fields.Profile_Photo){
-                ImageCol1.src = '/media/'+profile[0].fields.Profile_Photo;
+                ImageCol1.src = 'https://assets07.s3.us-east-2.amazonaws.com/media/'+profile[0].fields.Profile_Photo;
                 }
                 else{
                 ImageCol1.src = "{% static 'img/user.png' %}";

@@ -79,23 +79,52 @@
 
     {% block Navbar1 %}
         <!-- Large Screen Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
-            <div class="container d-flex justify-content-center align-items-center">
-                 <div class="row border">
-                    <div class="col">
-                        <a class="navbar-brand text-primary">PROTOTYPE</a>
-                    </div>
-                     <div class="col">
-                          <input type="text" name="SearchInput" class="form-control text-inside" placeholder="Search">
-                    </div>
-
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-0 pb-0 d-none d-sm-none d-md-block d-lg-block d-xl-block">
+            <div class="container ">
+                 <div class="row border d-flex justify-content-start align-items-center w-100">
+                     <div class="col-6 border">
+                         <div class="row w-100 d-flex justify-content-center align-items-center">
+                            <!-- Logo and Brand name -->
+                            <a class="navbar-brand text-dark" style="font-size:30px;font-family: Garamond, serif;">Holagrid</a>
+                            <!-- Logo and Brand name -->
+                            <!-- Search Input -->
+                            <input type="text" name="SearchInput" class="form-control text-inside ml-4" placeholder="Search" style="width:200px;border-radius:2%;">
+                            <!-- Search Input -->
+                        </div>
+                     </div>
+                     <div class="col-6 border">
+                          <div class="row w-100 d-flex align-items-center justify-content-center">
+                            <!-- Home -->
+                             <a href="{% url 'Base:HomeView' %}" class="" ><img src="{% static 'img/home3.png' %}" height="25" width="25"></a>
+                            <!-- Home -->
+                            <!-- Explore -->
+                             <a href="{% url 'Base:ExploreView' %}" class="ml-4"><i class="fas fa-search" style="font-size: 25px;color:grey;"></i></a>
+                            <!-- Explore -->
+                            <!-- Chats -->
+                            <a href="{% url 'Base:AllChats' %}" class="ml-4"><i class="far fa-comment-alt" style="font-size: 25px;color:black;"></i></a>
+                            <!-- Chats -->
+                            <!-- Add Post -->
+                             <a href="{% url 'Base:AddPost' %}" class="ml-4"><i class="fas fa-plus-square" style="font-size: 25px;color:grey;"></i></a>
+                            <!-- Add Post -->
+                            <!-- Notification -->
+                            <a class="ml-4"><i class="far fa-bell " style="font-size: 25px;"></i></a>
+                            <!-- Notification -->
+                            <!-- Profile -->
+                             {% if Profile.Profile_Photo %}
+                               <a href="{% url 'Base:ProfileView' request.user %}" class="ml-4 mr-5"> <img src="{{Profile.Profile_Photo.url}}" height="25" width="25" style="border-radius:50%;"></a>
+                             {% else %}
+                               <a href="{% url 'Base:ProfileView' request.user %}" class="ml-4 mr-5"> <img src="{% static 'img/user.png' %}" height="25" width="25" style="border-radius:50%;"></a>
+                             {% endif %}
+                             <!-- Profile -->
+                          </div>
+                     </div>
                 </div>
             </div>
 
         </nav>
       <!-- Large Screen Navbar End -->
       <!-- Small Screen Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-block d-md-none d-lg-none d-xl-none">
 
                  <div class="row  d-flex align-items-center">
                     <div class="col-9 pl-3 d-flex  justify-content-start align-items-center">
@@ -114,153 +143,200 @@
 
 
     {% block content %}
-     <div class="container h-100 w-100 mt-5 pt-5 d-none d-sm-block d-md-block d-lg-block d-xl-block" >
-       <!-- All related posts -->
-       {% for post in Posts.all %}
-         <div class="row border h-75 mt-2 w-100 ">
+    <!-- Large Screen Body -->
+    <div class="container mt-5 pt-3 d-none d-lg-block d-sm-none d-md-block d-xl-block " style="display:block;">
+     <div class="row mt-3 pt-3 pb-3 pl-4 bg-light w-100" style="overflow-x:auto;flex-wrap:nowrap;overflow:hidden;">
+        {% if Status.count %}
+              {% if Profile.Profile_Photo %}
+                 <a href="{% url 'Base:StatusShow' %}" style="position:relative;"> <img src="{{Profile.Profile_Photo.url}}" height="50" width="50" style="border:2px solid red;border-radius:50%;">
+                 <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">Your Story</small>
+                 </a><br>
+                {% else %}
+                 <a href="{% url 'Base:StatusShow' %}" style="position:relative;"> <img src="{% static 'img/user.png' %}" height="50" width="50" style="border:2px solid red;border-radius:50%;">
+                 <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">Your Story</small>
+                 </a><br>
+              {% endif %}
+        {% else %}
+             {% if Profile.Profile_Photo %}
+             <a href="{% url 'Base:StatusView' %}" style="position:relative;"> <img src="{{Profile.Profile_Photo.url}}" height="50" width="50" style="border-radius:50%;">
+             <img class="" style="position:absolute;z-index:2;bottom:25px;left:35px;border-radius:50%;border:1px solid white;" src="{% static 'img/plus.png' %}" height="18" width="18">
+             <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">Your Story</small>
+             </a><br>
 
-            <div class=" h-100 w-100" >
-                <div class="card-header w-100">
-                    <div class="row d-flex align-items-center">
-                        {% if post.user.Profile_Photo %}
-                            <img src="{{post.user.Profile_Photo.url}}" height="60" width="60" style="border-radius:50%;">
-                        {% else %}
-                            <img src="{% static 'img/user.png' %}" height="60" width="60" style="border-radius:50%;">
-                        {% endif %}
-                    <h6 class="pl-4">{{post.user.user}}</h6>
-                    </div>
-                </div>
+            {% else %}
+             <a href="{% url 'Base:StatusView' %}"  style="position:relative;"> <img src="{% static 'img/user.png' %}" height="50" width="50" style="border-radius:50%;">
+             <img style="position:absolute;z-index:2;bottom:25px;left:35px;border-radius:50%;border:1px solid white;" src="{% static 'img/plus.png' %}" height="15" width="15">
+             <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">Your Story</small>
+             </a><br>
+            {% endif %}
+        {% endif %}
+        <!-- Other users Stories -->
+        {% for Story in OtherStories %}
+            {% for stories in Story %}
+                 {% if stories.user.Profile_Photo %}
+                 <a href="{% url 'Base:StatusShow' %}" class="ml-3" style="position:relative;"> <img src="{{stories.user.Profile_Photo.url}}" height="50" width="50" style="border:2px solid red;border-radius:50%;">
+                  <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">{{stories.user.username}}</small>
+                 </a><br>
 
-              <div class="card-body h-100 w-100" >
-                <div id="Large{{post.slug}}" class="carousel slide  w-100" style="height:80%;" data-ride="carousel">
+                {% else %}
+                 <a href="{% url 'Base:StatusShow' %}" class="ml-3" style="position:relative;"> <img src="{% static 'img/user.png' %}" height="50" width="50" style="border:2px solid red;border-radius:50%;">
+                 <small class="font-weight-normal text-dark mt-3 ml-1" style="font-size:12px;text-overflow:ellipsis; white-space: nowrap;">{{stories.user.username}}</small>
+                 </a><br>
+              {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+        <!-- Other users Stories -->
+
+    </div>
+    <!-- Status Bar End-->
+    <!-- Posts -->
+
+
+
+        {% for Posts in AllPosts %}
+        {% for post in Posts.all %}
+
+         <!-- Header -->
+         <div class="row border d-flex align-items-center pl-4 pt-2 pb-2  justify-content-start w-100">
+             {% if post.user.Profile_Photo %}
+                <img src="{{post.user.Profile_Photo.url}}" height="40" width="40" style="border-radius:50%;">
+             {% else %}
+                 <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;">
+             {% endif %}
+            <small class="pl-2 font-weight-normal">{{post.user.user.username}}</small>
+         </div>
+         <!-- Header End -->
+          <!-- Body -->
+            <div id="Large{{post.slug}}" ondblclick="LikePost('{{post.slug}}')"  class="carousel slide row w-100 " style="height:50%;" data-ride="carousel" data-interval="false">
 
                   <div class="carousel-inner h-100 w-100">
                     {% if post.File1 %}
                       {% if post.File1Type %}
-                         <video  class="carousel-item active h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                            <source src="{{post.File1.url}}" >
+                         <video  class="carousel-item active h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                            <source class="h-100 w-100" src="{{post.File1.url}}" >
                          </video>
 
                        {% else %}
                         <div class="carousel-item active h-100 w-100 " >
-                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File1.url}}"  >
+                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File1.url}}" style="object-fit:cover" >
                         </div>
                        {% endif %}
                     {% endif %}
 
                     {% if post.File2 %}
                        {% if post.File2Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                                <source src="{{post.File2.url}}" >
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                                <source class="h-100 w-100" src="{{post.File2.url}}" >
                              </video>
 
                            {% else %}
                             <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File2.url}}"  >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File2.url}}" style="object-fit:cover" >
                             </div>
                        {% endif %}
                     {% endif %}
 
                     {% if post.File3 %}
                        {% if post.File3Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
                                 <source src="{{post.File3.url}}" >
                              </video>
 
                            {% else %}
                             <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File3.url}}"  >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File3.url}}" style="object-fit:cover" >
                             </div>
                        {% endif %}
                     {% endif %}
 
                      {% if post.File4 %}
                        {% if post.File4Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
                                 <source src="{{post.File4.url}}" >
                              </video>
 
                            {% else %}
                             <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File4.url}}"  >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File4.url}}"  style="object-fit:cover">
                             </div>
                        {% endif %}
                     {% endif %}
 
                     {% if post.File5 %}
                        {% if post.File5Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
                                 <source src="{{post.File5.url}}" >
                              </video>
 
                            {% else %}
                             <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File5.url}}"  >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File5.url}}" style="object-fit:cover" >
                             </div>
                        {% endif %}
                     {% endif %}
 
                     {% if post.File6 %}
                        {% if post.File6Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
                                 <source src="{{post.File6.url}}" >
                              </video>
 
                            {% else %}
                             <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File6.url}}"  >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File6.url}}" style="object-fit:cover" >
                             </div>
                        {% endif %}
                     {% endif %}
 
                     {% if post.File7 %}
                        {% if post.File7Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
                                 <source src="{{post.File7.url}}" >
                              </video>
 
                            {% else %}
                             <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File7.url}}"  >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File7.url}}" style="object-fit:cover" >
                             </div>
                        {% endif %}
                     {% endif %}
 
                     {% if post.File8 %}
                    {% if post.File8Type %}
-                         <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                         <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
                             <source src="{{post.File8.url}}" >
                          </video>
 
                        {% else %}
                         <div class="carousel-item  h-100 w-100 " >
-                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File8.url}}"  >
+                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File8.url}}" style="object-fit:cover" >
                         </div>
                    {% endif %}
                     {% endif %}
 
                     {% if post.File9 %}
                        {% if post.File9Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
                                 <source src="{{post.File9.url}}" >
                              </video>
 
                            {% else %}
                             <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File9.url}}"  >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File9.url}}" style="object-fit:cover" >
                             </div>
                        {% endif %}
                     {% endif %}
 
                     {% if post.File10 %}
                        {% if post.File10Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
+                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
                                 <source src="{{post.File10.url}}" >
                              </video>
 
                            {% else %}
                             <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File10.url}}"  >
+                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File10.url}}" style="object-fit:cover" >
                             </div>
                        {% endif %}
                     {% endif %}
@@ -278,22 +354,97 @@
                   </a>
 
                 </div>
-
-              </div>
-
+            <!-- Body End -->
+            <div class="border row justify-content-start w-100">
+            <!-- Post Middle -->
+                <div class="row pt-2 pb-2 d-flex w-100">
+                    <a id="{{post.slug}}" onclick="LikePost('{{post.slug}}')" style=""><i class="far fa-heart pl-4 font-weight-normal" style="font-size:25px;"></i></a>
+                    <a href="{% url 'Base:CommentView' post.slug %}"><i class="far fa-comment pl-4 text-dark" style="font-size:25px;"></i></a>
+                    <div class="row pl-5">
+                    {% if post.File1 %}
+                        <i class="fas fa-circle pl-5 text-primary" style="font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File2 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File3 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File4 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File5 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File6 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File7 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File8 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File9 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    {% if post.File10 %}
+                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
+                    {% endif %}
+                    </div>
+                </div>
+            <!-- Post Middle End -->
+            <!-- Display Likes -->
+            <div class="row w-100 pl-4 " >
+                {% if post.Likes.count %}
+                <small id="display-likes-{{post.slug}}">Liked by <span class="font-weight-bold">{{post.Likes.first.user}}</span> and <a class="font-weight-bold text-dark" href="{% url 'Base:LikesView' post.slug %}">{{post.Likes.count}} others</a></small>
+                {% endif %}
 
             </div>
-             <!-- Description -->
-             <!-- Description -->
-         </div>
+            <!-- Display Likes -->
+            <!-- Display Caption -->
+            <div class="row pl-4 ">
+                {% if post.Description %}
+                    <small><span class="font-weight-bold">{{post.user.user.username}}</span> {{post.Description}}</small>
+                {% endif %}
+            </div>
+            <!-- Display Caption -->
+            <!-- Comments Section -->
+            <div class="row w-100 pl-4 ">
+                <div class="col pl-0">
+                {% if post.Comments.count %}
+                <a class="text-muted" href="{% url 'Base:CommentView' post.slug %}">View all {{post.Comments.count}} comments</a><br>
+
+                    <small><span class="font-weight-bold">{{post.Comments.first.user.user.username}}</span> {{post.Comments.first.Comment}} </small> <br>
+                    <small><span class="font-weight-bold">{{post.Comments.last.user.user.username}}</span> {{post.Comments.last.Comment}} </small><br>
+
+                {% endif %}
+                </div>
+            </div>
+            <!-- Comments Section -->
+            </div>
+
+        {% endfor %}
+        {% endfor %}
+
+    <!-- Posts End -->
+    </div>
+    <!-- Large Screen Body -->
 
 
-         {% endfor %}
-       <!-- All related posts -->
-     </div>
+
+
+
+
+
+
+
+
+
+
     <!-- Small Screen Block -->
     <!-- Status Bar -->
-    <div class="row mt-5 pt-3 pl-4 " style="overflow-x:auto;flex-wrap:nowrap;overflow:hidden;">
+    <div class="row mt-5 pt-3 pl-4 d-block d-lg-none d-sm-block d-xl-none d-md-none" style="overflow-x:auto;flex-wrap:nowrap;overflow:hidden;">
         {% if Status.count %}
               {% if Profile.Profile_Photo %}
                  <a href="{% url 'Base:StatusShow' %}" style="position:relative;"> <img src="{{Profile.Profile_Photo.url}}" height="50" width="50" style="border:2px solid red;border-radius:50%;">
@@ -340,7 +491,7 @@
     </div>
     <!-- Status Bar End-->
     <!-- Posts -->
-    <div id="Post" class="mt-2 h-100 w-100 d-block d-lg-none d-sm-none ">
+    <div id="Post" class="mt-2 h-100 w-100 d-block d-lg-none d-sm-block d-xl-none d-md-none ">
 
         {% for Posts in AllPosts %}
         {% for post in Posts.all %}
@@ -569,8 +720,6 @@
                 </div>
             </div>
             <!-- Comments Section -->
-
-
         {% endfor %}
         {% endfor %}
         <!-- For Keeping up from footer -->
@@ -581,38 +730,34 @@
         </div>
     <!-- Posts End-->
 
-
-
-
     {% endblock %}
     {% block Navbar2 %}
     <!-- Small Screen Block End -->
 
         <!-- Small Screen Footer -->
 
-        <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+        <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-block d-md-none d-lg-none d-xl-none">
             <div class="container d-flex justify-content-center align-items-center">
                  <div class="row w-100 pt-1 pb-1 ">
-                 <div class="col pl-1">
-                     <a href="{% url 'Base:HomeView' %}"><img src="{% static 'img/home3.png' %}" height="25" width="25"></a>
-                 </div>
-                 <div class="col pl-3">
-                     <a href="{% url 'Base:ExploreView' %}"><i class="fas fa-search text-dark" style="font-size: 25px;"></i></a>
-                 </div>
-                 <div class="col pl-3">
-                     <a href="{% url 'Base:AddPost' %}"><i class="fas fa-plus-square text-dark" style="font-size: 25px;"></i></a>
-                 </div>
-                 <div class="col pl-3">
-                   <i class="far fa-bell" style="font-size: 25px;"></i>
-                 </div>
-                 <div class="col pl-3 pr-1">
-                   {% if Profile.Profile_Photo %}
-                     <a href="{% url 'Base:ProfileView' request.user %}"> <img src="{{Profile.Profile_Photo.url}}" height="30" width="30" style="border-radius:50%;"></a>
-                    {% else %}
-                     <a href="{% url 'Base:ProfileView' request.user %}"> <img src="{% static 'img/user.png' %}" height="30" width="30" style="border-radius:50%;"></a>
-                    {% endif %}
-
-                 </div>
+                     <div class="col pl-1">
+                         <a href="{% url 'Base:HomeView' %}"><img src="{% static 'img/home3.png' %}" height="25" width="25"></a>
+                     </div>
+                     <div class="col pl-3">
+                         <a href="{% url 'Base:ExploreView' %}"><i class="fas fa-search text-dark" style="font-size: 25px;"></i></a>
+                     </div>
+                     <div class="col pl-3">
+                         <a href="{% url 'Base:AddPost' %}"><i class="fas fa-plus-square text-dark" style="font-size: 25px;"></i></a>
+                     </div>
+                     <div class="col pl-3">
+                       <i class="far fa-bell" style="font-size: 25px;"></i>
+                     </div>
+                     <div class="col pl-3 pr-1">
+                       {% if Profile.Profile_Photo %}
+                         <a href="{% url 'Base:ProfileView' request.user %}"> <img src="{{Profile.Profile_Photo.url}}" height="30" width="30" style="border-radius:50%;"></a>
+                        {% else %}
+                         <a href="{% url 'Base:ProfileView' request.user %}"> <img src="{% static 'img/user.png' %}" height="30" width="30" style="border-radius:50%;"></a>
+                        {% endif %}
+                     </div>
 
                 </div>
             </div>

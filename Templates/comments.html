@@ -172,7 +172,7 @@
                 // Image of user
                 var img = document.createElement("img");
                 {% if profile.Profile_Photo %}
-                img.src = '/media/'+user[0].fields.Profile_Photo;
+                img.src = 'https://assets07.s3.us-east-2.amazonaws.com/media/'+user[0].fields.Profile_Photo;
 
                 {% else %}
                 img.src = "{% static 'img/user.png' %}"

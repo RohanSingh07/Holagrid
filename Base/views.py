@@ -177,14 +177,14 @@ def ProfileEdit(request,slug):
             'Profile':Profile,
         })
     else:
-
-        ProfilePhoto = request.FILES['ProfilePhoto']
+        # If there is change in the photo
+        if request.FILES['ProfilePhoto']:
+            print('yes')
+            ProfilePhoto = request.FILES['ProfilePhoto']
+            Profile.Profile_Photo = ProfilePhoto
         Profile_Name = request.POST['Profile_Name']
         Username_Name = request.POST['Username_Name']
         Bio = request.POST['Bio']
-        # delete the previous Photo
-        Profile.Profile_Photo.delete()
-        Profile.Profile_Photo = ProfilePhoto
         Profile.Profile_Name = Profile_Name
         Profile.Username_Name = Username_Name
         Profile.Bio = Bio

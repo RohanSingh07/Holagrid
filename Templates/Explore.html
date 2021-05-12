@@ -2,23 +2,52 @@
 {% load static %}
 {% block Navbar1 %}
 <!-- Large Screen Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
-            <div class="container d-flex justify-content-center align-items-center">
-                 <div class="row border">
-                    <div class="col">
-                        <a class="navbar-brand text-primary">PROTOTYPE</a>
-                    </div>
-                     <div class="col">
-                          <input type="text" name="SearchInput" class="form-control text-inside" placeholder="Search">
-                    </div>
-
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-0 pb-0 d-none d-sm-none d-md-block d-lg-block d-xl-block">
+            <div class="container ">
+                 <div class="row border d-flex justify-content-start align-items-center w-100">
+                     <div class="col-6 border">
+                         <div class="row w-100 d-flex justify-content-center align-items-center">
+                            <!-- Logo and Brand name -->
+                            <a class="navbar-brand text-dark" style="font-size:30px;font-family: Garamond, serif;">Holagrid</a>
+                            <!-- Logo and Brand name -->
+                            <!-- Search Input -->
+                            <input type="text" name="SearchInput" class="form-control text-inside ml-4" placeholder="Search" style="width:200px;border-radius:2%;">
+                            <!-- Search Input -->
+                        </div>
+                     </div>
+                     <div class="col-6 border">
+                          <div class="row w-100 d-flex align-items-center justify-content-center">
+                            <!-- Home -->
+                             <a href="{% url 'Base:HomeView' %}" class="" ><img src="{% static 'img/home3.png' %}" height="25" width="25"></a>
+                            <!-- Home -->
+                            <!-- Explore -->
+                             <a href="{% url 'Base:ExploreView' %}" class="ml-4"><i class="fas fa-search" style="font-size: 25px;color:grey;"></i></a>
+                            <!-- Explore -->
+                            <!-- Chats -->
+                            <a href="{% url 'Base:AllChats' %}" class="ml-4"><i class="far fa-comment-alt" style="font-size: 25px;color:black;"></i></a>
+                            <!-- Chats -->
+                            <!-- Add Post -->
+                             <a href="{% url 'Base:AddPost' %}" class="ml-4"><i class="fas fa-plus-square" style="font-size: 25px;color:grey;"></i></a>
+                            <!-- Add Post -->
+                            <!-- Notification -->
+                            <a class="ml-4"><i class="far fa-bell " style="font-size: 25px;"></i></a>
+                            <!-- Notification -->
+                            <!-- Profile -->
+                             {% if Profile.Profile_Photo %}
+                               <a href="{% url 'Base:ProfileView' request.user %}" class="ml-4 mr-5"> <img src="{{Profile.Profile_Photo.url}}" height="25" width="25" style="border-radius:50%;"></a>
+                             {% else %}
+                               <a href="{% url 'Base:ProfileView' request.user %}" class="ml-4 mr-5"> <img src="{% static 'img/user.png' %}" height="25" width="25" style="border-radius:50%;"></a>
+                             {% endif %}
+                             <!-- Profile -->
+                          </div>
+                     </div>
                 </div>
             </div>
 
         </nav>
       <!-- Large Screen Navbar End -->
-      <!-- Small Screen Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
+    <!-- Small Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-block d-md-none d-lg-none d-xl-none">
 
                  <div class="row border pb-1 pt-1">
                     <div class="col-2 d-flex align-items-center">
@@ -40,6 +69,9 @@
 <style>
 
 </style>
+<div class="d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 pt-3 container" style="display:block;">
+</div>
+
 <div id="Explore" class="pt-4 mt-4 row ">
 
 </div>
@@ -47,6 +79,8 @@
 <div id="SearchResult" class="mt-5 pt-3">
 
 </div>
+
+
 <!-- Division for searchresults -->
 
 {% endblock %}
@@ -155,7 +189,7 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+     Video.style="height:20vh;width:100%;border:1px solid white;object-fit:fill;";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
      Video.appendChild(source);
@@ -170,7 +204,7 @@
     else{
     var Image = document.createElement("img");
     Image.className=posts[i].fields.Filter;
-    Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+    Image.style="height:100%;width:100%;border:1px solid white;object-fit:fill;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-8 pl-0 pr-0 pt-0 pb-0";

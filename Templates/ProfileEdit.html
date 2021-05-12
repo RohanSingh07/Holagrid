@@ -50,11 +50,8 @@
         {% else %}
         <img src="{% static 'img/user.png' %}" height="100" width="100" style="border-radius:50%;" id="DisplayProfilePic">
         {% endif %}
-        {% if Profile.Profile_Photo %}
-             <input type="file" name="ProfilePhoto" id="ProfilePhoto" value="{{Profile.Profile_Photo.url}}" onchange="File_display(this)" accept="image/jpeg,image/png,image/jpg">
-        {% else %}
-             <input type="file" name="ProfilePhoto" id="ProfilePhoto" value="{% static 'img/user.png' %}" onchange="File_display(this)" accept="image/jpeg,image/png,image/jpg">
-        {% endif %}
+
+        <input type="file" name="ProfilePhoto" id="ProfilePhoto" value="" onchange="File_display(this)" accept="image/jpeg,image/png,image/jpg">
         </div>
         <div class="col-12 d-flex justify-content-center">
         <a class="pt-1 font-weight-normal text-primary" id="EditProfilePhoto">Edit</a>
@@ -98,6 +95,7 @@
 {% endblock %}
 {% block extra_body %}
 <script>
+
     document.getElementById("Bio").innerHTML = "{{Profile.Bio}}"
     $('#ProfilePhoto').hide();
     // EditProfilePhoto
