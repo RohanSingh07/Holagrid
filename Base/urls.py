@@ -2,11 +2,14 @@ from django.urls import path,include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-
+from rest_framework import routers
 app_name = "Base"
 
-urlpatterns = [
+# Resigter the Model
+router = routers.DefaultRouter()
+router.register('posts',views.PostViewSet,basename='posts')
 
+urlpatterns = [
     path('',views.HomeView,name="HomeView"),
     path('comments/<postslug>/',views.CommentView,name="CommentView"),
     path('Likes/<postslug>/',views.LikesView,name="LikesView"),
@@ -28,11 +31,17 @@ urlpatterns = [
     # For Viewwing all the status
     path('Stories/',views.Statuses,name="StatusShow"),
     # ajax for follow and following
-    path('FollowUnfollow/',views.AddRemFollower,name = "AddRemFollower")
+    path('FollowUnfollow/',views.AddRemFollower,name = "AddRemFollower"),
+
+    # REST API
+    path('api/', include(router.urls)),
+   
 
 ]
 
+
 if settings.DEBUG:
+
     urlpatterns+=static(settings.STATIC_URL,document_root = settings.STATIC_ROOT)
 
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

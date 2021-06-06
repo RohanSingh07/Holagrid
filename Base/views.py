@@ -359,3 +359,18 @@ def AddRemFollower(request):
         Myprofile.Following.remove(profile)
 
     return JsonResponse('Hello',safe=False)
+
+# Rest API
+from rest_framework import viewsets
+
+from .serializers import PostSerializer
+
+
+class PostViewSet(viewsets.ModelViewSet):
+    """
+    Returns Json list of all Posts
+    """
+    queryset = models.Posts.objects.all()
+    serializer_class = PostSerializer
+        
+
