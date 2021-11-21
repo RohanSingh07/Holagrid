@@ -136,6 +136,10 @@
 {% block extra_body %}
 <script>
 
+    $("#Username_Name").keyup(function(){
+    var text=$(this).val();
+    $(this).val(text.replace(/[^A-Za-z]/g,''));
+})
     $("textarea#Bio").on("input",function(){
         console.log($("textarea#Bio").val());
         $("#BioVal").val($("textarea#Bio").val());
