@@ -296,7 +296,7 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:500px;width:100%;border:3px solid white;display:block";
+     Video.style="min-height:500px;max-height:500px;min-width:100%;max:width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
      Video.appendChild(source);
@@ -312,7 +312,7 @@
      Video_sm.onmouseover = function(Video){this.play()};
      Video_sm.onmouseout = function(Video){this.pause()};
      Video_sm.muted="muted"
-     Video_sm.style="height:150px;width:100%;border:1px solid white;display:block";
+     Video_sm.style="min-height:150px;max-height:150px;min-width:100%;max-width:100%;border:1px solid white;display:block";
      var source_sm = document.createElement('source');
      source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
      Video_sm.appendChild(source_sm);
@@ -328,7 +328,7 @@
     else{
     var Image = document.createElement("img");
     Image.className=posts[i].fields.Filter+"col-8 pl-0 pr-0 pt-0 pb-0";
-    Image.style="height:500px;width:100%;border:3px solid white;";
+    Image.style="min-height:500px;max-height:500px;max-width:100%;min-width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
 
      Anchor = document.createElement("a");
@@ -340,7 +340,7 @@
      // SMall Screen
      var Image_sm = document.createElement("img");
     Image_sm.className=posts[i].fields.Filter+"col-6 pl-0 pr-0 pt-0 pb-0";
-    Image_sm.style="height:150px;width:100%;border:1px solid white;";
+    Image_sm.style="min-height:150px;max-height:150px;max-width:100%;min-width:100%;border:1px solid white;";
     Image_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
 
      Anchor_sm = document.createElement("a");
@@ -360,7 +360,7 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:500px;width:100%;border:3px solid white;display:block";
+     Video.style="min-height:500px;max-height:500px;min-width:100%;max-width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+1].fields.File1;
      Video.appendChild(source);
@@ -376,7 +376,7 @@
      Video_sm.onmouseover = function(Video){this.play()};
      Video_sm.onmouseout = function(Video){this.pause()};
      Video_sm.muted="muted"
-     Video_sm.style="height:150px;width:100%;border:1px solid white;display:block";
+     Video_sm.style="min-height:150px;max-height:150px;max-width:100%;min-width:100%;border:1px solid white;display:block";
      var source_sm = document.createElement('source');
      source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+1].fields.File1;
      Video_sm.appendChild(source_sm);
@@ -390,12 +390,11 @@
     // If the post if image (Post2)
     else{
     var Image = document.createElement("img");
-    Image.className=posts[i+1].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
-    Image.style="height:500px;width:100%;border:3px solid white;";
+    Image.className=posts[i+1].fields.Filter+" col-4 pl-0 pr-0 pt-0 pb-0";
+    Image.style="min-height:500px;max-height:500px;min-width:100%;max-width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+1].fields.File1;
-
      Anchor = document.createElement("a");
-     Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor.className = " col-4 pl-0 pr-0 pt-0 pb-0";
     Anchor.href = '/ExplorePosts/'+posts[i+1].fields.slug+'/';
      Anchor.appendChild(Image);
      $('#Explore').append(Anchor);
@@ -403,7 +402,7 @@
       // SMall Screen
      var Image_sm = document.createElement("img");
     Image_sm.className=posts[i+1].fields.Filter+"col-6 pl-0 pr-0 pt-0 pb-0";
-    Image_sm.style="height:150px;width:100%;border:1px solid white;";
+    Image_sm.style="min-height:150px;max-height:150px;min-width:100%;max-width:100%;border:1px solid white;";
     Image_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+1].fields.File1;
 
      Anchor_sm = document.createElement("a");
@@ -420,7 +419,7 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:300px;width:100%;border:3px solid white;display:block";
+     Video.style="min-height:300px;max-height:300px;min-width:100%;max-width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+2].fields.File1;
      Video.appendChild(source);
@@ -436,7 +435,7 @@
      Video_sm.onmouseover = function(Video){this.play()};
      Video_sm.onmouseout = function(Video){this.pause()};
      Video_sm.muted="muted"
-     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     Video_sm.style="min-height:100px;max-height:100px;max-width:100%;min-width:100%;border:1px solid white;display:block";
      var source_sm = document.createElement('source');
      source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+2].fields.File1;
      Video_sm.appendChild(source_sm);
@@ -450,7 +449,7 @@
     else{
     var Image = document.createElement("img");
     Image.className=posts[i+2].fields.Filter;
-    Image.style="height:300px;width:100%;border:3px solid white;";
+    Image.style="min-height:300px;max-height:300px;max-width:100%;min-width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+2].fields.File1;
 
      Anchor = document.createElement("a");
@@ -462,7 +461,7 @@
      // SMall Screen
      var Image_sm = document.createElement("img");
     Image_sm.className=posts[i+2].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
-    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image_sm.style="min-height:100px;max-height:100px;max-width:100%;min-width:100%;border:1px solid white;";
     Image_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+2].fields.File1;
 
      Anchor_sm = document.createElement("a");
@@ -480,7 +479,7 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:300px;width:100%;border:3px solid white;display:block";
+     Video.style="min-height:300px;max-height:300px;max-width:100%;min-width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+3].fields.File1;
 
@@ -497,7 +496,7 @@
      Video_sm.onmouseover = function(Video){this.play()};
      Video_sm.onmouseout = function(Video){this.pause()};
      Video_sm.muted="muted"
-     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     Video_sm.style="min-height:100px;max-height:100px;min-width:100%;max-width:100%;border:1px solid white;display:block";
      var source_sm = document.createElement('source');
      source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+3].fields.File1;
      Video_sm.appendChild(source_sm);
@@ -511,7 +510,7 @@
     else{
     var Image = document.createElement("img");
     Image.className=posts[i+3].fields.Filter;
-    Image.style="height:300px;width:100%;border:3px solid white;";
+    Image.style="min-height:300px;max-height:300px;min-width:100%;max-width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+3].fields.File1;
 
      Anchor = document.createElement("a");
@@ -523,7 +522,7 @@
      // SMall Screen
      var Image_sm = document.createElement("img");
     Image_sm.className=posts[i+3].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
-    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image_sm.style="min-height:100px;max-height:100px;min-width:100%;max-width:100%;border:1px solid white;";
     Image_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+3].fields.File1;
 
      Anchor_sm = document.createElement("a");
@@ -541,7 +540,7 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:300px;width:100%;border:3px solid white;display:block";
+     Video.style="min-height:300px;max-height:300px;min-width:100%;max-width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+4].fields.File1;
      Video.appendChild(source);
@@ -557,7 +556,7 @@
      Video_sm.onmouseover = function(Video){this.play()};
      Video_sm.onmouseout = function(Video){this.pause()};
      Video_sm.muted="muted"
-     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     Video_sm.style="min-height:100px;max-height:100px;min-width:100%;max-width:100%;border:1px solid white;display:block";
      var source_sm = document.createElement('source');
      source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+4].fields.File1;
      Video_sm.appendChild(source_sm);
@@ -571,7 +570,7 @@
     else{
     var Image = document.createElement("img");
     Image.className=posts[i+4].fields.Filter;
-    Image.style="height:300px;width:100%;border:3px solid white;";
+    Image.style="min-height:300px;max-height:300px;min-width:100%;max-width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+4].fields.File1;
 
      Anchor = document.createElement("a");
@@ -583,7 +582,7 @@
      // SMall Screen
      var Image_sm = document.createElement("img");
     Image_sm.className=posts[i+4].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
-    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image_sm.style="min-height:100px;max-height:100px;min-width:100%;max-width:100%;border:1px solid white;";
     Image_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+4].fields.File1;
 
      Anchor_sm = document.createElement("a");
@@ -600,7 +599,7 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:300px;width:100%;border:3px solid white;display:block";
+     Video.style="min-height:300px;max-height:300px;min-width:100%;max-width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+5].fields.File1;
 
@@ -617,7 +616,7 @@
      Video_sm.onmouseover = function(Video){this.play()};
      Video_sm.onmouseout = function(Video){this.pause()};
      Video_sm.muted="muted"
-     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     Video_sm.style="min-height:100px;max-height:100px;min-width:100%;max-width:100%;border:1px solid white;display:block";
      var source_sm = document.createElement('source');
      source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+5].fields.File1;
      Video_sm.appendChild(source_sm);
@@ -631,7 +630,7 @@
     else{
     var Image = document.createElement("img");
     Image.className=posts[i+5].fields.Filter;
-    Image.style="height:300px;width:100%;border:3px solid white;";
+    Image.style="min-height:300px;max-height:300px;max-width:100%;min-width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+5].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
@@ -642,7 +641,7 @@
      // SMall Screen
      var Image_sm = document.createElement("img");
     Image_sm.className=posts[i+5].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
-    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image_sm.style="min-height:100px;max-height:100px;max-width:100%;min-width:100%;border:1px solid white;";
     Image_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+5].fields.File1;
      Anchor_sm = document.createElement("a");
      Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
@@ -658,7 +657,7 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:300px;width:100%;border:3px solid white;display:block";
+     Video.style="min-height:300px;max-height:300px;max-width:100%;min-width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+6].fields.File1;
      Video.appendChild(source);
@@ -674,7 +673,7 @@
      Video_sm.onmouseover = function(Video){this.play()};
      Video_sm.onmouseout = function(Video){this.pause()};
      Video_sm.muted="muted"
-     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     Video_sm.style="min-height:100px;max-height:100px;min-width:100%;max-width:100%;border:1px solid white;display:block";
      var source_sm = document.createElement('source');
      source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+6].fields.File1;
      Video_sm.appendChild(source_sm);
@@ -688,7 +687,7 @@
     else{
     var Image = document.createElement("img");
     Image.className=posts[i+6].fields.Filter;
-    Image.style="height:300px;width:100%;border:3px solid white;";
+    Image.style="min-height:300px;max-height:300px;min-width:100%;max-width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+6].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
@@ -699,7 +698,7 @@
      // SMall Screen
      var Image_sm = document.createElement("img");
     Image_sm.className=posts[i+6].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
-    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image_sm.style="min-height:100px;max-height:100px;min-width:100%;max-width:100%;border:1px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+6].fields.File1;
 
      Anchor_sm = document.createElement("a");
@@ -716,7 +715,7 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:300px;width:100%;border:3px solid white;display:block";
+     Video.style="min-height:300px;max-height:300px;min-width:100%;max-width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+7].fields.File1;
      Video.appendChild(source);
@@ -732,7 +731,7 @@
      Video_sm.onmouseover = function(Video){this.play()};
      Video_sm.onmouseout = function(Video){this.pause()};
      Video_sm.muted="muted"
-     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     Video_sm.style="min-height:100px;max-height:100px;min-width:100%;max-width:100%;border:1px solid white;display:block";
      var source_sm = document.createElement('source');
      source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+7].fields.File1;
      Video_sm.appendChild(source_sm);
@@ -746,7 +745,7 @@
     else{
     var Image = document.createElement("img");
     Image.className= posts[i+7].fields.Filter;
-    Image.style="height:300px;width:100%;border:1px solid white;";
+    Image.style="min-height:300px;max-height:300px;min-width:100%;max-width:100%;border:1px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+7].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
@@ -757,7 +756,7 @@
      // SMall Screen
      var Image_sm = document.createElement("img");
     Image_sm.className=posts[i+7].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
-    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image_sm.style="min-height:100px;max-height:100px;min-width:100%;max-width:100%;border:1px solid white;";
     Image_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+7].fields.File1;
 
      Anchor_sm = document.createElement("a");

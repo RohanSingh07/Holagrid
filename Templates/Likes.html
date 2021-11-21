@@ -21,8 +21,13 @@
         {% for like in post.Likes.all %}
         <div class="row pl-4 pt-1">
             <div class="col-7 pl-0 pt-0 d-flex align-items-start">
+                {% if like.Profile_Photo %}
                 <img src="{{like.Profile_Photo.url}}" height="40" width="40" style="border-radius:50%;">
+                {% else %}
+                <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;">
+                {% endif %}
                 <small class="text-white ml-4"><span class="font-weight-bold text-white">{{like.user.username}}</span> <br><span class=" text-muted font-weight-light">{{like.Profile_Name}}</span></small>
+
             </div>
             <div class="col-5 d-flex align-items-start pl-1">
                 <a class="form-control bg-primary font-weight-normal text-center" style="font-size:10px;color:white;height:25px;width:100px;" href="{% url 'Base:ProfileView' like.user.username %}">PROFILE</a>

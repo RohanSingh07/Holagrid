@@ -13,6 +13,8 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{% static 'Dashboard/css/vertical-layout-light/style.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+            <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
   <!-- endinject -->
 </head>
 <body>
@@ -64,6 +66,11 @@
 </div>
 <!-- Body End -->
 <script>
+    $("#username").keyup(function(){
+    var text=$(this).val();
+    $(this).val(text.replace(/[^A-Za-z]/g,''));
+})
+
     var AllUsers = [];
     {% for users in All_users %}
       AllUsers.push('{{users.username}}');

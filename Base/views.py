@@ -254,7 +254,6 @@ def SendReply(request):
     Unilist = [int(Sender1.UniqueCode),int(Sender2.UniqueCode)]
     Unilist.sort()
     id = str(Unilist[0])+str(Unilist[1])
-    print(id)
     Chatroom = Sender1.Chatrooms.filter(unique_id =id)
     if Chatroom.exists():
         Chatroom = Chatroom[0]
