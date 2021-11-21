@@ -407,7 +407,7 @@
 
      Anchor_sm = document.createElement("a");
      Anchor_sm.className = "col-6 pl-0 pr-0 pt-0 pb-0";
-     Anchor_sm.href = '/ExplorePosts/'+posts[i].fields.slug+'/';
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+1].fields.slug+'/';
      Anchor_sm.appendChild(Image_sm);
      $('#ExploreSM').append(Anchor_sm);
     }}
