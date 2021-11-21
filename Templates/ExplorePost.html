@@ -2,213 +2,309 @@
 {% load static %}
 {% block Navbar1 %}
 <!-- Large Screen Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                <div class="row border pb-1 pt-1 d-flex align-items-center">
-                      <a><i  class="col-2  fas fa-arrow-left text-primary" style="font-size: 25px;"></i></a>
-                      <h5 class="pt-1  mb-2 col-8 pl-0 pr-1 font-weight-bold">Trending</h5>
-                </div>
+        <nav class="navbar fixed-top navbar-expand-lg bg-white pt-0 pb-0 d-none d-sm-none d-md-block d-lg-block d-xl-block" >
+            <div class="container ">
+                 <div class="row  d-flex justify-content-start align-items-center w-100">
+                     <div class="col-6 ">
+                         <div class="row w-100 d-flex justify-content-start align-items-center">
+                            <!-- Logo and Brand name -->
+                            <a class="navbar-brand text-dark font-weight-bold" style="font-size:30px;font-family: Garamond, serif;">Holagrid</a>
+                            <!-- Logo and Brand name -->
 
+                        </div>
+                     </div>
+                     <div class="col-6 ">
+                          <div class="row w-100 d-flex align-items-center justify-content-center">
+                            <!-- Home -->
+                             <a href="{% url 'Base:HomeView' %}" class="" ><img src="{% static 'img/home3.png' %}" height="25" width="25"></a>
+                            <!-- Home -->
+                            <!-- Explore -->
+                             <a href="{% url 'Base:ExploreView' %}" class="ml-4"><i class="fas fa-globe" style="font-size: 25px;color:grey;"></i></a>
+                            <!-- Explore -->
+                            <!-- Chats -->
+                            <a href="{% url 'Base:AllChats' %}" class="ml-4"><i class="far fa-comment-alt" style="font-size: 25px;color:black;"></i>
+                            <span style="color:red;" class="font-weight-bold">{{Profile.Chatrooms.count}}</span>
+                            </a>
+                            <!-- Chats -->
+                            <!-- Add Post -->
+                             <a href="{% url 'Base:AddPost' %}" class="ml-4"><i class="fas fa-plus-square" style="font-size: 25px;color:grey;"></i></a>
+                            <!-- Add Post -->
+
+                            <!-- Profile -->
+                             {% if Profile.Profile_Photo %}
+                               <a href="{% url 'Base:ProfileView' request.user %}" class="ml-4 mr-5"> <img src="{{Profile.Profile_Photo.url}}" height="25" width="25" style="border-radius:50%;"></a>
+                             {% else %}
+                               <a href="{% url 'Base:ProfileView' request.user %}" class="ml-4 mr-5"> <img src="{% static 'img/user.png' %}" height="25" width="25" style="border-radius:50%;"></a>
+                             {% endif %}
+                             <!-- Profile -->
+                          </div>
+                     </div>
+                </div>
+            </div>
         </nav>
       <!-- Large Screen Navbar End -->
       <!-- Small Screen Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
 
                  <div class="row border pb-1 pt-1 d-flex align-items-center">
-                      <a><i  class="col-2  fas fa-arrow-left text-primary" style="font-size: 25px;"></i></a>
-                      <h5 class="pt-1  mb-2 col-8 pl-0 pr-1 font-weight-bold">Trending</h5>
+                      <a href="{{request.META.HTTP_REFERER}}"><i  class="col-2  fas fa-arrow-left text-primary" style="font-size: 25px;"></i></a>
+                      <h5 class="pt-1  mb-2 col-8 pl-0 pr-1 font-weight-bold">POSTS</h5>
                 </div>
-
-
         </nav>
 
     <!-- Small Screen Navbar End -->
 {% endblock %}
  {% block content %}
-     <div class="container h-100 w-100 mt-5 pt-5 d-none d-sm-block d-md-block d-lg-block d-xl-block" >
-       <!-- All related posts -->
-       {% for post in Posts.all %}
-         <div class="row border h-75 mt-2 w-100 ">
+     <div class="container mt-5 pt-3 d-none d-lg-block d-sm-none d-md-block d-xl-block " >
+     <div class="row">
+         <div class="col-10">
+                {% for Posts in AllPosts %}
+                {% for post in Posts.all %}
+                 <!-- Header -->
+                 <div class="row border d-flex align-items-center pl-4 pt-2 pb-2 mt-3 justify-content-start w-100">
+                     {% if post.user.Profile_Photo %}
+                     <a href="{% url 'Base:ProfileView' post.user.username %}" ><img src="{{post.user.Profile_Photo.url}}" height="40" width="40" style="border-radius:50%;"></a>
+                     {% else %}
+                     <a href="{% url 'Base:ProfileView' post.user.username %}" ><img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;"></a>
+                     {% endif %}
+                     <a href="{% url 'Base:ProfileView' post.user.username %}" ><small class="pl-2 font-weight-bold text-white">{{post.user.user.username}}</small></a>
+                 </div>
+                 <!-- Header End -->
+                  <!-- Body -->
+                    <div id="Large{{post.slug}}" ondblclick="LikePost('{{post.slug}}')"  style="height:600px;" class="carousel slide row w-100 border bg-white" data-ride="carousel" data-interval="false">
+                          <div class="carousel-inner">
+                            <img src="{% static 'img/heart.png' %}" height="100" width="100" id="Heart_Large{{post.slug}}" style="position:absolute;z-index:2;margin-top:40%;margin-left:45%;">
+                            {% if post.File1 %}
+                              <div class="carousel-item active" style="position:relative;">
+                                  {% if post.File1Type %}
+                                     <img src="{% static 'img/play1.png' %}" class="pause" onclick="PausePlay1(['{{post.slug}}',1,this]);" height="100" width="100" id="Play1{{post.slug}}" style="position:absolute;z-index:1;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                     <video id="Play1Video{{post.slug}}" class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',1,this]);" style="height:600px;width:100%;">
+                                        <source src="{{post.File1.url}}" >
+                                     </video>
+                                   {% else %}
+                                        <img class="d-block mini {{post.Filter}}" src="{{post.File1.url}}" style="height:600px;width:100%;object-fit:cover;" >
+                                   {% endif %}
+                              </div>
+                            {% endif %}
+                            {% if post.File2 %}
+                              <div class="carousel-item " style="position:relative;">
+                               {% if post.File2Type %}
+                                    <img src="{% static 'img/play1.png' %}" height="100" width="100" id="Play2{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                     <video  class="  {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',2,this]);" style="height:600px;width:100%;">
+                                        <source  src="{{post.File2.url}}" >
+                                     </video>
+                                   {% else %}
+                                    <img class="d-block mini {{post.Filter}}" src="{{post.File2.url}}" style="height:600px;width:100%;object-fit:cover;" >
+                               {% endif %}
+                             </div>
+                            {% endif %}
+                            {% if post.File3 %}
+                               <div class="carousel-item " style="position:relative;">
+                               {% if post.File3Type %}
+                                   <img src="{% static 'img/play1.png' %}" height="100" width="100" id="Play3{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                     <video class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',3,this]);" style="height:600px;width:100%;">
+                                        <source src="{{post.File3.url}}" >
+                                     </video>
+                                   {% else %}
+                                        <img class="d-block mini {{post.Filter}}" src="{{post.File3.url}}" style="height:600px;width:100%;object-fit:cover;" >
+                               {% endif %}
+                               </div>
+                            {% endif %}
+                             {% if post.File4 %}
+                              <div class="carousel-item " style="position:relative;">
+                               {% if post.File4Type %}
+                                    <img src="{% static 'img/play1.png' %}" height="100" width="100" id="Play4{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                     <video  class=" {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',4,this]);" style="height:600px;width:100%;">
+                                        <source src="{{post.File4.url}}" >
+                                     </video>
 
-            <div class=" h-100 w-100" >
-                <div class="card-header w-100">
-                    <div class="row d-flex align-items-center">
-                        {% if post.user.Profile_Photo %}
-                            <img src="{{post.user.Profile_Photo.url}}" height="60" width="60" style="border-radius:50%;">
-                        {% else %}
-                            <img src="{% static 'img/user.png' %}" height="60" width="60" style="border-radius:50%;">
+                                   {% else %}
+
+                                        <img class="d-block mini {{post.Filter}}" src="{{post.File4.url}}"  style="object-fit:cover;height:600px;width:100%;">
+
+                               {% endif %}
+                              </div>
+                            {% endif %}
+
+                            {% if post.File5 %}
+                              <div class="carousel-item " style="position:relative;">
+                               {% if post.File5Type %}
+                                    <img src="{% static 'img/play1.png' %}" height="100" width="100" id="Play5{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                     <video  class=" {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',5,this]);" style="height:600px;width:100%;">
+                                        <source src="{{post.File5.url}}" >
+                                     </video>
+                                   {% else %}
+
+                                        <img class="d-block mini {{post.Filter}}" src="{{post.File5.url}}" style="object-fit:cover;height:600px;width:100%;" >
+
+                               {% endif %}
+                              </div>
+                            {% endif %}
+
+                            {% if post.File6 %}
+                              <div class="carousel-item " style="position:relative;">
+                               {% if post.File6Type %}
+                                    <img src="{% static 'img/play1.png' %}" height="100" width="100" id="Play6{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                     <video  class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',6,this]);" style="height:600px;width:100%;">
+                                        <source src="{{post.File6.url}}" >
+                                     </video>
+                                   {% else %}
+                                        <img class="d-block mini {{post.Filter}}" src="{{post.File6.url}}" style="object-fit:cover;height:600px;width:100%;" >
+                               {% endif %}
+                              </div>
+                            {% endif %}
+
+                            {% if post.File7 %}
+                              <div class="carousel-item " style="position:relative;">
+                               {% if post.File7Type %}
+                                     <img src="{% static 'img/play1.png' %}" height="100" width="100" id="Play7{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                     <video  class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',7,this]);" style="height:600px;width:100%;">
+                                        <source src="{{post.File7.url}}" >
+                                     </video>
+
+                                   {% else %}
+
+                                        <img class="d-block  mini {{post.Filter}}" src="{{post.File7.url}}" style="object-fit:cover;height:600px;width:100%;" >
+
+                               {% endif %}
+                              </div>
+                            {% endif %}
+
+                            {% if post.File8 %}
+                              <div class="carousel-item " style="position:relative;">
+                               {% if post.File8Type %}
+                                    <img src="{% static 'img/play1.png' %}" height="100" width="100" id="Play8{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                     <video  class="  {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',8,this]);" style="height:600px;width:100%;">
+                                        <source src="{{post.File8.url}}" >
+                                     </video>
+
+                                   {% else %}
+
+                                        <img class="d-block mini {{post.Filter}}" src="{{post.File8.url}}" style="object-fit:cover;height:600px;width:100%;" >
+
+                               {% endif %}
+                              </div>
+                            {% endif %}
+
+                            {% if post.File9 %}
+                              <div class="carousel-item " style="position:relative;">
+                               {% if post.File9Type %}
+                                    <img src="{% static 'img/play1.png' %}" height="100" width="100" id="Play9{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                     <video  class="carousel-item  {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',9,this]);" style="height:600px;width:100%;">
+                                        <source src="{{post.File9.url}}" >
+                                     </video>
+
+                                   {% else %}
+
+                                        <img class="d-block  mini {{post.Filter}}" src="{{post.File9.url}}" style="object-fit:cover;height:600px;width:100%;" >
+
+                               {% endif %}
+                              </div>
+                            {% endif %}
+
+                            {% if post.File10 %}
+                              <div class="carousel-item " style="position:relative;">
+                               {% if post.File10Type %}
+                                    <img src="{% static 'img/play1.png' %}" height="100" width="100" id="Play10{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                     <video  class=" {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',10,this]);" style="height:600px;width:100%;">
+                                        <source src="{{post.File10.url}}" >
+                                     </video>
+                                   {% else %}
+                                        <img class="d-block mini {{post.Filter}}" src="{{post.File10.url}}" style="object-fit:cover;height:600px;width:100%;" >
+                               {% endif %}
+                              </div>
+                            {% endif %}
+
+                          </div>
+                           <a class="carousel-control-prev " href="#Large{{post.slug}}" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                            <span><i class="fas fa-chevron-left"></i></span>
+                            <span class="sr-only text-white">Previous</span>
+                           </a>
+                           <a class="carousel-control-next" href="#Large{{post.slug}}" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                             <span><i class="fas fa-chevron-right"></i></span>
+                            <span class="sr-only ">Next</span>
+                           </a>
+                            <!--Indicators-->
+                            <ol class="carousel-indicators" style="position:relative;bottom:0;margin:auto;">
+                                <li data-target="#multi-item-example" data-slide-to="0" class="active " ></li>
+                              {% if post.File2 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File3 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File4 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File5 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File6 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File7 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File8 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File9 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File10 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                            </ol>
+                            <!--/.Indicators-->
+                        </div>
+                    <!-- Body End -->
+                    <div class="border row justify-content-start w-100">
+                    <!-- Post Middle -->
+                        <div class="row pt-2 pb-2 d-flex w-100">
+                            <a id="{{post.slug}}" onclick="LikePost('{{post.slug}}')" style="color:white;"><i class="far fa-heart pl-4 font-weight-normal" style="font-size:25px;"></i></a>
+                            <a href="{% url 'Base:CommentView' post.slug %}" style="color:white;"><i class="far fa-comment pl-4" style="font-size:25px;"></i></a>
+                        </div>
+                    <!-- Post Middle End -->
+                    <!-- Display Likes -->
+                    <div class="row w-100 pl-4 " >
+                        {% if post.Likes.count %}
+                        <small id="display-likes-{{post.slug}}" class="text-white">Liked by <span class="font-weight-bold">{{post.Likes.first.user}}</span> and <a class="font-weight-bold " href="{% url 'Base:LikesView' post.slug %}">{{post.Likes.count}} others</a></small>
                         {% endif %}
-                    <h6 class="pl-4">{{post.user.user}}</h6>
                     </div>
-                </div>
+                    <!-- Display Likes -->
+                    <!-- Display Caption -->
+                    <div class="row pl-4 ">
+                        {% if post.Description %}
+                            <small class="text-white"><span class="font-weight-bold">{{post.user.user.username}}</span> {{post.Description}}</small>
+                        {% endif %}
+                    </div>
+                    <!-- Display Caption -->
+                    <!-- Comments Section -->
+                    <div class="row w-100 pl-4 ">
+                        <div class="col pl-0">
+                        {% if post.Comments.count %}
+                        <a class="text-muted" href="{% url 'Base:CommentView' post.slug %}">View all {{post.Comments.count}} comments</a><br>
 
-              <div class="card-body h-100 w-100" >
-                <div id="Large{{post.slug}}" class="carousel slide  w-100" style="height:80%;" data-ride="carousel">
+                            <small class="text-white"><span class="font-weight-bold">{{post.Comments.first.user.user.username}}</span> {{post.Comments.first.Comment}} </small> <br>
+                            <small class="text-white"><span class="font-weight-bold">{{post.Comments.last.user.user.username}}</span> {{post.Comments.last.Comment}} </small><br>
 
-                  <div class="carousel-inner h-100 w-100">
-                    {% if post.File1 %}
-                      {% if post.File1Type %}
-                         <video  class="carousel-item active h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                            <source src="{{post.File1.url}}" >
-                         </video>
-
-                       {% else %}
-                        <div class="carousel-item active h-100 w-100 " >
-                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File1.url}}"  >
+                        {% endif %}
                         </div>
-                       {% endif %}
-                    {% endif %}
-
-                    {% if post.File2 %}
-                       {% if post.File2Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                                <source src="{{post.File2.url}}" >
-                             </video>
-
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File2.url}}"  >
-                            </div>
-                       {% endif %}
-                    {% endif %}
-
-                    {% if post.File3 %}
-                       {% if post.File3Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                                <source src="{{post.File3.url}}" >
-                             </video>
-
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File3.url}}"  >
-                            </div>
-                       {% endif %}
-                    {% endif %}
-
-                     {% if post.File4 %}
-                       {% if post.File4Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                                <source src="{{post.File4.url}}" >
-                             </video>
-
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File4.url}}"  >
-                            </div>
-                       {% endif %}
-                    {% endif %}
-
-                    {% if post.File5 %}
-                       {% if post.File5Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                                <source src="{{post.File5.url}}" >
-                             </video>
-
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File5.url}}"  >
-                            </div>
-                       {% endif %}
-                    {% endif %}
-
-                    {% if post.File6 %}
-                       {% if post.File6Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                                <source src="{{post.File6.url}}" >
-                             </video>
-
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File6.url}}"  >
-                            </div>
-                       {% endif %}
-                    {% endif %}
-
-                    {% if post.File7 %}
-                       {% if post.File7Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                                <source src="{{post.File7.url}}" >
-                             </video>
-
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File7.url}}"  >
-                            </div>
-                       {% endif %}
-                    {% endif %}
-
-                    {% if post.File8 %}
-                   {% if post.File8Type %}
-                         <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                            <source src="{{post.File8.url}}" >
-                         </video>
-
-                       {% else %}
-                        <div class="carousel-item  h-100 w-100 " >
-                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File8.url}}"  >
-                        </div>
-                   {% endif %}
-                    {% endif %}
-
-                    {% if post.File9 %}
-                       {% if post.File9Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                                <source src="{{post.File9.url}}" >
-                             </video>
-
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File9.url}}"  >
-                            </div>
-                       {% endif %}
-                    {% endif %}
-
-                    {% if post.File10 %}
-                       {% if post.File10Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();">
-                                <source src="{{post.File10.url}}" >
-                             </video>
-
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File10.url}}"  >
-                            </div>
-                       {% endif %}
-                    {% endif %}
-
-                  </div>
-                   <a class="carousel-control-prev " href="#Large{{post.slug}}" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon " aria-hidden="true"></span>
-                    <span class="sr-only  ">Previous</span>
-
-                  </a>
-                   <a class="carousel-control-next" href="#Large{{post.slug}}" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-
-                  </a>
-
-                </div>
-
-              </div>
-
-
-            </div>
-             <!-- Description -->
-             <!-- Description -->
-         </div>
-
-
-         {% endfor %}
-       <!-- All related posts -->
+                    </div>
+                    <!-- Comments Section -->
+                    </div>
+                {% endfor %}
+                {% endfor %}
+            <!-- Posts End -->
+        </div>
+     </div>
      </div>
     <!-- Small Screen Block -->
-
-    <!-- Posts -->
-    <div id="Post" class="mt-5 pt-3 h-100 w-100 d-block d-lg-none d-sm-none ">
-
+        <div id="Post" class="mt-2 h-100 w-100 d-block d-lg-none d-sm-block d-xl-none d-md-none mt-5 pt-2">
         {% for Posts in AllPosts %}
         {% for post in Posts.all %}
-
          <!-- Header -->
          <div class="row border d-flex align-items-center pl-3 pt-2 pb-2  justify-content-start">
              {% if post.user.Profile_Photo %}
@@ -216,207 +312,229 @@
              {% else %}
                  <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;">
              {% endif %}
-            <small class="pl-2 font-weight-bold">{{post.user.user.username}}</small>
+            <small class="pl-2 font-weight-bold text-white">{{post.user.user.username}}</small>
          </div>
          <!-- Header End -->
           <!-- Body -->
-            <div id="small{{post.slug}}" ondblclick="LikePost('{{post.slug}}')" class="carousel slide w-100 border" style="height:50%;" data-ride="carousel" data-interval="false">
-
-                  <div class="carousel-inner h-100 w-100">
+            <div id="small{{post.slug}}" ondblclick="LikePost('{{post.slug}}')"  class="carousel slide w-100 border" style="height:50%;" data-ride="carousel" data-interval="false">
+                  <div class="carousel-inner ">
+                    <img src="{% static 'img/heart.png' %}" height="80" width="80" id="SHeart_Large{{post.slug}}" style="position:absolute;z-index:2;margin-top:35%;margin-left:40%;">
                     {% if post.File1 %}
+                      <div class="carousel-item active" style="position:relative;">
                       {% if post.File1Type %}
-                         <video  class="carousel-item active h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
-                            <source class="h-100 w-100" src="{{post.File1.url}}" >
+                         <img src="{% static 'img/play1.png' %}" height="100" width="100" id="PlayS1{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                         <video  class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',1,this]);" style="height:300px;width:100%;">
+                            <source class=" " src="{{post.File1.url}}" >
                          </video>
-
                        {% else %}
-                        <div class="carousel-item active h-100 w-100 " >
-                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File1.url}}" style="object-fit:cover" >
-                        </div>
+                            <img class="d-block   mini {{post.Filter}}" src="{{post.File1.url}}" style="height:300px;width:100%;">
                        {% endif %}
+                      </div>
                     {% endif %}
 
                     {% if post.File2 %}
-                       {% if post.File2Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
-                                <source class="h-100 w-100" src="{{post.File2.url}}" >
-                             </video>
-
+                      <div class="carousel-item " style="position:relative;">
+                          {% if post.File2Type %}
+                                 <img src="{% static 'img/play1.png' %}" height="100" width="100" id="PlayS2{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                 <video  class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',2,this]);" style="height:300px;width:100%;">
+                                    <source class=" " src="{{post.File2.url}}" >
+                                 </video>
                            {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File2.url}}" style="object-fit:cover" >
-                            </div>
-                       {% endif %}
+                                <img class="d-block  mini {{post.Filter}}" src="{{post.File2.url}}" style="height:300px;width:100%;">
+                           {% endif %}
+                        </div>
                     {% endif %}
-
                     {% if post.File3 %}
-                       {% if post.File3Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
-                                <source src="{{post.File3.url}}" >
-                             </video>
-
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File3.url}}" style="object-fit:cover" >
-                            </div>
-                       {% endif %}
+                      <div class="carousel-item " style="position:relative;">
+                           {% if post.File3Type %}
+                                <img src="{% static 'img/play1.png' %}" height="100" width="100" id="PlayS3{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                 <video  class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',3,this]);" style="height:300px;width:100%;">
+                                    <source src="{{post.File3.url}}" >
+                                 </video>
+                               {% else %}
+                                    <img class="d-block mini {{post.Filter}}" src="{{post.File3.url}}" style="height:300px;width:100%;" >
+                           {% endif %}
+                      </div>
                     {% endif %}
 
                      {% if post.File4 %}
-                       {% if post.File4Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
-                                <source src="{{post.File4.url}}" >
-                             </video>
+                      <div class="carousel-item " style="position:relative;">
+                           {% if post.File4Type %}
+                                <img src="{% static 'img/play1.png' %}" height="100" width="100" id="PlayS4{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                 <video  class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',4,this]);" style="height:300px;width:100%;">
+                                    <source src="{{post.File4.url}}" >
+                                 </video>
 
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File4.url}}"  style="object-fit:cover">
-                            </div>
-                       {% endif %}
+                               {% else %}
+
+                                    <img class="d-block mini {{post.Filter}}" src="{{post.File4.url}}"  style="height:300px;width:100%;">
+
+                           {% endif %}
+                      </div>
                     {% endif %}
 
                     {% if post.File5 %}
-                       {% if post.File5Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
-                                <source src="{{post.File5.url}}" >
-                             </video>
+                      <div class="carousel-item " style="position:relative;">
+                           {% if post.File5Type %}
+                                <img src="{% static 'img/play1.png' %}" height="100" width="100" id="PlayS5{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                 <video  class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',5,this]);" style="height:300px;width:100%;">
+                                    <source src="{{post.File5.url}}" >
+                                 </video>
 
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File5.url}}" style="object-fit:cover" >
-                            </div>
-                       {% endif %}
+                               {% else %}
+
+                                    <img class="d-block mini {{post.Filter}}" src="{{post.File5.url}}" style="height:300px;width:100%;">
+
+                           {% endif %}
+                      </div>
                     {% endif %}
 
                     {% if post.File6 %}
-                       {% if post.File6Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
-                                <source src="{{post.File6.url}}" >
-                             </video>
+                      <div class="carousel-item " style="position:relative;">
+                           {% if post.File6Type %}
+                                <img src="{% static 'img/play1.png' %}" height="100" width="100" id="PlayS6{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                 <video  class=" {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',6,this]);" style="height:300px;width:100%;">
+                                    <source src="{{post.File6.url}}" >
+                                 </video>
 
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File6.url}}" style="object-fit:cover" >
-                            </div>
-                       {% endif %}
+                               {% else %}
+
+                                    <img class="d-block mini {{post.Filter}}" src="{{post.File6.url}}" style="height:300px;width:100%;">
+
+                           {% endif %}
+                      </div>
                     {% endif %}
 
                     {% if post.File7 %}
-                       {% if post.File7Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
-                                <source src="{{post.File7.url}}" >
-                             </video>
+                      <div class="carousel-item " style="position:relative;">
+                           {% if post.File7Type %}
+                                <img src="{% static 'img/play1.png' %}" height="100" width="100" id="PlayS7{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                 <video  class=" {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',7,this]);" style="height:300px;width:100%;">
+                                    <source src="{{post.File7.url}}" >
+                                 </video>
 
-                           {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File7.url}}" style="object-fit:cover" >
-                            </div>
-                       {% endif %}
+                               {% else %}
+
+                                    <img class="d-block  mini {{post.Filter}}" src="{{post.File7.url}}" style="height:300px;width:100%;">
+
+                           {% endif %}
+                      </div>
                     {% endif %}
 
                     {% if post.File8 %}
-                   {% if post.File8Type %}
-                         <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
-                            <source src="{{post.File8.url}}" >
-                         </video>
-
-                       {% else %}
-                        <div class="carousel-item  h-100 w-100 " >
-                            <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File8.url}}" style="object-fit:cover" >
-                        </div>
-                   {% endif %}
-                    {% endif %}
-
-                    {% if post.File9 %}
-                       {% if post.File9Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
-                                <source src="{{post.File9.url}}" >
+                      <div class="carousel-item " style="position:relative;">
+                       {% if post.File8Type %}
+                            <img src="{% static 'img/play1.png' %}" height="100" width="100" id="PlayS8{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                             <video  class=" {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',8,this]);" style="height:300px;width:100%;">
+                                <source src="{{post.File8.url}}" >
                              </video>
 
                            {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File9.url}}" style="object-fit:cover" >
-                            </div>
+
+                                <img class="d-block mini {{post.Filter}}" src="{{post.File8.url}}" style="height:300px;width:100%;">
+
                        {% endif %}
+                      </div>
+                    {% endif %}
+
+                    {% if post.File9 %}
+                      <div class="carousel-item " style="position:relative;">
+                           {% if post.File9Type %}
+                                <img src="{% static 'img/play1.png' %}" height="100" width="100" id="PlayS9{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                                 <video  class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',9,this]);" style="height:300px;width:100%;">
+                                    <source src="{{post.File9.url}}" >
+                                 </video>
+
+                               {% else %}
+
+                                    <img class="d-block  mini {{post.Filter}}" src="{{post.File9.url}}" style="height:300px;width:100%;">
+
+                           {% endif %}
+                      </div>
                     {% endif %}
 
                     {% if post.File10 %}
+                      <div class="carousel-item " style="position:relative;">
                        {% if post.File10Type %}
-                             <video  class="carousel-item h-100 w-100 {{post.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:cover">
+                            <img src="{% static 'img/play1.png' %}" height="100" width="100" id="PlayS10{{post.slug}}" style="position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;">
+                             <video  class="{{post.Filter}}" onclick="this.paused ? this.play() : this.pause();PausePlay(['{{post.slug}}',10,this]);" style="height:300px;width:100%;">
                                 <source src="{{post.File10.url}}" >
                              </video>
 
                            {% else %}
-                            <div class="carousel-item  h-100 w-100 " >
-                                <img class="d-block h-100 w-100 mini {{post.Filter}}" src="{{post.File10.url}}" style="object-fit:cover" >
-                            </div>
+
+                                <img class="d-block mini {{post.Filter}}" src="{{post.File10.url}}" style="height:300px;width:100%;">
+
                        {% endif %}
+                      </div>
                     {% endif %}
 
                   </div>
                    <a class="carousel-control-prev " href="#small{{post.slug}}" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon " aria-hidden="true"></span>
-                    <span class="sr-only  ">Previous</span>
+                   <span><i class="fas fa-chevron-left "></i></span>
+                    <span class="sr-only ">Previous</span>
 
                   </a>
                    <a class="carousel-control-next" href="#small{{post.slug}}" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span><i class="fas fa-chevron-right mr-4"></i></span>
                     <span class="sr-only">Next</span>
 
                   </a>
+
+                  <!--Indicators-->
+                            <ol class="carousel-indicators" style="position:relative;bottom:0;margin:auto;">
+                                <li data-target="#multi-item-example" data-slide-to="0" class="active " ></li>
+                              {% if post.File2 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File3 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File4 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File5 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File6 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File7 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File8 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File9 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                              {% if post.File10 %}
+                                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                              {% endif %}
+                            </ol>
+                            <!--/.Indicators-->
 
                 </div>
             <!-- Body End -->
             <!-- Post Middle -->
                 <div class="row pt-2 pb-2 d-flex ">
-                    <a id="{{post.slug}}" onclick="LikePost('{{post.slug}}')" style=""><i class="far fa-heart pl-4 font-weight-normal" style="font-size:25px;"></i></a>
-                    <a href="{% url 'Base:CommentView' post.slug %}"><i class="far fa-comment pl-4 text-dark" style="font-size:25px;"></i></a>
-                    <div class="row pl-5">
-                    {% if post.File1 %}
-                        <i class="fas fa-circle pl-5 text-primary" style="font-size:8px;"></i>
-                    {% endif %}
-                    {% if post.File2 %}
-                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
-                    {% endif %}
-                    {% if post.File3 %}
-                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
-                    {% endif %}
-                    {% if post.File4 %}
-                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
-                    {% endif %}
-                    {% if post.File5 %}
-                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
-                    {% endif %}
-                    {% if post.File6 %}
-                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
-                    {% endif %}
-                    {% if post.File7 %}
-                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
-                    {% endif %}
-                    {% if post.File8 %}
-                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
-                    {% endif %}
-                    {% if post.File9 %}
-                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
-                    {% endif %}
-                    {% if post.File10 %}
-                        <i class="fas fa-circle pl-1" style="color:grey;font-size:8px;"></i>
-                    {% endif %}
-                    </div>
+                    <a id="S{{post.slug}}" onclick="LikePost('{{post.slug}}')" style="color:white;"><i class="far fa-heart pl-4 font-weight-normal" style="font-size:25px;"></i></a>
+                    <a href="{% url 'Base:CommentView' post.slug %}" style="color:white;"><i class="far fa-comment pl-4 " style="font-size:25px;"></i></a>
                 </div>
             <!-- Post Middle End -->
             <!-- Display Likes -->
             <div class="row pl-4" >
                 {% if post.Likes.count %}
-                <small id="display-likes-{{post.slug}}">Liked by <span class="font-weight-bold">{{post.Likes.first.user}}</span> and <a class="font-weight-bold text-dark" href="{% url 'Base:LikesView' post.slug %}">{{post.Likes.count}} others</a></small>
+                <small id="display-likes-{{post.slug}}" class="text-white">Liked by <span class="font-weight-bold">{{post.Likes.first.user}}</span> and <a class="font-weight-bold " href="{% url 'Base:LikesView' post.slug %}">{{post.Likes.count}} others</a></small>
                 {% endif %}
-
             </div>
             <!-- Display Likes -->
             <!-- Display Caption -->
             <div class="row pl-4">
                 {% if post.Description %}
-                    <small><span class="font-weight-bold">{{post.user.user.username}}</span> {{post.Description}}</small>
+                    <small class="text-white"><span class="font-weight-bold">{{post.user.user.username}}</span> {{post.Description}}</small>
                 {% endif %}
             </div>
             <!-- Display Caption -->
@@ -425,27 +543,14 @@
                 <div class="col pl-0">
                 {% if post.Comments.count %}
                 <a class="text-muted" href="{% url 'Base:CommentView' post.slug %}">View all {{post.Comments.count}} comments</a><br>
-
-                    <small><span class="font-weight-bold">{{post.Comments.first.user.user.username}}</span> {{post.Comments.first.Comment}} </small> <br>
-                    <small><span class="font-weight-bold">{{post.Comments.last.user.user.username}}</span> {{post.Comments.last.Comment}} </small><br>
-
+                    <small class="text-white"><span class="font-weight-bold">{{post.Comments.first.user.user.username}}</span> {{post.Comments.first.Comment}} </small> <br>
+                    <small class="text-white"><span class="font-weight-bold">{{post.Comments.last.user.user.username}}</span> {{post.Comments.last.Comment}} </small><br>
                 {% endif %}
                 </div>
             </div>
             <!-- Comments Section -->
-
-
         {% endfor %}
         {% endfor %}
-        <!-- For Keeping up from footer -->
-        <div class="row mb-5 pb-5 ">
-            <h6 style="color:white;">Hey</h6>
-        </div>
-        <!-- For Keeping up from footer End-->
         </div>
     <!-- Posts End-->
-
-
-
-
     {% endblock %}

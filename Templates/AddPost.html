@@ -2,42 +2,22 @@
 {% load static %}
 {% block Navbar1 %}
 
-<!-- Large Screen Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
-            <div class="container d-flex justify-content-center align-items-center">
-                 <div class="row border">
-                    <div class="col">
-                        <a class="navbar-brand text-primary">PROTOTYPE</a>
-                    </div>
-                     <div class="col">
-
-                    </div>
-
-                </div>
-            </div>
-
-        </nav>
-      <!-- Large Screen Navbar End -->
+<
 <form method="post"  enctype="multipart/form-data">
     {% csrf_token %}
       <!-- Small Screen Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none">
-
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block ">
                  <div class="row  d-flex align-items-center">
                     <div class="col-9 pl-3 d-flex  justify-content-start align-items-center">
                         <a href="{% url 'Base:HomeView' %}"><i class="fas fa-times text-dark" style="font-size: 25px;"></i></a>
-                        <a class="navbar-brand text-dark font-weight-bold pl-3" style="font-size:25px;font-family: Garamond, serif;">New Post</a>
+                        <a class="navbar-brand text-dark font-weight-bold pl-3" style="font-size:25px;font-family: Garamond, serif;margin:auto;">New Post</a>
                     </div>
-                    <div class="col-3 d-flex justify-content-end pr-2">
+                    <div class="col-3 d-flex justify-content-end pr-3">
                         <a><i id ="SecondUpload" class="fas fa-arrow-right text-primary" style="font-size: 25px;"></i></a>
                         <a><i id ="SecondUpload2" class="fas fa-arrow-right text-primary" style="font-size: 25px;"></i></a>
                         <a><i id ="ThirdUpload" class="fas fa-check text-primary" style="font-size: 25px;"></i></a>
-
                     </div>
-
                 </div>
-
-
         </nav>
     <!-- Small Screen Navbar End -->
 {% endblock %}
@@ -1122,6 +1102,7 @@ var file = $('#File10')[0];
 // Second Upload Page
 $('#SecondUploadDiv').hide();
 $('#SecondUpload2').hide();
+$('#SecondUpload2L').hide();
 $("#SecondUpload").click(function () {
     // If Any one file is uploaded then only proceed
     if(document.getElementById('File1').value.length !== 0){
@@ -1150,6 +1131,7 @@ $("#SecondUpload").click(function () {
 
 // Third Upload
 $('#ThirdUpload').hide();
+$('#ThirdUploadL').hide();
 $('#ThirdUploadSection').hide();
 $('#SUBMIT').hide();
 

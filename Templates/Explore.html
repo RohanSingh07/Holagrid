@@ -1,37 +1,48 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block Navbar1 %}
-<!-- Large Screen Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-0 pb-0 d-none d-sm-none d-md-block d-lg-block d-xl-block">
+        <!-- Large Screen Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg bg-white pt-0 pb-0 d-none d-sm-none d-md-block d-lg-block d-xl-block" >
             <div class="container ">
-                 <div class="row border d-flex justify-content-start align-items-center w-100">
-                     <div class="col-6 border">
-                         <div class="row w-100 d-flex justify-content-center align-items-center">
+                 <div class="row  d-flex justify-content-start align-items-center w-100">
+                     <div class="col-2 ">
+                         <div class="row w-100 d-flex justify-content-start align-items-center">
                             <!-- Logo and Brand name -->
-                            <a class="navbar-brand text-dark" style="font-size:30px;font-family: Garamond, serif;">Holagrid</a>
+                            <a class="navbar-brand text-dark font-weight-bold" style="font-size:30px;font-family: Garamond, serif;">Holagrid</a>
                             <!-- Logo and Brand name -->
-                            <!-- Search Input -->
-                            <input type="text" name="SearchInput" class="form-control text-inside ml-4" placeholder="Search" style="width:200px;border-radius:2%;">
-                            <!-- Search Input -->
+
                         </div>
                      </div>
-                     <div class="col-6 border">
+                     <div class="col-4">
+                         <form method="GET" action=""  class="input-group form-sm form-2 ml-0" >
+                          <div class="input-group">
+                              <input  name="q" id="SearchInput" type="text" style="border-style:solid;border-right:0;border-width:0.5px;border-color:#d4d3d2;height:35px;width:85%;font-size:small;padding-left:20px;border-radius:0;outline:none;" placeholder="Search" aria-label="search" aria-describedby="search" autocomplete="off">
+                              <div class="input-group-prepend">
+                                <a class="input-group-text bg-white" style="border-left:0;height:35px;border-color:#d4d3d2;" id="SearchInputButton" >
+                                  <i class="fas fa-search " style="color:grey"></i>
+                                </a>
+                              </div>
+                          </div>
+                        </form>
+                        <!-- Searchbar -->
+
+                     </div>
+                     <div class="col-6 ">
                           <div class="row w-100 d-flex align-items-center justify-content-center">
                             <!-- Home -->
                              <a href="{% url 'Base:HomeView' %}" class="" ><img src="{% static 'img/home3.png' %}" height="25" width="25"></a>
                             <!-- Home -->
                             <!-- Explore -->
-                             <a href="{% url 'Base:ExploreView' %}" class="ml-4"><i class="fas fa-search" style="font-size: 25px;color:grey;"></i></a>
+                             <a href="{% url 'Base:ExploreView' %}" class="ml-4"><i class="fas fa-globe" style="font-size: 25px;color:grey;"></i></a>
                             <!-- Explore -->
                             <!-- Chats -->
-                            <a href="{% url 'Base:AllChats' %}" class="ml-4"><i class="far fa-comment-alt" style="font-size: 25px;color:black;"></i></a>
+                            <a href="{% url 'Base:AllChats' %}" class="ml-4"><i class="far fa-comment-alt" style="font-size: 25px;color:black;"></i>
+                            <span style="color:red;" class="font-weight-bold">{{Profile.Chatrooms.count}}</span>
+                            </a>
                             <!-- Chats -->
                             <!-- Add Post -->
                              <a href="{% url 'Base:AddPost' %}" class="ml-4"><i class="fas fa-plus-square" style="font-size: 25px;color:grey;"></i></a>
                             <!-- Add Post -->
-                            <!-- Notification -->
-                            <a class="ml-4"><i class="far fa-bell " style="font-size: 25px;"></i></a>
-                            <!-- Notification -->
                             <!-- Profile -->
                              {% if Profile.Profile_Photo %}
                                <a href="{% url 'Base:ProfileView' request.user %}" class="ml-4 mr-5"> <img src="{{Profile.Profile_Photo.url}}" height="25" width="25" style="border-radius:50%;"></a>
@@ -43,45 +54,71 @@
                      </div>
                 </div>
             </div>
-
         </nav>
       <!-- Large Screen Navbar End -->
+        <!-- Search Results -->
+            <div id="Search_Results" class="row" style="overflow-y:auto;margin-top:35px;height:500px;width:500px;border:2px solid white;position:fixed;z-index:2;background-color:white;left: 50%;transform: translate(-50%, 0);">
+                <div class="col">
+                    <div class="row" style="position:relative;">
+                        <h6 class="font-weight-bold pl-2 pt-2" style="text-decoration:underline;">Search Results</h6>
+                        <a id="Close_Search" style="position:absolute;right:10px;top:5px;color:red;"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <div id="SearchResult" class="pt-3">
+
+                    </div>
+                </div>
+            </div>
+        <!-- Search Results End -->
     <!-- Small Screen Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-1 pb-0 d-block d-sm-block d-md-none d-lg-none d-xl-none">
-
-                 <div class="row border pb-1 pt-1">
-                    <div class="col-2 d-flex align-items-center">
-                        <a><i  class="fas fa-arrow-left text-primary" style="font-size: 25px;"></i></a>
-                    </div>
-                     <div class="input-group mb-2 col-10 pl-0 pr-1">
-                      <input type="text" class="form-control "  id="SearchInput" name="SearchInput"  placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2" style="height:100%;width:80%;font-size:14px;" autocomplete="on">
-
-                    </div>
-
-                </div>
-
-
+                 <form method="GET" action=""  class="input-group form-sm form-2 ml-0 pb-1" >
+                      <div class="input-group">
+                          <input  name="q" id="SearchInputSM" type="text" style="border-style:solid;border-right:0;border-width:0.5px;border-color:#d4d3d2;height:35px;width:85%;font-size:small;padding-left:20px;border-radius:0;outline:none;" placeholder="Search" aria-label="search" aria-describedby="search" autocomplete="off">
+                          <div class="input-group-prepend">
+                            <a class="input-group-text bg-white" style="border-left:0;height:35px;border-color:#d4d3d2;" id="SearchInputButtonSM" >
+                              <i class="fas fa-search " style="color:grey"></i>
+                            </a>
+                          </div>
+                      </div>
+                </form>
         </nav>
 
     <!-- Small Screen Navbar End -->
 {% endblock %}
 {% block content %}
 <style>
-
+    img:hover {
+    webkit-filter: blur(1px); /* Chrome, Safari, Opera */
+    filter: blur(1px);
+}
 </style>
-<div class="d-none d-sm-none d-md-block d-lg-block d-xl-block mt-4 pt-3 container" style="display:block;">
+<div class="container" style="margin-top:50px;">
+    <div class="d-none d-md-block">
+        <div id="Explore" class="pt-4 mt-4 row d-flex align-items-center ">
+
+        </div>
+    </div>
+</div>
+<div class="d-block d-md-none">
+    <div id="ExploreSM" class="pt-3 row ml-1 mr-1">
+
+    </div>
+        <!-- Division for searchresults in mobile -->
+    <div id="SearchResultMob" class="pt-3">
+        <div class="col">
+            <div class="row" style="position:relative;">
+                <h6 class="font-weight-bold pl-2 " style="color:white;text-decoration:underline;font-size:15px;">Search Results</h6>
+                <a id="Close_SearchSM" style="position:absolute;right:10px;top:0px;color:red;"><i class="fa fa-times" aria-hidden="true"></i></a>
+            </div>
+            <div id="SearchResultSM" class="pt-3">
+
+            </div>
+        </div>
+    </div>
+    <!-- Division for search results in mobile-->
 </div>
 
-<div id="Explore" class="pt-4 mt-4 row ">
 
-</div>
-<!-- Division for searchresults -->
-<div id="SearchResult" class="mt-5 pt-3">
-
-</div>
-
-
-<!-- Division for searchresults -->
 
 {% endblock %}
 {% block extra_body %}
@@ -89,10 +126,27 @@
 
     // Clear the input in case the user comes back
      document.getElementById("SearchInput").value = "";
-    // Hide the Explore section when user click on the searchinput
+
+    // Hide the Search Results Section
+    $('#Search_Results').hide();
+    $('#SearchResultMob').hide();
+
+    $('#Close_Search').on('click',function(){
+        $('#Search_Results').hide();
+    })
+    $('#Close_SearchSM').on('click',function(){
+        $('#SearchResultMob').hide();
+        $('#ExploreSM').show();
+    })
 
     $('#SearchInput').on('focus',function(){
-    $('#Explore').hide();
+    $('#Search_Results').show();
+    });
+
+    // Small Screen Search Results
+    $('#SearchInputSM').on('focus',function(){
+    $('#ExploreSM').hide();
+    $('#SearchResultMob').show();
     });
 
     // Async Explore
@@ -105,12 +159,16 @@
     ws_scheme+'://'+
     window.location.host+'/'+'Explore'+'/'+
      room_name
-
     );
-
-     $("#SearchInput").on("input",function () {
+     $("#SearchInputButton").on("click",function () {
         var SearchInput = $("#SearchInput").val();
 
+        SearchSocket.send(JSON.stringify({
+                    'SearchInput':SearchInput,
+                  }));
+                  });
+     $("#SearchInputButtonSM").on("click",function () {
+        var SearchInput = $("#SearchInputSM").val();
         SearchSocket.send(JSON.stringify({
                     'SearchInput':SearchInput,
                   }));
@@ -170,6 +228,54 @@
             Anchor.href = "/Profile/"+results[i].fields.username+"/";
 
             $('#SearchResult').prepend(Anchor);
+
+
+            // Small Screen
+            var Row_sm = document.createElement("div");
+                Row_sm.className += " row pl-1 mt-2 ";
+
+            var Col1_sm = document.createElement("div");
+                Col1_sm.className += " col-2 pl-2";
+            var Img1_sm = document.createElement("img");
+
+                if(results[i].fields.Profile_Photo){
+                Img1_sm.src = 'https://assets07.s3.us-east-2.amazonaws.com/media/'+results[i].fields.Profile_Photo;
+                }
+                else{
+                Img1_sm.src = "{% static 'img/user.png' %}";
+                    }
+                Img1_sm.style.height = "45px";
+                Img1_sm.style.width = "45px";
+                Img1_sm.style.borderRadius = "50%";
+            Col1_sm.appendChild(Img1_sm);
+
+            var Col2_sm = document.createElement("div");
+                Col2_sm.className += " col-10";
+                Col2_sm.style = "line-height:1em";
+            var Small1_sm = document.createElement("small");
+                Small1_sm.className += "pl-2 font-weight-bold text-white";
+                Small1_sm.style = "white-space: pre-line";
+                Small1_sm.innerText = results[i].fields.username +'\n';
+                Col2_sm.appendChild(Small1_sm);
+
+            var Small2_sm = document.createElement("small");
+                Small2_sm.className += "pl-2 pt-0 font-weight-bold";
+                Small2_sm.style = "color:grey";
+                Small2_sm.innerText = results[i].fields.Profile_Name +'\n';
+                Col2_sm.appendChild(Small2_sm);
+
+
+            Row_sm.appendChild(Col1_sm);
+            Row_sm.appendChild(Col2_sm);
+
+            // Put everything inside anchor tag
+            var Anchor_sm = document.createElement("a");
+            Anchor_sm.appendChild(Row_sm);
+            Anchor_sm.href = "/Profile/"+results[i].fields.username+"/";
+            console.log(Anchor_sm);
+
+            $('#SearchResultSM').prepend(Anchor_sm);
+
            }
         }
      }
@@ -179,71 +285,132 @@
     // This escapejs was missing so keep it in mind
     var data = JSON.parse('{{Posts|escapejs}}');
     var posts = JSON.parse(data);
+
     var count=0;
     for(var i=count;i<{{Postcount}};i=i+8){
      // If the post is Video then make video element (Post1)
      if(typeof posts[i]!=='undefined'){
-    if(posts[i].fields.File1Type){
+     if(posts[i].fields.File1Type){
       var Video = document.createElement("video");
-     Video.className=posts[i].fields.Filter;
+     Video.className=posts[i].fields.Filter+"col-8 pl-0 pr-0 pt-0 pb-0";
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:20vh;width:100%;border:1px solid white;object-fit:fill;";
+     Video.style="height:500px;width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
-     Anchor.className = "col-8 pl-0 pr-0 pt-0 pb-0 bg-dark";
+    Anchor.className = "col-8 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Video);
      $('#Explore').append(Anchor);
+
+     // For small screen
+     var Video_sm = document.createElement("video");
+     Video_sm.className=posts[i].fields.Filter+"col-6 pl-0 pr-0 pt-0 pb-0";
+     Video_sm.onmouseover = function(Video){this.play()};
+     Video_sm.onmouseout = function(Video){this.pause()};
+     Video_sm.muted="muted"
+     Video_sm.style="height:150px;width:100%;border:1px solid white;display:block";
+     var source_sm = document.createElement('source');
+     source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
+     Video_sm.appendChild(source_sm);
+      Anchor_sm = document.createElement("a");
+    Anchor_sm.className = "col-6 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i].fields.slug+'/';
+     Anchor_sm.appendChild(Video_sm);
+     $('#ExploreSM').append(Anchor_sm);
+
     }
+
     // If the post if image (Post1)
     else{
     var Image = document.createElement("img");
-    Image.className=posts[i].fields.Filter;
-    Image.style="height:100%;width:100%;border:1px solid white;object-fit:fill;";
+    Image.className=posts[i].fields.Filter+"col-8 pl-0 pr-0 pt-0 pb-0";
+    Image.style="height:500px;width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
+
      Anchor = document.createElement("a");
      Anchor.className = "col-8 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Image);
      $('#Explore').append(Anchor);
+
+     // SMall Screen
+     var Image_sm = document.createElement("img");
+    Image_sm.className=posts[i].fields.Filter+"col-6 pl-0 pr-0 pt-0 pb-0";
+    Image_sm.style="height:150px;width:100%;border:1px solid white;";
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i].fields.File1;
+
+     Anchor_sm = document.createElement("a");
+     Anchor_sm.className = "col-6 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i].fields.slug+'/';
+     Anchor_sm.appendChild(Image_sm);
+     $('#ExploreSM').append(Anchor_sm);
+
     }}
+
+
       // If the post is Video then make video element (Post2)
      if(typeof posts[i+1]!=='undefined'){
     if(posts[i+1].fields.File1Type){
       var Video = document.createElement("video");
-     Video.className=posts[i+1].fields.Filter;
+     Video.className=posts[i+1].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+     Video.style="height:500px;width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+1].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+1].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Video);
      $('#Explore').append(Anchor);
+
+     // For small screen
+     var Video_sm = document.createElement("video");
+     Video_sm.className=posts[i+1].fields.Filter+"col-6 pl-0 pr-0 pt-0 pb-0";
+     Video_sm.onmouseover = function(Video){this.play()};
+     Video_sm.onmouseout = function(Video){this.pause()};
+     Video_sm.muted="muted"
+     Video_sm.style="height:150px;width:100%;border:1px solid white;display:block";
+     var source_sm = document.createElement('source');
+     source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+1].fields.File1;
+     Video_sm.appendChild(source_sm);
+      Anchor_sm = document.createElement("a");
+    Anchor_sm.className = "col-6 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+1].fields.slug+'/';
+     Anchor_sm.appendChild(Video_sm);
+     $('#ExploreSM').append(Anchor_sm);
+
     }
     // If the post if image (Post2)
     else{
     var Image = document.createElement("img");
-    Image.className=posts[i+1].fields.Filter;
-    Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+    Image.className=posts[i+1].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+    Image.style="height:500px;width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+1].fields.File1;
+
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
     Anchor.href = '/ExplorePosts/'+posts[i+1].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Image);
      $('#Explore').append(Anchor);
+
+      // SMall Screen
+     var Image_sm = document.createElement("img");
+    Image_sm.className=posts[i+1].fields.Filter+"col-6 pl-0 pr-0 pt-0 pb-0";
+    Image_sm.style="height:150px;width:100%;border:1px solid white;";
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+1].fields.File1;
+
+     Anchor_sm = document.createElement("a");
+     Anchor_sm.className = "col-6 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i].fields.slug+'/';
+     Anchor_sm.appendChild(Image_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }}
      // If the post is Video then make video element (Post3)
      if(typeof posts[i+2]!=='undefined'){
@@ -253,29 +420,57 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+     Video.style="height:300px;width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+2].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+2].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Video);
      $('#Explore').append(Anchor);
+
+     // For small screen
+     var Video_sm = document.createElement("video");
+     Video_sm.className=posts[i+2].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+     Video_sm.onmouseover = function(Video){this.play()};
+     Video_sm.onmouseout = function(Video){this.pause()};
+     Video_sm.muted="muted"
+     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     var source_sm = document.createElement('source');
+     source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+2].fields.File1;
+     Video_sm.appendChild(source_sm);
+      Anchor_sm = document.createElement("a");
+    Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+2].fields.slug+'/';
+     Anchor_sm.appendChild(Video_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }
     // If the post if image (Post3)
     else{
     var Image = document.createElement("img");
     Image.className=posts[i+2].fields.Filter;
-    Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+    Image.style="height:300px;width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+2].fields.File1;
+
      Anchor = document.createElement("a");
-     Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0 mt-0";
      Anchor.href = '/ExplorePosts/'+posts[i+2].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Image);
      $('#Explore').append(Anchor);
+
+     // SMall Screen
+     var Image_sm = document.createElement("img");
+    Image_sm.className=posts[i+2].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+2].fields.File1;
+
+     Anchor_sm = document.createElement("a");
+     Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+2].fields.slug+'/';
+     Anchor_sm.appendChild(Image_sm);
+     $('#ExploreSM').append(Anchor_sm);
+
     }}
      // If the post is Video then make video element (Post4)
      if(typeof posts[i+3]!=='undefined'){
@@ -285,29 +480,58 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+     Video.style="height:300px;width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+3].fields.File1;
+
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+3].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Video);
      $('#Explore').append(Anchor);
+
+     // For small screen
+     var Video_sm = document.createElement("video");
+     Video_sm.className=posts[i+3].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+     Video_sm.onmouseover = function(Video){this.play()};
+     Video_sm.onmouseout = function(Video){this.pause()};
+     Video_sm.muted="muted"
+     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     var source_sm = document.createElement('source');
+     source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+3].fields.File1;
+     Video_sm.appendChild(source);
+      Anchor_sm = document.createElement("a");
+    Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+3].fields.slug+'/';
+     Anchor_sm.appendChild(Video_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }
     // If the post if image (Post4)
     else{
     var Image = document.createElement("img");
     Image.className=posts[i+3].fields.Filter;
-    Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+    Image.style="height:300px;width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+3].fields.File1;
+
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+3].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Image);
      $('#Explore').append(Anchor);
+
+     // SMall Screen
+     var Image_sm = document.createElement("img");
+    Image_sm.className=posts[i+3].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+3].fields.File1;
+
+     Anchor_sm = document.createElement("a");
+     Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+3].fields.slug+'/';
+     Anchor_sm.appendChild(Image_sm);
+     $('#ExploreSM').append(Anchor_sm);
+
     }}
      // If the post is Video then make video element (Post5)
      if(typeof posts[i+4]!=='undefined'){
@@ -317,29 +541,56 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+     Video.style="height:300px;width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+4].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+4].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Video);
      $('#Explore').append(Anchor);
+
+     // For small screen
+     var Video_sm = document.createElement("video");
+     Video_sm.className=posts[i+4].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+     Video_sm.onmouseover = function(Video){this.play()};
+     Video_sm.onmouseout = function(Video){this.pause()};
+     Video_sm.muted="muted"
+     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     var source_sm = document.createElement('source');
+     source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+4].fields.File1;
+     Video_sm.appendChild(source_sm);
+      Anchor_sm = document.createElement("a");
+    Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+4].fields.slug+'/';
+     Anchor_sm.appendChild(Video_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }
     // If the post if image (Post5)
     else{
     var Image = document.createElement("img");
     Image.className=posts[i+4].fields.Filter;
-    Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+    Image.style="height:300px;width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+4].fields.File1;
+
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+4].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Image);
      $('#Explore').append(Anchor);
+
+     // SMall Screen
+     var Image_sm = document.createElement("img");
+    Image_sm.className=posts[i+4].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+4].fields.File1;
+
+     Anchor_sm = document.createElement("a");
+     Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+4].fields.slug+'/';
+     Anchor_sm.appendChild(Image_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }}
      // If the post is Video then make video element (Post6)
      if(typeof posts[i+5]!=='undefined'){
@@ -349,29 +600,55 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+     Video.style="height:300px;width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+5].fields.File1;
+
      Video.appendChild(source);
       Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+5].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Video);
      $('#Explore').append(Anchor);
+
+     // For small screen
+     var Video_sm = document.createElement("video");
+     Video_sm.className=posts[i+5].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+     Video_sm.onmouseover = function(Video){this.play()};
+     Video_sm.onmouseout = function(Video){this.pause()};
+     Video_sm.muted="muted"
+     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     var source_sm = document.createElement('source');
+     source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+5].fields.File1;
+     Video_sm.appendChild(source_sm);
+      Anchor_sm = document.createElement("a");
+    Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+5].fields.slug+'/';
+     Anchor_sm.appendChild(Video_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }
     // If the post if image (Post6)
     else{
     var Image = document.createElement("img");
     Image.className=posts[i+5].fields.Filter;
-    Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+    Image.style="height:300px;width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+5].fields.File1;
      Anchor = document.createElement("a");
      Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+5].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Image);
      $('#Explore').append(Anchor);
+
+     // SMall Screen
+     var Image_sm = document.createElement("img");
+    Image_sm.className=posts[i+5].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+5].fields.File1;
+     Anchor_sm = document.createElement("a");
+     Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+5].fields.slug+'/';
+     Anchor_sm.appendChild(Image_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }}
      // If the post is Video then make video element (Post7)
      if(typeof posts[i+6]!=='undefined'){
@@ -381,29 +658,55 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+     Video.style="height:300px;width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+6].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
-     Anchor.className = "col-8 pl-0 pr-0 pt-0 pb-0";
+     Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+6].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Video);
      $('#Explore').append(Anchor);
+
+     // For small screen
+     var Video_sm = document.createElement("video");
+     Video_sm.className=posts[i+6].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+     Video_sm.onmouseover = function(Video){this.play()};
+     Video_sm.onmouseout = function(Video){this.pause()};
+     Video_sm.muted="muted"
+     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     var source_sm = document.createElement('source');
+     source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+6].fields.File1;
+     Video_sm.appendChild(source_sm);
+      Anchor_sm = document.createElement("a");
+    Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+6].fields.slug+'/';
+     Anchor_sm.appendChild(Video_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }
     // If the post if image (Post7)
     else{
     var Image = document.createElement("img");
     Image.className=posts[i+6].fields.Filter;
-    Image.style="height:20vh;width:100%;border:1px solid white;object-fit:cover;";
+    Image.style="height:300px;width:100%;border:3px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+6].fields.File1;
      Anchor = document.createElement("a");
-     Anchor.className = "col-8 pl-0 pr-0 pt-0 pb-0";
+     Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+6].fields.slug+'/';
-     Anchor.style="height:20vh;"
      Anchor.appendChild(Image);
      $('#Explore').append(Anchor);
+
+     // SMall Screen
+     var Image_sm = document.createElement("img");
+    Image_sm.className=posts[i+6].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+6].fields.File1;
+
+     Anchor_sm = document.createElement("a");
+     Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+6].fields.slug+'/';
+     Anchor_sm.appendChild(Image_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }}
      // If the post is Video then make video element (Post8)
      if(typeof posts[i+7]!=='undefined'){
@@ -413,32 +716,57 @@
      Video.onmouseover = function(Video){this.play()};
      Video.onmouseout = function(Video){this.pause()};
      Video.muted="muted"
-     Video.style="height:40vh;width:100%;border:1px solid white;object-fit:cover;";
+     Video.style="height:300px;width:100%;border:3px solid white;display:block";
      var source = document.createElement('source');
      source.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+7].fields.File1;
      Video.appendChild(source);
       Anchor = document.createElement("a");
-     Anchor.className = "col-12 pl-0 pr-0 pt-0 pb-0";
+     Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+7].fields.slug+'/';
-     Anchor.style="height:40vh;"
      Anchor.appendChild(Video);
      $('#Explore').append(Anchor);
+
+     // For small screen
+     var Video_sm = document.createElement("video");
+     Video_sm.className=posts[i+7].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+     Video_sm.onmouseover = function(Video){this.play()};
+     Video_sm.onmouseout = function(Video){this.pause()};
+     Video_sm.muted="muted"
+     Video_sm.style="height:100px;width:100%;border:1px solid white;display:block";
+     var source_sm = document.createElement('source');
+     source_sm.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+7].fields.File1;
+     Video_sm.appendChild(source_sm);
+      Anchor_sm = document.createElement("a");
+    Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+7].fields.slug+'/';
+     Anchor_sm.appendChild(Video_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }
     // If the post if image (Post8)
     else{
     var Image = document.createElement("img");
-    Image.className="col-12 pt-0 pb-0 pl-0 pr-0 "+posts[i+7].fields.Filter;
-    Image.style="height:40vh;width:100%;border:1px solid white;object-fit:cover;";
+    Image.className= posts[i+7].fields.Filter;
+    Image.style="height:300px;width:100%;border:1px solid white;";
     Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+7].fields.File1;
      Anchor = document.createElement("a");
-     Anchor.className = "col-12 pl-0 pr-0 pt-0 pb-0";
+     Anchor.className = "col-4 pl-0 pr-0 pt-0 pb-0";
      Anchor.href = '/ExplorePosts/'+posts[i+7].fields.slug+'/';
-     Anchor.style="height:40vh;"
      Anchor.appendChild(Image);
      $('#Explore').append(Anchor);
+
+     // SMall Screen
+     var Image_sm = document.createElement("img");
+    Image_sm.className=posts[i+7].fields.Filter+"col-4 pl-0 pr-0 pt-0 pb-0";
+    Image_sm.style="height:100px;width:100%;border:1px solid white;";
+    Image.src = "https://assets07.s3.us-east-2.amazonaws.com/media/"+posts[i+7].fields.File1;
+
+     Anchor_sm = document.createElement("a");
+     Anchor_sm.className = "col-4 pl-0 pr-0 pt-0 pb-0";
+     Anchor_sm.href = '/ExplorePosts/'+posts[i+7].fields.slug+'/';
+     Anchor_sm.appendChild(Image_sm);
+     $('#ExploreSM').append(Anchor_sm);
     }}
     count=count+8;
-
     }
 </script>
 {% endblock %}
@@ -454,31 +782,23 @@
                      <a href="{% url 'Base:HomeView' %}"><img src="{% static 'img/home3.png' %}" height="25" width="25"></a>
                  </div>
                  <div class="col pl-3">
-                     <a href="{% url 'Base:ExploreView' %}"><i class="fas fa-search text-dark" style="font-size: 25px;"></i></a>
+                     <a href="{% url 'Base:ExploreView' %}"><i class="fas fa-globe text-dark" style="font-size: 25px;"></i></a>
                  </div>
                  <div class="col pl-3">
                      <a href="{% url 'Base:AddPost' %}"><i class="fas fa-plus-square text-dark" style="font-size: 25px;"></i></a>
                  </div>
-                 <div class="col pl-3">
-                   <i class="far fa-bell" style="font-size: 25px;"></i>
-                 </div>
+
                  <div class="col pl-3 pr-1">
                    {% if Profile.Profile_Photo %}
                      <a href="{% url 'Base:ProfileView' request.user %}"> <img src="{{Profile.Profile_Photo.url}}" height="30" width="30" style="border-radius:50%;"></a>
                     {% else %}
                      <a href="{% url 'Base:ProfileView' request.user %}"> <img src="{% static 'img/user.png' %}" height="30" width="30" style="border-radius:50%;"></a>
                     {% endif %}
-
                  </div>
-
                 </div>
             </div>
 
         </nav>
 
         <!-- Small Screen Footer End -->
-        <script>
-
-
-        </script>
 {% endblock %}

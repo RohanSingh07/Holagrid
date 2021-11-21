@@ -1,18 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-
-<body>
-
-
-
-<!DOCTYPE html>
-<html>
-
   <head>
-
       <!-- Bootstrap CSS -->
-
       <!-- Font Awesome -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
       <meta charset="utf-8">
@@ -54,72 +44,100 @@
     </style>
 
   </head>
-<body>
+    <body>
+
 <!-- Body -->
     <div class="row pt-2 pb-2" style="background-color:#474544">
         {% for Story in Status %}
             <div id="myProgress{{forloop.counter}}" class="col bg-white ml-1 mr-1 mt-1 mb-1" style="height:3px;">
             </div>
         {% endfor %}
-
     </div>
     <div class="row pl-3" style="position:relative;">
-
         {% if Profile.Profile_Photo %}
-            <img src="{{Profile.Profile_Photo.url}}" class="ml-4 mt-1" height="40" width="40" style="position:absolute;z-index:2;left:0;border-radius:50%;">
+            <a href="{% url 'Base:ProfileView' Profile.user %}"><img src="{{Profile.Profile_Photo.url}}" class="ml-4 mt-1" height="40" width="40" style="position:absolute;z-index:2;left:0;border-radius:50%;"></a>
         {% else %}
-            <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;">
+             <a href="{% url 'Base:ProfileView' Profile.user %}"><img src="{% static 'img/user.png' %}" class="ml-4 mt-1" height="40" width="40" style="position:absolute;z-index:2;left:0;border-radius:50%;"></a>
         {% endif %}
-        <h6 class="ml-4 pl-5 pt-2 font-weight-bold" style="position:absolute;z-index:2;">{{Profile.username}}</h6> <small class="font-weight-light pt-2" style="position:absolute;z-index:2;left:38%;">{{Status.first.Date.time}}</small>
-
+        <a href="{% url 'Base:ProfileView' Profile.user %}"><h6 class="ml-2 pl-5 pt-2 font-weight-bold text-dark" style="position:absolute;z-index:2;">{{Profile.username}}</h6></a> <small class="font-weight-light pt-2 ml-1" style="position:absolute;z-index:2;right:31%;">{{Status.first.Date.time}}</small>
+        {% if Profile.user == request.user %}
+        <a href="{% url 'Base:StatusView' %}" style="position:absolute;right:60px;z-index:2;" class="pt-1"><i class="fas fa-plus-square" style="font-size:25px;color:black;"></i></a>
+        {% endif %}
         <a href="{% url 'Base:HomeView' %}" class="mr-4 pt-1" style="position:absolute;right:0;z-index:2;"><i class="fas fa-times text-dark" style="font-size: 25px;z-index:2;"></i></a>
     </div>
-    <div id="Status"  class="carousel slide w-100  mt-0" style="height:100%;" data-ride="carousel" data-interval="false">
-          <div class="carousel-inner h-100 w-100 mt-5" >
 
+    <div id="Status"  class="carousel slide w-75 h-100 mt-0 d-none d-md-block" style="height:100%;margin:auto;" data-ride="carousel" data-interval="false">
+          <div class="carousel-inner h-75 w-100 mt-5" >
           {% for Story in Status %}
-
               {% if Story.FileType %}
-                 <video  id="StoryFile{{forloop.counter}}" class="carousel-item h-75 w-100 {{Story.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:fill">
+                 <video  id="StoryFile{{forloop.counter}}" class="carousel-item  w-100 {{Story.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:fill">
                     <source class="h-100 w-100" src="{{Story.File.url}}" >
                  </video>
-
                {% else %}
-                <div id="StoryFile{{forloop.counter}}"   class="carousel-item h-75 w-100 {{Story.Filter}}" >
+                <div id="StoryFile{{forloop.counter}}"   class="carousel-item  w-100 {{Story.Filter}}" >
                     <img class=" h-100 w-100 mini " src="{{Story.File.url}}" style="object-fit:fill" >
-
                 </div>
-
                {% endif %}
           {% endfor %}
-
           </div>
-           <a class="carousel-control-prev w-25" href="#Status"  role="button" data-slide="prev" >
+           <a class="carousel-control-prev " href="#Status" style="width:15%;" role="button" data-slide="prev" >
             <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+           <span><i class="fas fa-chevron-left "></i></span>
             <span class="sr-only  ">Previous</span>
-
           </a>
-           <a class="carousel-control-next w-25" href="#Status"   role="button" data-slide="next">
+           <a class="carousel-control-next " href="#Status"   style="width:15%;" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span><i class="fas fa-chevron-right mr-4"></i></span>
             <span class="sr-only">Next</span>
-
+          </a>
+    </div>
+    <div id="StatusSM"  class="carousel slide w-100 h-100 mt-0 d-block d-md-none" style="height:100%;margin:auto;" data-ride="carousel" data-interval="false">
+          <div class="carousel-inner h-100 w-100 mt-5 pt-5" >
+          {% for Story in Status %}
+              {% if Story.FileType %}
+                 <video  id="StoryFile{{forloop.counter}}SM" class="carousel-item w-100 {{Story.Filter}}" onclick="this.paused ? this.play() : this.pause();" style="object-fit:fill;height:60%;">
+                    <source class="h-100 w-100" src="{{Story.File.url}}" >
+                 </video>
+               {% else %}
+                <div id="StoryFile{{forloop.counter}}SM"   class="carousel-item {{Story.Filter}}" style="height:60%;">
+                    <img class=" h-100 w-100 mini " src="{{Story.File.url}}" style="object-fit:fill;" >
+                </div>
+               {% endif %}
+          {% endfor %}
+          </div>
+           <a class="carousel-control-prev" href="#StatusSM" style="width:15%;" role="button" data-slide="prev" >
+            <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+           <span><i class="fas fa-chevron-left "></i></span>
+            <span class="sr-only  ">Previous</span>
+          </a>
+           <a class="carousel-control-next" href="#StatusSM"  style="width:15%;" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span><i class="fas fa-chevron-right mr-4 "></i></span>
+            <span class="sr-only">Next</span>
           </a>
 
-        </div>
-
+    </div>
     <!-- Body End -->
+    {% if Profile.user != request.user %}
+    <div class="row" style="position:relative;bottom:150px;left:20%;">
+       <h6 class="text-success" id="MessageSentNotification">You message has been sent !</h6>
+       <input class="form-control" type="text" placeholder="Reply..." name="Reply" id="Reply" style="width:50%;">
+       <button style="width:30px;font-size:12px;height:37px;" class="btn btn-primary mt-0" id="SendReply"><i class="fas fa-paper-plane"></i></button>
+    </div>
+    {% endif %}
 </body>
-
 <script>
+$('#MessageSentNotification').hide();
 // Set the first status active
  window.onload = function SetActive(){
  var id = document.getElementById("StoryFile1")
- id.className = "carousel-item h-75 w-100 active {{Story.Filter}}";
+ id.className = "carousel-item w-100 active {{Story.Filter}}";
  element = document.getElementById("myProgress1");
     element.className ="col bg-primary ml-1 mr-1 mt-1 mb-1";
 
+ var idSM = document.getElementById("StoryFile1SM")
+ idSM.className = "carousel-item  w-100 active {{Story.Filter}}";
  }
-
 
 // Change the slider
 
@@ -144,4 +162,68 @@ $('#Status').on('slide.bs.carousel', function onSlide (ev) {
   }
 })
 
+$('#StatusSM').on('slide.bs.carousel', function onSlide (ev) {
+
+  var id = ev.relatedTarget.id;
+  switch (id) {
+  {% for Story in Status %}
+    case "StoryFile{{forloop.counter}}SM":
+    var B = {{forloop.counter}}-1;
+    if (B!==0){
+        Belement = document.getElementById("myProgress"+B);
+        Belement.className = "col bg-white ml-1 mr-1 mt-1 mb-1";}
+    element = document.getElementById("myProgress{{forloop.counter}}");
+    element.className ="col bg-primary ml-1 mr-1 mt-1 mb-1";
+    var N = {{forloop.counter}}+1;
+    if (N<{{Status.count}}+1){
+        Nelement = document.getElementById("myProgress"+N);
+        Nelement.className = "col bg-white ml-1 mr-1 mt-1 mb-1";}
+      break;
+  {% endfor %}
+  }
+})
+
+
+$('#StatusSM').on('slide.bs.carousel', function onSlide (ev) {
+  var id = ev.relatedTarget.id;
+  switch (id) {
+  {% for Story in Status %}
+    case "StoryFile{{forloop.counter}}":
+    var B = {{forloop.counter}}-1;
+    if (B!==0){
+        Belement = document.getElementById("myProgress"+B);
+        Belement.className = "col bg-white ml-1 mr-1 mt-1 mb-1";}
+    element = document.getElementById("myProgress{{forloop.counter}}");
+    element.className ="col bg-primary ml-1 mr-1 mt-1 mb-1";
+    var N = {{forloop.counter}}+1;
+    if (N<{{Status.count}}+1){
+        Nelement = document.getElementById("myProgress"+N);
+        Nelement.className = "col bg-white ml-1 mr-1 mt-1 mb-1";}
+
+      break;
+  {% endfor %}
+  }
+})
+
+// Script to Send Message Reply
+document.querySelector('#SendReply').onclick = function(e){
+        var message = document.querySelector('#Reply').value;
+        // Ajax to save comment
+        console.log(message);
+
+        $.ajax({
+              method: "GET",
+              url: "{% url 'Base:SendReply' %}",
+              data: {
+              'user1':'{{request.user.username}}',
+              'user2':'{{Profile.user.username}}',
+              'message':message
+              },
+              success: function(data) {
+                document.querySelector('#Reply').value = "";
+                $('#MessageSentNotification').show();
+                $('#MessageSentNotification').fadeOut(2000);
+              }
+        })
+        }
 </script>

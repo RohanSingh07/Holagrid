@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$7-^axyzobgdqekyll#a0@)hl8qt^0r+#-n1ikch-xvb0*6(h-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','holagrid.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.1.3','holagrid.herokuapp.com']
 
 
 # Application definition
@@ -56,7 +57,7 @@ MIDDLEWARE = [
     # For managing static files in production
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # Cors Middleware
+    # Cors Middleware for REST API
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -68,11 +69,9 @@ MIDDLEWARE = [
 
 ]
 
-
-
 ROOT_URLCONF = 'core.urls'
 
-import os
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -109,6 +108,14 @@ DATABASES = {
         'PASSWORD': '4a2b16a66628c5b9538768b91f1bf3fc832c9116eaf6383a6dcffa7835e5b28a',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

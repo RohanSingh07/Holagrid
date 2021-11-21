@@ -5,7 +5,6 @@ from . import models
 from channels.db import database_sync_to_async
 from users.models import Account
 from django.core import serializers
-from django.contrib.postgres.search import SearchQuery,SearchVector
 from itertools import chain
 class HomePage(AsyncWebsocketConsumer):
 
@@ -167,9 +166,6 @@ class ExplorePage(AsyncWebsocketConsumer):
                 'SearchInput':SearchInput,
             }
         )
-
-
-
     @database_sync_to_async
     def Search(self,SearchInput):
         searchres1 = models.Profile.objects.filter(user__username__contains=SearchInput )
@@ -188,7 +184,6 @@ class ExplorePage(AsyncWebsocketConsumer):
 
 # For Profile Page
 
-# For explore
 class ProfilePage(AsyncWebsocketConsumer):
 
     async def connect(self):
@@ -225,8 +220,6 @@ class ProfilePage(AsyncWebsocketConsumer):
                 'MyProfile':MyProfile,
                 'Profile':Profile,
                 'Request':Request
-
-
             }
         )
 
@@ -251,7 +244,6 @@ class Chatroom(AsyncWebsocketConsumer):
             # Contains the pointer to the channel layer instance
             self.channel_name
         )
-
         # The application must accept the connection or reject it
         await self.accept()
 
@@ -278,11 +270,13 @@ class Chatroom(AsyncWebsocketConsumer):
                 'Chatroom_id':Chatroom_id
             }
         )
+
     @database_sync_to_async
     def SendMessage(self,user):
         sender = models.Profile.objects.get(user__username=user)
         sender = [sender]
         return serializers.serialize('json',sender)
+
     async def chatroom(self,event):
         user = event['user']  # The sender
         Msg = event['Msg']  # Message

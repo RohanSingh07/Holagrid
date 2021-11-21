@@ -1,38 +1,76 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block Navbar1 %}
-
 <!-- Large Screen Navbar -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">
-             <div class="row  d-flex align-items-center pt-2">
-                   <div class="col-2 d-flex align-items-center ">
-                        <a><i  class="fas fa-arrow-left text-dark" style="font-size: 25px;"></i></a>
-                    </div>
-                    <div class="col-8 d-flex align-items-center">
-                        <h6 class="font-weight-bold">Edit Profile</h6>
-                    </div>
-                    <div class="col-2 d-flex justify-content-end pr-1">
+<!--        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light pt-3 pb-3 d-none d-sm-block d-md-block d-lg-block d-xl-block">-->
+<!--             <div class="row  d-flex align-items-center pt-2">-->
+<!--                   <div class="col-2 d-flex align-items-center ">-->
+<!--                        <a><i  class="fas fa-arrow-left text-dark" style="font-size: 25px;"></i></a>-->
+<!--                    </div>-->
+<!--                    <div class="col-8 d-flex align-items-center">-->
+<!--                        <h6 class="font-weight-bold">Edit Profile</h6>-->
+<!--                    </div>-->
+<!--                    <div class="col-2 d-flex justify-content-end pr-1">-->
 
-                       <a><i  class="fas fa-check text-primary" style="font-size: 25px;" id="Submit"></i></a>
+<!--                       <a><i  class="fas fa-check text-primary" style="font-size: 25px;" id="Submit"></i></a>-->
 
-                    </div>
+<!--                    </div>-->
+<!--                </div>-->
+<!--        </nav>-->
+      <nav class="navbar fixed-top navbar-expand-lg bg-white pt-0 pb-0 d-none d-sm-none d-md-block d-lg-block d-xl-block" >
+            <div class="container ">
+                 <div class="row  d-flex justify-content-start align-items-center w-100">
+                     <div class="col-6 ">
+                         <div class="row w-100 d-flex justify-content-start align-items-center">
+                            <!-- Logo and Brand name -->
+                            <a class="navbar-brand text-dark font-weight-bold" style="font-size:30px;font-family: Garamond, serif;">Holagrid</a>
+                            <!-- Logo and Brand name -->
+
+                        </div>
+                     </div>
+                     <div class="col-6 ">
+                          <div class="row w-100 d-flex align-items-center justify-content-center">
+                            <!-- Home -->
+                             <a href="{% url 'Base:HomeView' %}" class="" ><img src="{% static 'img/home3.png' %}" height="25" width="25"></a>
+                            <!-- Home -->
+                            <!-- Explore -->
+                             <a href="{% url 'Base:ExploreView' %}" class="ml-4"><i class="fas fa-globe" style="font-size: 25px;color:grey;"></i></a>
+                            <!-- Explore -->
+                            <!-- Chats -->
+                            <a href="{% url 'Base:AllChats' %}" class="ml-4"><i class="far fa-comment-alt" style="font-size: 25px;color:black;"></i>
+                            <span style="color:red;" class="font-weight-bold">{{Profile.Chatrooms.count}}</span>
+                            </a>
+                            <!-- Chats -->
+                            <!-- Add Post -->
+                             <a href="{% url 'Base:AddPost' %}" class="ml-4"><i class="fas fa-plus-square" style="font-size: 25px;color:grey;"></i></a>
+                            <!-- Add Post -->
+
+                            <!-- Profile -->
+                             {% if Profile.Profile_Photo %}
+                               <a href="{% url 'Base:ProfileView' request.user %}" class="ml-4 mr-5"> <img src="{{Profile.Profile_Photo.url}}" height="25" width="25" style="border-radius:50%;"></a>
+                             {% else %}
+                               <a href="{% url 'Base:ProfileView' request.user %}" class="ml-4 mr-5"> <img src="{% static 'img/user.png' %}" height="25" width="25" style="border-radius:50%;"></a>
+                             {% endif %}
+                             <!-- Profile -->
+                          </div>
+                     </div>
                 </div>
+            </div>
         </nav>
+      <!-- Large Screen Navbar End -->
       <!-- Large Screen Navbar End -->
       <!-- Small Screen Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg  pt-0 pb-0 d-block d-sm-none d-md-none d-lg-none d-xl-none" style="background-color:white;">
 
                  <div class="row  d-flex align-items-center pt-2">
                    <div class="col-2 d-flex align-items-center ">
-                        <a><i  class="fas fa-arrow-left text-dark" style="font-size: 25px;"></i></a>
+                        <a href="{% url 'Base:ProfileView' request.user %}"><i  class="fas fa-arrow-left text-dark" style="font-size: 25px;"></i></a>
                     </div>
                     <div class="col-8 d-flex align-items-center">
                         <h6 class="font-weight-bold">Edit Profile</h6>
                     </div>
                     <div class="col-2 d-flex justify-content-end pr-1">
-
                        <a><i  class="fas fa-check text-primary" style="font-size: 25px;" id="SubmitSmall"></i></a>
-
                     </div>
                 </div>
 
@@ -40,63 +78,69 @@
     <!-- Small Screen Navbar End -->
 {% endblock %}
 {% block content %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+<div class="container d-flex mt-5 justify-content-center pb-5" >
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row mt-5 d-flex justify-content-center">
+            <div class="col-12 d-flex justify-content-center">
+            {% if Profile.Profile_Photo %}
+            <img src="{{Profile.Profile_Photo.url}}" height="100" width="100" style="border-radius:50%;" id="DisplayProfilePic">
+            {% else %}
+            <img src="{% static 'img/user.png' %}" height="100" width="100" style="border-radius:50%;" id="DisplayProfilePic">
+            {% endif %}
+            <input type="file" name="ProfilePhoto" id="ProfilePhoto" value="" onchange="File_display(this)" accept="image/jpeg,image/png,image/jpg">
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+            <a class="pt-1 font-weight-normal text-primary" id="EditProfilePhoto">Edit</a>
+            </div>
+        </div>
+        <!-- Name -->
+        <div class="row d-flex justify-content-start pt-2 pl-4 mt-2 ">
+            <div class="col-12 pl-3">
+                <small class="font-weight-normal" style="color:grey;">Name</small>
+            </div>
+            <div class="col-12">
+            <input type="text" name="Profile_Name" id="Profile_Name" maxlength="50" placeholder="{{Profile.Profile_Name}}" value="{{Profile.Profile_Name}}" class=" text-dark" style="font-size:15px;border:None;width:100%;">
+            </div>
+        </div>
+        <hr class="pt-0 mt-0">
+        <!-- Name End-->
+        <!-- Username -->
+        <div class="row d-flex justify-content-start pt-2 pl-4 mt-2 ">
+            <div class="col-12 pl-3">
+                <small class="font-weight-normal" style="color:grey;">Username</small>
+            </div>
+            <div class="col-12">
+            <input type="text" name="Username_Name" id="Username_Name" maxlength="50" placeholder="{{Profile.Profile_Name}}" value="{{Profile.username}}" class=" text-dark" style="width:100%;font-size:15px;border:None;">
+            </div>
+        </div>
+        <hr class="pt-0 mt-0">
+        <!-- Username -->
+        <!-- Bio -->
+        <div class="row d-flex justify-content-start pt-2 pl-4 mt-2 ">
+            <div class="col-12 pl-3">
+                <small class="font-weight-normal" style="color:grey;">Bio</small>
+            </div>
+            <div class="col-12">
+                <textarea  name="Bio" id="Bio" placeholder="{{Profile.Bio}}" class=" text-dark"  style="font-size:15px;border:None;width:100%;height:250px;white-space:pre;"></textarea>
+                <textarea id="BioVal" name="BioVal" hidden >{{Profile.Bio}}</textarea>
+            </div>
 
-    <div class="row mt-5 d-flex justify-content-center">
-        <div class="col-12 d-flex justify-content-center">
-        {% if Profile.Profile_Photo %}
-        <img src="{{Profile.Profile_Photo.url}}" height="100" width="100" style="border-radius:50%;" id="DisplayProfilePic">
-        {% else %}
-        <img src="{% static 'img/user.png' %}" height="100" width="100" style="border-radius:50%;" id="DisplayProfilePic">
-        {% endif %}
-
-        <input type="file" name="ProfilePhoto" id="ProfilePhoto" value="" onchange="File_display(this)" accept="image/jpeg,image/png,image/jpg">
         </div>
-        <div class="col-12 d-flex justify-content-center">
-        <a class="pt-1 font-weight-normal text-primary" id="EditProfilePhoto">Edit</a>
-        </div>
-    </div>
-    <!-- Name -->
-    <div class="row d-flex justify-content-start pt-2 pl-4 mt-2 ">
-        <div class="col-12 pl-3">
-            <small class="font-weight-normal" style="color:grey;">Name</small>
-        </div>
-        <div class="col-12">
-        <input type="text" name="Profile_Name" id="Profile_Name" maxlength="50" placeholder="{{Profile.Profile_Name}}" value="{{Profile.Profile_Name}}" class=" text-dark" style="font-size:15px;border:None;">
-        </div>
-    </div>
-    <hr class="pt-0 mt-0">
-    <!-- Name End-->
-    <!-- Username -->
-    <div class="row d-flex justify-content-start pt-2 pl-4 mt-2 ">
-        <div class="col-12 pl-3">
-            <small class="font-weight-normal" style="color:grey;">Username</small>
-        </div>
-        <div class="col-12">
-        <input type="text" name="Username_Name" id="Username_Name" maxlength="50" placeholder="{{Profile.Profile_Name}}" value="{{Profile.user.username}}" class=" text-dark" style="font-size:15px;border:None;">
-        </div>
-    </div>
-    <hr class="pt-0 mt-0">
-    <!-- Username -->
-    <!-- Bio -->
-    <div class="row d-flex justify-content-start pt-2 pl-4 mt-2 ">
-        <div class="col-12 pl-3">
-            <small class="font-weight-normal" style="color:grey;">Bio</small>
-        </div>
-        <div class="col-12">
-            <textarea type="text" name="Bio" id="Bio" maxlength="50" placeholder="{{Profile.Bio}}" class=" text-dark"  style="font-size:15px;border:None;"></textarea>
-        </div>
-    </div>
-    <hr class="pt-0 mt-0">
-    <!-- Bio -->
-    <button type="submit" id="SubmitButton" hidden></button>
-</form>
+        <hr class="pt-0 mt-0">
+        <!-- Bio -->
+        <button type="submit" id="SubmitButton" class="d-none d-md-block btn btn-primary ml-4 ">Submit</button>
+    </form>
+</div>
 {% endblock %}
 {% block extra_body %}
 <script>
 
-    document.getElementById("Bio").innerHTML = "{{Profile.Bio}}"
+    $("textarea#Bio").on("input",function(){
+        console.log($("textarea#Bio").val());
+        $("#BioVal").val($("textarea#Bio").val());
+    })
+
     $('#ProfilePhoto').hide();
     // EditProfilePhoto
     $('#EditProfilePhoto').on('click',function(){

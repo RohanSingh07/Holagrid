@@ -8,6 +8,7 @@ Gender = (
     ('Female','Female'),
     ('Others','Others'),
 )
+
 class Profile(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
     UniqueCode = models.CharField(max_length=15,blank=True,null=True,unique=True)
@@ -96,3 +97,14 @@ class Chatroom(models.Model):
     unique_id = models.CharField(unique=True,max_length=30)
     Messages = models.ManyToManyField(Messages,blank=True)
     Messengers = models.ManyToManyField(Profile,blank=True)
+
+
+
+
+
+
+
+
+
+
+

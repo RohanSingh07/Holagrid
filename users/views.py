@@ -8,7 +8,7 @@ from random import randint
 from Base.models import Profile
 # required for login and logout
 from django.contrib.auth.models import auth
-from PIL import Image
+import image
 import os
 from core.settings import BASE_DIR
 # for Signup of new users
@@ -154,3 +154,8 @@ def LoginView(request):
             return redirect('users:login')
     else:
         return render(request, 'accounts/login.html')
+
+def logout_view(request):
+    auth.logout(request)
+    return redirect('users:login')
+    # Redirect to a success page.
