@@ -76,9 +76,9 @@
                 <img src="{% static 'img/user.png' %}" height="40" width="40" style="border-radius:50%;">
                 {% endif %}
             </div>
-            <div class="col-10">
+            <div class="col-10" style="overflow-wrap: break-word; inline-size:100%;">
                 <small class="font-weight-bold text-muted">{{messages.sender.user}}</small><small class="pl-3 text-muted">{{messages.Timestamp.time}}</small><br>
-                <small class="text-white" style="white-space: pre;">{{messages.message}}</small>
+                <small class="text-white" >{{messages.message}}</small>
             </div>
         </div>
 
@@ -178,22 +178,23 @@ var room_name = '{{Sender2.UniqueCode}}'+'{{Sender1.UniqueCode}}';
 
                 // Col2
                 Col2 = document.createElement("div");
-                Col2.className +="col-10";
+                Col2.className +="col-10 ";
+                Col2.style = "overflow-wrap: break-word; inline-size:100%;";
 
                 // Small1
                 Small1 = document.createElement("small");
-                Small1.className+="font-weight-bold";
+                Small1.className+="font-weight-bold text-muted";
                 Small1.innerHTML = data.user;
 
                 // Small2
                 Small2 = document.createElement("small");
-                Small2.className+="pl-3";
+                Small2.className+="pl-3 text-muted";
                 Small2.innerHTML = "Just Now";
                 // br
                 Br = document.createElement("br");
                 // Small3
                 Small3 = document.createElement("small");
-                Small3.style = "white-space:pre;";
+                Small3.style = "color:white;";
                 Small3.innerHTML = data.Msg;
                 Col2.appendChild(Small1);
                 Col2.appendChild(Small2);
@@ -202,8 +203,6 @@ var room_name = '{{Sender2.UniqueCode}}'+'{{Sender1.UniqueCode}}';
                 Row.appendChild(Col1);
                 Row.appendChild(Col2);
                  $('#AllMessages').append(Row);
-
-
                 }
 </script>
 {% endblock %}
