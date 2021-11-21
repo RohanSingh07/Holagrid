@@ -16,13 +16,9 @@
 
       <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
 
-
       <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
-
       <!-- Filters for Images and Videos -->
       <link rel="stylesheet" href="{% static 'css/dist/instagram.css' %}">
-
-
       <!-- Javascript -->
             <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
             <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
@@ -32,20 +28,16 @@
             <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
             <!-- MDB core JavaScript -->
             <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
-
             <script type="text/javascript" src="{% static 'js/owl.carousel.min.js' %}"></script>
         <!-- Javascript -->
-
     <title></title>
     <style>
         body{
         overflow:hidden;
         }
     </style>
-
   </head>
     <body>
-
 <!-- Body -->
     <div class="row pt-2 pb-2" style="background-color:#474544">
         {% for Story in Status %}
@@ -115,12 +107,13 @@
             <span><i class="fas fa-chevron-right mr-4 "></i></span>
             <span class="sr-only">Next</span>
           </a>
-
     </div>
     <!-- Body End -->
+    <div class="row d-flex justify-content-center" style="position:relative;bottom:200px;">
+        <h6 class="text-danger font-weight-bold bg-light ml-0 pl-0" id="MessageSentNotification" style="position:absolute;z-index:4;">You message has been sent !</h6>
+    </div>
     {% if Profile.user != request.user %}
     <div class="row" style="position:relative;bottom:150px;left:20%;">
-       <h6 class="text-success" id="MessageSentNotification">You message has been sent !</h6>
        <input class="form-control" type="text" placeholder="Reply..." name="Reply" id="Reply" style="width:50%;">
        <button style="width:30px;font-size:12px;height:37px;" class="btn btn-primary mt-0" id="SendReply"><i class="fas fa-paper-plane"></i></button>
     </div>
@@ -134,7 +127,6 @@ $('#MessageSentNotification').hide();
  id.className = "carousel-item w-100 active {{Story.Filter}}";
  element = document.getElementById("myProgress1");
     element.className ="col bg-primary ml-1 mr-1 mt-1 mb-1";
-
  var idSM = document.getElementById("StoryFile1SM")
  idSM.className = "carousel-item  w-100 active {{Story.Filter}}";
  }
