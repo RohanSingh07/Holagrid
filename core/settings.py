@@ -59,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     # Cors Middleware for REST API
     'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -171,8 +172,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ASGI_APPLICATION = "core.routing.application"
 
 # AWS settings
-AWS_ACCESS_KEY_ID = 'AKIAQVZDNG5NCVIFDPX4'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIAXWJVQ76WFN3TQD5E'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'assets07'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {

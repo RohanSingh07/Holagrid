@@ -8,12 +8,12 @@ from django.http import JsonResponse,HttpResponse
 import json
 from django.core import serializers
 from users.models import Account
-
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 import moviepy.editor
 import os
 from core.settings import BASE_DIR
 from datetime import timezone
+
 
 @login_required
 def HomeView(request):

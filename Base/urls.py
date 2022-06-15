@@ -51,7 +51,6 @@ urlpatterns = [
     # REST API
     # include the router urls
     path('api/', include(router.urls)),
-
     path('api/authentication/<username>/<password>/',views.AppLogin,name="AppLogin"),
 
 ]
