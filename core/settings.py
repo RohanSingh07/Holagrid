@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$7-^axyzobgdqekyll#a0@)hl8qt^0r+#-n1ikch-xvb0*6(h-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.1.3','holagrid.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.1.3','54.196.41.99']
 
 
 # Application definition
@@ -99,24 +99,24 @@ AUTH_USER_MODEL = 'users.Account'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dfbotj5mqlhlj2',
-        'HOST': 'ec2-34-255-134-200.eu-west-1.compute.amazonaws.com',
-        'PORT': 5432,
-        'USER': 'ncsxoddhldrqvc',
-        'PASSWORD': '4a2b16a66628c5b9538768b91f1bf3fc832c9116eaf6383a6dcffa7835e5b28a',
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'dfbotj5mqlhlj2',
+#         'HOST': 'ec2-34-255-134-200.eu-west-1.compute.amazonaws.com',
+#         'PORT': 5432,
+#         'USER': 'ncsxoddhldrqvc',
+#         'PASSWORD': '4a2b16a66628c5b9538768b91f1bf3fc832c9116eaf6383a6dcffa7835e5b28a',
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -184,16 +184,15 @@ AWS_S3_SECURE_URLS = False
 DEFAULT_FILE_STORAGE = 'core.storage_backends.MediaStorage'
 
 
-
 # We need to add a mediator through which messages can be passed which can communicate to channels
 #This backend is just like redix but inbuilt
 CHANNEL_LAYERS = {
     "default":{
         "BACKEND":"channels.layers.InMemoryChannelLayer"
     }
-
 }
-# Later i need to put this channel by using an add on in the heroku addons
+
+# Later I need to put this channel by using an add on in the heroku addons
 # CHANNEL_LAYERS = {
 #     "default": {
 #         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -211,4 +210,4 @@ CORS_ALLOW_CREDENTIALS = True
 # ] # If this is used, then not need to use `CORS_ORIGIN_ALLOW_ALL = True`
 # CORS_ORIGIN_REGEX_WHITELIST = [
 #     'http://localhost:3030',
-# ]
+#]
